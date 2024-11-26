@@ -9,7 +9,7 @@ export default function Index() {
         alignItems: "center",
       }}
     >
-      <Text>Edit app/index.tsx to edit this screen.</Text>
+      <Text>Hello I'm Hermane new app.Okay so the nutri well is the same app with nutriXnap</Text>
     </View>
   );
 }

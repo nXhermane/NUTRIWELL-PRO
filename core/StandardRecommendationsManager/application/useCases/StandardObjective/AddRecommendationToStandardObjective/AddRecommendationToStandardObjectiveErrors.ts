@@ -1,6 +1,6 @@
 import { AggregateID, Result, UseCaseError } from "@shared";
 
-export namespace UpdateStandardObjectiveErrors {
+export namespace AddRecommendationToStandardObjectiveErrors {
     export class StandardObjectiveNotFoundError extends Result<UseCaseError> {
         constructor(err: any, id?: AggregateID) {
             const message = `The Standard Objective with id:${id} is not found.[Error]:${err?.toJSON() || err}`;
@@ -16,6 +16,12 @@ export namespace UpdateStandardObjectiveErrors {
     export class StandardObjectiveValidationError extends Result<UseCaseError> {
         constructor(err: any) {
             const message = `Standard Objective Validation Error. Try to verify the props.[Error]:${err?.toJSON() || err}`
+            super(false, { message } as UseCaseError)
+        }
+    }
+    export class NeedsRecommendationCreationFailed extends Result<UseCaseError> {
+        constructor(err: any) {
+            const message = `The NeedsRecommendation creation Failed. Try to verify the props.[Error]:${err?.toJSON() || err}`
             super(false, { message } as UseCaseError)
         }
     }
