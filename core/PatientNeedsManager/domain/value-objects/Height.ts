@@ -17,7 +17,7 @@ export class Height extends ValueObject<number> {
    toMeters(): number {
       return this.props.value / 100;
    }
-   toFeet():number {
+   toFeet(): number {
       return this.props.value * 0.0328084;
    }
    toInches(): number {
@@ -26,7 +26,6 @@ export class Height extends ValueObject<number> {
    toString(): string {
       return this.props.value + " " + "cm";
    }
-   
 
    static create(value: number): Result<Height> {
       try {

@@ -1,6 +1,5 @@
 import { Result, UseCaseError } from "@/core/shared";
 
-
 export namespace CreateStandardObjectiveErrors {
    export class CreateStandardObjectiveFailed extends Result<UseCaseError> {
       constructor(err: any) {

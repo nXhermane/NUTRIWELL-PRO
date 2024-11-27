@@ -10,5 +10,5 @@ export * from "./PittsburghSleepQuality";
 export * from "./NutritionistSpecialities";
 export * from "./NutritionistServiceType";
 export * from "./NutritionistServicePatientType";
-export * from "./MedicalConditionSeverity"
+export * from "./MedicalConditionSeverity";
 export * from "./env";

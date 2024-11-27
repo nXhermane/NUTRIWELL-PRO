@@ -62,7 +62,6 @@ export class Result<T> {
          return Result.fail<U>(e as any);
       }
    }
-   
 }
 
 export type Either<L, A> = Left<L, A> | Right<L, A>;

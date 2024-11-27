@@ -1,6 +1,6 @@
-import { AggregateID, NeedsRecommendationDto } from "@/core/shared"
+import { AggregateID, NeedsRecommendationDto } from "@/core/shared";
 
 export type AddRecommendationToStandardObjectiveRequest = {
-    standardObjectiveId: AggregateID
-    recommendations: NeedsRecommendationDto[]
-}
+   standardObjectiveId: AggregateID;
+   recommendations: NeedsRecommendationDto[];
+};

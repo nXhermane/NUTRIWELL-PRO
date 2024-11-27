@@ -1,2 +1,2 @@
-export * from "./interfaces/AuthNutritionistService"
-export * from "./AuthNutritionistService"
+export * from "./interfaces/AuthNutritionistService";
+export * from "./AuthNutritionistService";

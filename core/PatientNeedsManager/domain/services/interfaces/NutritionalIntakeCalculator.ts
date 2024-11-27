@@ -7,10 +7,10 @@ export interface INutritionalIntakeCalculator {
 export type DailyIntake = {
    date: CDate;
    foodOrRecipeIds: AggregateID[];
-   nutrients: { [key: string]: { value: number; unit: string; }; };
+   nutrients: { [key: string]: { value: number; unit: string } };
 };
 export type OverPeriodIntake = {
-   period: { start: CDate; end?: CDate; };
+   period: { start: CDate; end?: CDate };
    foodOrRecipeIds: AggregateID[];
-   nutrients: { [key: string]: { value: number; unit: string; }; };
+   nutrients: { [key: string]: { value: number; unit: string } };
 };

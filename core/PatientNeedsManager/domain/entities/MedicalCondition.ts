@@ -1,4 +1,15 @@
-import { EmptyStringError, Entity, ExceptionBase, Guard, HealthIndicator, INeedsRecommendation, MedicalConditionSeverity, NeedsRecommendation, Result, ValueObject } from "@shared";
+import {
+   EmptyStringError,
+   Entity,
+   ExceptionBase,
+   Guard,
+   HealthIndicator,
+   INeedsRecommendation,
+   MedicalConditionSeverity,
+   NeedsRecommendation,
+   Result,
+   ValueObject,
+} from "@shared";
 import { CreateMedicalConditionProps } from "../types";
 /**
  * Il existe deux type de recommandation pour une condition medicale , nous avons ceux qui concerne les besoins nutritionel et ceux concernant  l'alimentation
@@ -24,7 +35,7 @@ export interface IMedicalCondition {
    severity: MedicalConditionSeverity;
    recommendations: NeedsRecommendation[];
    otherInformation: { [key: string]: any };
-   healthIndicators: HealthIndicator[]
+   healthIndicators: HealthIndicator[];
 }
 
 export class MedicalCondition extends Entity<IMedicalCondition> {
@@ -42,7 +53,7 @@ export class MedicalCondition extends Entity<IMedicalCondition> {
       this.props.severity = value as MedicalConditionSeverity;
    }
    get recommendation(): INeedsRecommendation<any>[] {
-      return this.props.recommendations.map(recommendation => recommendation.unpack());
+      return this.props.recommendations.map((recommendation) => recommendation.unpack());
    }
    addRecommandation(...recommandations: NeedsRecommendation[]) {
       this.props.recommendations.push(...recommandations);
@@ -71,7 +82,7 @@ export class MedicalCondition extends Entity<IMedicalCondition> {
    }
    static create(props: CreateMedicalConditionProps): Result<MedicalCondition> {
       try {
-         const healthIndicators = props.healthIndicators.map(HealthIndicator.create)
+         const healthIndicators = props.healthIndicators.map(HealthIndicator.create);
          if (Result.combine(healthIndicators).isFailure) {
             return Result.fail<MedicalCondition>("Erreur lors de la création des indicateurs de santé");
          }
@@ -81,7 +92,7 @@ export class MedicalCondition extends Entity<IMedicalCondition> {
                severity: props.severity as MedicalConditionSeverity,
                recommendations: props.recommendations,
                otherInformation: props.otherInformation,
-               healthIndicators: healthIndicators.map(healthIndicatorResult => healthIndicatorResult.val)
+               healthIndicators: healthIndicators.map((healthIndicatorResult) => healthIndicatorResult.val),
             },
          });
          return Result.ok<MedicalCondition>(medicalCond);

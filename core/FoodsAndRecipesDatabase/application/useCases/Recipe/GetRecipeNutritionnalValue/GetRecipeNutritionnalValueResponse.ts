@@ -5,7 +5,7 @@ export type GetRecipeNutritionnalValueResponse = Either<
    Result<{
       recipeId: AggregateID;
       nutrients: NutritionalValue[];
-      quantity:IQuantity
+      quantity: IQuantity;
    }>
 >;
 

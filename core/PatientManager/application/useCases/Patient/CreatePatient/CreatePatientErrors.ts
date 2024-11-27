@@ -1,4 +1,4 @@
-import { UseCaseError, Result,AggregateID } from "@shared";
+import { UseCaseError, Result, AggregateID } from "@shared";
 export namespace CreatePatientErrors {
    export class PatientRepoError extends Result<UseCaseError> {
       constructor(err: any) {

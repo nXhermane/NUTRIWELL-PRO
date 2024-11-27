@@ -1,4 +1,14 @@
-import { AggregateRoot, EmptyStringError, ExceptionBase, Guard, HealthIndicator, IHealthIndicator, INeedsRecommendation, NeedsRecommendation, Result } from "@/core/shared";
+import {
+   AggregateRoot,
+   EmptyStringError,
+   ExceptionBase,
+   Guard,
+   HealthIndicator,
+   IHealthIndicator,
+   INeedsRecommendation,
+   NeedsRecommendation,
+   Result,
+} from "@/core/shared";
 import SmartCalc from "smartcal";
 import { MedicalConditionRecommendationAddedEvent } from "../events/MedicalConditionRecommendationAddedEvent";
 import { MedicalConditionRecommendationRemovedEvent } from "../events/MedicalConditionRecommendationRemovedEvent";
@@ -14,7 +24,7 @@ export interface IStandardMedicalCondition {
    description: string;
    criteria: StandardMedicalConditionCriteria;
    defaultRecommendation: NeedsRecommendation[];
-   healthIndicators: HealthIndicator[]
+   healthIndicators: HealthIndicator[];
 }
 
 export class StandardMedicalCondition extends AggregateRoot<IStandardMedicalCondition> {
@@ -42,21 +52,23 @@ export class StandardMedicalCondition extends AggregateRoot<IStandardMedicalCond
    }
 
    get defaultRecommendation(): INeedsRecommendation<any>[] {
-      return this.props.defaultRecommendation.map(recommendation => recommendation.unpack());
+      return this.props.defaultRecommendation.map((recommendation) => recommendation.unpack());
    }
    getRecommendations(): NeedsRecommendation[] {
-      return this.props.defaultRecommendation
+      return this.props.defaultRecommendation;
    }
    get healthIndicators(): IHealthIndicator[] {
-      return this.props.healthIndicators.map(healthIndicator => healthIndicator.unpack())
+      return this.props.healthIndicators.map((healthIndicator) => healthIndicator.unpack());
    }
    addHealthIndicator(healthIndicator: HealthIndicator) {
       this.props.healthIndicators.push(healthIndicator);
       this.validate();
-      this.addDomainEvent(new MedicalConditionHealthIndicatorAddedEvent({
-         medicalConditionId: this.id,
-         healthIndicator: healthIndicator,
-      }))
+      this.addDomainEvent(
+         new MedicalConditionHealthIndicatorAddedEvent({
+            medicalConditionId: this.id,
+            healthIndicator: healthIndicator,
+         }),
+      );
    }
 
    addRecommendation(...recommendations: NeedsRecommendation[]) {
@@ -64,19 +76,23 @@ export class StandardMedicalCondition extends AggregateRoot<IStandardMedicalCond
          this.props.defaultRecommendation.push(recommendation);
       });
       this.validate();
-      this.addDomainEvent(new MedicalConditionRecommendationAddedEvent({
-         medicalConditionId: this.id,
-         recommendations: recommendations
-      }))
+      this.addDomainEvent(
+         new MedicalConditionRecommendationAddedEvent({
+            medicalConditionId: this.id,
+            recommendations: recommendations,
+         }),
+      );
    }
    removeHealthIndicator(healthIndicator: HealthIndicator): void {
       const index = this.props.healthIndicators.findIndex((val) => val.equals(healthIndicator));
       if (index !== -1) this.props.healthIndicators.splice(index, 1);
       this.validate();
-      this.addDomainEvent(new MedicalConditionHealthIndicatorAddedEvent({
-         medicalConditionId: this.id,
-         healthIndicator: healthIndicator,
-      }))
+      this.addDomainEvent(
+         new MedicalConditionHealthIndicatorAddedEvent({
+            medicalConditionId: this.id,
+            healthIndicator: healthIndicator,
+         }),
+      );
    }
    removeRecommendation(...recommendations: NeedsRecommendation[]) {
       recommendations.forEach((recommendation: NeedsRecommendation) => {
@@ -84,10 +100,12 @@ export class StandardMedicalCondition extends AggregateRoot<IStandardMedicalCond
          if (index !== -1) this.props.defaultRecommendation.splice(index, 1);
       });
       this.validate();
-      this.addDomainEvent(new MedicalConditionRecommendationRemovedEvent({
-         medicalConditionId: this.id,
-         recommendations: recommendations
-      }))
+      this.addDomainEvent(
+         new MedicalConditionRecommendationRemovedEvent({
+            medicalConditionId: this.id,
+            recommendations: recommendations,
+         }),
+      );
    }
 
    getCriteriaMappingTable(): { [variableName: string]: string } {
@@ -106,26 +124,25 @@ export class StandardMedicalCondition extends AggregateRoot<IStandardMedicalCond
    }
    static create(createStandardMedicalConditionProps: CreateStandardMedicalConditionProps): Result<StandardMedicalCondition> {
       try {
-         const healthIndicators = createStandardMedicalConditionProps.healthIndicators.map((healthIndicator) => HealthIndicator.create(healthIndicator))
-         const healthIndicatorResult = Result.combine(healthIndicators)
-         if (healthIndicatorResult.isFailure) return Result.fail<StandardMedicalCondition>(healthIndicatorResult.err)
+         const healthIndicators = createStandardMedicalConditionProps.healthIndicators.map((healthIndicator) =>
+            HealthIndicator.create(healthIndicator),
+         );
+         const healthIndicatorResult = Result.combine(healthIndicators);
+         if (healthIndicatorResult.isFailure) return Result.fail<StandardMedicalCondition>(healthIndicatorResult.err);
          const standardMedicalCondition = new StandardMedicalCondition({
             props: {
                name: createStandardMedicalConditionProps.name,
                criteria: createStandardMedicalConditionProps.criteria,
-               healthIndicators: healthIndicators.map(healthIndicator => healthIndicator.val),
+               healthIndicators: healthIndicators.map((healthIndicator) => healthIndicator.val),
                defaultRecommendation: createStandardMedicalConditionProps.defaultRecommendation,
-               description: createStandardMedicalConditionProps.description
-            }
-         })
-         return Result.ok<StandardMedicalCondition>(standardMedicalCondition)
-      }
-      catch (error) {
+               description: createStandardMedicalConditionProps.description,
+            },
+         });
+         return Result.ok<StandardMedicalCondition>(standardMedicalCondition);
+      } catch (error) {
          return error instanceof ExceptionBase
             ? Result.fail<StandardMedicalCondition>(`[${error.code}]:${error.message}`)
             : Result.fail<StandardMedicalCondition>(`Erreur inattendue. ${StandardMedicalCondition?.constructor.name}`);
-
       }
-
    }
 }

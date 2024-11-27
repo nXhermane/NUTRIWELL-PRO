@@ -20,7 +20,7 @@ export class NutritionCalculatorService implements INutritionCalculatorService {
       );
 
       // Agrégation des valeurs nutritionnelles par nutriment
-      ingredientWithNutrientValue.forEach(({  nutrientValues }) => {
+      ingredientWithNutrientValue.forEach(({ nutrientValues }) => {
          nutrientValues.forEach((nutrient: INutrientAmount) => {
             const existingNutrient = nutritionalValue[nutrient.nutrientId];
             if (existingNutrient) {

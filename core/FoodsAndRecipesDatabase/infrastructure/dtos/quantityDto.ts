@@ -1,6 +1,4 @@
-
 export type QuantityDto = {
-    unit: string;
-    value: number;
- };
- 
+   unit: string;
+   value: number;
+};

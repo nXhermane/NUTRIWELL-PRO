@@ -8,25 +8,24 @@ import { IMealsCategory } from "./value-objects/MealsCategory";
 import { IPreparationStep } from "./value-objects/PreparationStep";
 
 export type CreateFoodProps = {
-    foodCode: string;
-    foodName: string;
-    foodOrigin: string;
-    foodSource: string;
-    foodQuantity: IQuantity
-    foodGroup: CreateEntityProps<IFoodGroup>
-    foodNameTranslate?: {
-       inFrench?: string;
-       inEnglish?: string;
-    };
-    foodNutrients: INutrientAmount[];
-}
+   foodCode: string;
+   foodName: string;
+   foodOrigin: string;
+   foodSource: string;
+   foodQuantity: IQuantity;
+   foodGroup: CreateEntityProps<IFoodGroup>;
+   foodNameTranslate?: {
+      inFrench?: string;
+      inEnglish?: string;
+   };
+   foodNutrients: INutrientAmount[];
+};
 export type CreateRecipeProps = {
-    quantity: IQuantity;
-    type: IMealsType;
-    category: IMealsCategory;
-    ingredients: (Omit<IIngredient, "quantity"> & {
-       quantity: IQuantity;
-    })[];
-    preparationMethod: IPreparationStep[];
- } & Omit<IRecipe, "type" | "category" | "ingredients" | "preparationMethod" | "quantity">;
- 
+   quantity: IQuantity;
+   type: IMealsType;
+   category: IMealsCategory;
+   ingredients: (Omit<IIngredient, "quantity"> & {
+      quantity: IQuantity;
+   })[];
+   preparationMethod: IPreparationStep[];
+} & Omit<IRecipe, "type" | "category" | "ingredients" | "preparationMethod" | "quantity">;

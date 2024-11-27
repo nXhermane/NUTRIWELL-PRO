@@ -10,4 +10,4 @@ export * from "./value-objects/PreparationStep";
 export * from "./value-objects/NutrientAmount";
 export * from "./services/interfaces/INutritionCalculatorService";
 export * from "./services/NutritionCalculatorService";
-export * from "./types"
+export * from "./types";

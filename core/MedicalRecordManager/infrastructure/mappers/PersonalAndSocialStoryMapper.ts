@@ -2,7 +2,9 @@ import { PersonalAndSocialStory } from "./../../domain";
 import { Mapper, GastrointestinalState, PittsburghSleepQuality, MaritalStatus, PhysicalActivityLevel, Ethnicity } from "@shared";
 import { PersonalAndSocialStoryPersistenceType } from "./../repositories/types";
 import { PersonalAndSocialStoryDto } from "./../dtos/PersonalAndSocialStoryDto";
-export class PersonalAndSocialStoryMapper implements Mapper<PersonalAndSocialStory, PersonalAndSocialStoryPersistenceType, PersonalAndSocialStoryDto> {
+export class PersonalAndSocialStoryMapper
+   implements Mapper<PersonalAndSocialStory, PersonalAndSocialStoryPersistenceType, PersonalAndSocialStoryDto>
+{
    toPersistence(entity: PersonalAndSocialStory): PersonalAndSocialStoryPersistenceType {
       return {
          ...entity.getProps(),

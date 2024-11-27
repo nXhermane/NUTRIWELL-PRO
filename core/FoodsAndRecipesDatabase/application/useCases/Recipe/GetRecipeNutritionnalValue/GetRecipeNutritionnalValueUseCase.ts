@@ -22,7 +22,7 @@ export class GetRecipeNutritionnalValueUseCase implements UseCase<GetRecipeNutri
             }),
          );
          return right(
-            Result.ok<{ recipeId: AggregateID; nutrients: NutritionalValue[],quantity:IQuantity }>({
+            Result.ok<{ recipeId: AggregateID; nutrients: NutritionalValue[]; quantity: IQuantity }>({
                recipeId: request.recipeId,
                nutrients: nutrients as NutritionalValue[],
                quantity: recipe.quantity,

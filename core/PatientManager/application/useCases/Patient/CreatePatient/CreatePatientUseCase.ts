@@ -2,7 +2,7 @@ import { CreatePatientErrors } from "./CreatePatientErrors";
 import { CreatePatientRequest } from "./CreatePatientRequest";
 import { CreatePatientResponse } from "./CreatePatientResponse";
 import { CreatePatientProps, Patient } from "./../../../../domain";
-import { UseCase, FileManager, Image, Result, AppError, left, right ,AggregateID} from "@shared";
+import { UseCase, FileManager, Image, Result, AppError, left, right, AggregateID } from "@shared";
 import { PatientRepository, PatientRepositoryError } from "./../../../../infrastructure";
 
 export class CreatePatientUseCase implements UseCase<CreatePatientRequest, CreatePatientResponse> {

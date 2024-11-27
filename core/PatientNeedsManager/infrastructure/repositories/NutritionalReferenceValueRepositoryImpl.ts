@@ -31,14 +31,14 @@ export class NutritionalReferenceValueRepositoryImpl implements NutritionalRefer
          });
       }
    }
-   async save(nutritionalReferencesValue: NutritionalReferenceValue,trx?:any): Promise<void> {
+   async save(nutritionalReferencesValue: NutritionalReferenceValue, trx?: any): Promise<void> {
       try {
          const { id, ...otherProps } = this.mapper.toPersistence(nutritionalReferencesValue);
          const exist = await this.checkIfExist(nutritionalReferencesValue.id as string);
          if (!exist) {
-            await (trx||this.db).insert(nutritionalReferencesValues).values({ id: id as string, ...otherProps });
+            await (trx || this.db).insert(nutritionalReferencesValues).values({ id: id as string, ...otherProps });
          } else {
-            await (trx||this.db).update(nutritionalReferencesValues).set({ id: id as string, ...otherProps });
+            await (trx || this.db).update(nutritionalReferencesValues).set({ id: id as string, ...otherProps });
          }
       } catch (error) {
          throw new NutritionalReferenceValueRepositoryError("Erreur lors du sauvegarde du valeur nutritionnelle de reference.", error as Error, {
@@ -46,9 +46,9 @@ export class NutritionalReferenceValueRepositoryImpl implements NutritionalRefer
          });
       }
    }
-   async delete(nutritionalReferencesValueId: string,trx?:any): Promise<void> {
+   async delete(nutritionalReferencesValueId: string, trx?: any): Promise<void> {
       try {
-         await (trx||this.db).delete(nutritionalReferencesValues).where(eq(nutritionalReferencesValues.id, nutritionalReferencesValueId));
+         await (trx || this.db).delete(nutritionalReferencesValues).where(eq(nutritionalReferencesValues.id, nutritionalReferencesValueId));
       } catch (error) {
          throw new NutritionalReferenceValueRepositoryError("Erreur lors de la suppression du valeur nutritionnelle de reference.", error as Error, {
             nutritionalReferencesValueId,

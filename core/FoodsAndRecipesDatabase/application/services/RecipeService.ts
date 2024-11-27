@@ -10,7 +10,7 @@ import {
    GetRecipeByIdResponse,
    GetRecipeNutritionnalValueRequest,
    GetRecipeNutritionnalValueResponse,
-   NutritionalValue
+   NutritionalValue,
 } from "./../useCases";
 import { IRecipeService } from "./interfaces/RecipeService";
 import { RecipeDto } from "../../infrastructure";

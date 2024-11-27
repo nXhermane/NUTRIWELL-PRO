@@ -1,7 +1,7 @@
 import { CreateMeasurementTypeErrors } from "./CreateMeasurementTypeErrors";
 import { CreateMeasurementTypeRequest } from "./CreateMeasurementTypeRequest";
 import { CreateMeasurementTypeResponse } from "./CreateMeasurementTypeResponse";
-import {  MeasurementType } from "./../../../../domain";
+import { MeasurementType } from "./../../../../domain";
 import { UseCase, AppError } from "./../../../../../../application";
 import { Result, left, right } from "./../../../../../../core";
 import { AggregateID } from "./../../../../../../domain";

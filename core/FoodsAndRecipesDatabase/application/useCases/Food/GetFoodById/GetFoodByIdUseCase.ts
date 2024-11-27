@@ -5,7 +5,6 @@ import { UseCase, Mapper, Result, AppError, left, right } from "@shared";
 import { FoodDto, FoodNamePersistenceType, FoodRepository, FoodRepositoryNotFoundException } from "./../../../../infrastructure";
 import { Food } from "./../../../../domain";
 
-
 export class GetFoodByIdUseCase implements UseCase<GetFoodByIdRequest, GetFoodByIdResponse> {
    constructor(
       private repo: FoodRepository,

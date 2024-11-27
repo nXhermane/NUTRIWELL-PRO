@@ -134,9 +134,9 @@ export class ObjectCreationError extends ExceptionBase {
    readonly code = CREATION_FAILED;
 }
 export class InvalidResultError extends ExceptionBase {
-   static readonly message = "The process returned an invalid result"
+   static readonly message = "The process returned an invalid result";
    constructor(msg = InvalidResultError.message) {
       super(msg);
    }
-   readonly code = INVALID_RESULT
+   readonly code = INVALID_RESULT;
 }

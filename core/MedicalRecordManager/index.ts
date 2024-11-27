@@ -100,10 +100,10 @@ export class MedicalRecordManager {
          const updateFoodStoryUC = new UpdateFoodStoryUseCase(medicalRecordRepo);
          const updateMedicalStoryUC = new UpdateMedicalStoryUseCase(medicalRecordRepo);
 
-         // Initialise  sucribers for event 
-         const afterPatietnCreatedEvent =  new AfterPatientCreatedEvent(createMedicalRecordUC)
-         const afterPatientDeletedEvent = new AfterPatientDeletedEvent(deleteMedicalRecordUC)
-         
+         // Initialise  sucribers for event
+         const afterPatietnCreatedEvent = new AfterPatientCreatedEvent(createMedicalRecordUC);
+         const afterPatientDeletedEvent = new AfterPatientDeletedEvent(deleteMedicalRecordUC);
+
          MedicalRecordManager.instance = new MedicalRecordService(
             addMeasureUC,
             createMedicalRecordUC,
@@ -128,4 +128,3 @@ export class MedicalRecordManager {
       return MedicalRecordManager.instance as IMedicalRecordManager;
    }
 }
-

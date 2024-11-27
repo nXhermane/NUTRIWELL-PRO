@@ -1,5 +1,5 @@
 import { PatientProfil } from "../../entities/PatientProfil";
 
 export interface NutritionalInterpreterExpressionInterpreter {
-    interpret(patientProfil:PatientProfil):void;
+   interpret(patientProfil: PatientProfil): void;
 }

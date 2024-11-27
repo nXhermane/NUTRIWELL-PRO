@@ -22,9 +22,9 @@ export type CreatePatientDataVariable = {
    patientId: AggregateID;
    variables: { [variableName: string]: string };
 };
-export interface CreateMedicalConditionProps extends Omit<IMedicalCondition, "severity"| "healthIndicators"> {
+export interface CreateMedicalConditionProps extends Omit<IMedicalCondition, "severity" | "healthIndicators"> {
    severity: "light" | "moderate" | "severe";
-   healthIndicators: IHealthIndicator[]
+   healthIndicators: IHealthIndicator[];
 }
 
 export type CreateIntakeDataProps = {

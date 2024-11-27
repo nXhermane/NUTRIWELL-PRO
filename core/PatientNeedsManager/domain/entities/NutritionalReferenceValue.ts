@@ -65,7 +65,6 @@ export class NutritionalReferenceValue extends Entity<INutritionalReferenceValue
       this.validate();
    }
 
-
    public validate(): void {
       this._isValid = false;
       if (Guard.isEmpty(this.props.tagnames).succeeded) throw new EmptyStringError("Le Tagnane ne doit pas etre vide.");

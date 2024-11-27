@@ -1,5 +1,5 @@
 export type PreparationStepDto = {
-    stepNumber: number;
-    description: string;
-    estimatedTime?: number;
- };
+   stepNumber: number;
+   description: string;
+   estimatedTime?: number;
+};

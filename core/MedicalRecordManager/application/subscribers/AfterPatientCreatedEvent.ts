@@ -1,4 +1,3 @@
-
 import { PatientCreatedEvent } from "@/core/PatientManager";
 import { CreateMedicalRecordRequest, CreateMedicalRecordResponse } from "./../useCases";
 import { IHandler, UseCase, DomainEvents } from "@shared";

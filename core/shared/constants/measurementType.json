@@ -1,812 +1,812 @@
 [
-  [
-    {
-      "englishName": "Weight",
-      "frenchName": "Poids",
-      "code": "WT",
-      "unit": "kg"
-    },
-    {
-      "englishName": "Height",
-      "frenchName": "Taille",
-      "code": "HT",
-      "unit": "cm"
-    },
-    {
-      "englishName": "Arm Circumference",
-      "frenchName": "Circonférence brachiale",
-      "code": "AC",
-      "unit": "cm"
-    },
-    {
-      "englishName": "Ankle Diameter",
-      "frenchName": "Diamètre de la cheville",
-      "code": "AD",
-      "unit": "cm"
-    },
-    {
-      "englishName": "Elbow Diameter",
-      "frenchName": "Diamètre du coude",
-      "code": "ED",
-      "unit": "cm"
-    },
-    {
-      "englishName": "Abdominal Subcutaneous Fat",
-      "frenchName": "Graisse sous-cutanée abdominale",
-      "code": "ASF",
-      "unit": "mm"
-    },
-    {
-      "englishName": "Bistyloïdian Line",
-      "frenchName": "Ligne bistyloïdienne",
-      "code": "BL",
-      "unit": "cm"
-    },
-    {
-      "englishName": "Bicondylar Femoral Length",
-      "frenchName": "Longueur bicondylaire fémorale",
-      "code": "BFL",
-      "unit": "cm"
-    },
-    {
-      "englishName": "Axillary Medial Skinfold",
-      "frenchName": "Pli cutané axillaire médial",
-      "code": "AMS",
-      "unit": "mm"
-    },
-    {
-      "englishName": "Biceps Skinfold",
-      "frenchName": "Pli cutané bicipital",
-      "code": "BS",
-      "unit": "mm"
-    },
-    {
-      "englishName": "Iliocristal Skinfold",
-      "frenchName": "Pli cutané iliocristale",
-      "code": "IS",
-      "unit": "mm"
-    },
-    {
-      "englishName": "Umbilical Skinfold",
-      "frenchName": "Pli cutané ombilical",
-      "code": "US",
-      "unit": "mm"
-    },
-    {
-      "englishName": "Pectoral Skinfold",
-      "frenchName": "Pli cutané pectoral",
-      "code": "PS",
-      "unit": "mm"
-    },
-    {
-      "englishName": "Quadriceps Skinfold",
-      "frenchName": "Pli cutané quadricipital",
-      "code": "QS",
-      "unit": "mm"
-    },
-    {
-      "englishName": "Subscapular Skinfold",
-      "frenchName": "Pli cutané sous-scapulaire",
-      "code": "SSS",
-      "unit": "mm"
-    },
-    {
-      "englishName": "Suprailiac Skinfold",
-      "frenchName": "Pli cutané supra-iliaque",
-      "code": "SIS",
-      "unit": "mm"
-    },
-    {
-      "englishName": "Supraspinale Skinfold",
-      "frenchName": "Pli cutané supraspinale",
-      "code": "SPS",
-      "unit": "mm"
-    },
-    {
-      "englishName": "Calf Skinfold",
-      "frenchName": "Pli cutané sural",
-      "code": "CS",
-      "unit": "mm"
-    },
-    {
-      "englishName": "Triceps Skinfold",
-      "frenchName": "Pli cutané tricipital",
-      "code": "TS",
-      "unit": "mm"
-    },
-    {
-      "englishName": "Abdominal Circumference",
-      "frenchName": "Périmètre abdominal",
-      "code": "AbC",
-      "unit": "cm"
-    },
-    {
-      "englishName": "Cranial Circumference",
-      "frenchName": "Périmètre crânien",
-      "code": "CraC",
-      "unit": "cm"
-    },
-    {
-      "englishName": "Forearm Circumference",
-      "frenchName": "Périmètre de l'avant-bras",
-      "code": "FAC",
-      "unit": "cm"
-    },
-    {
-      "englishName": "Ankle Circumference",
-      "frenchName": "Périmètre de la cheville",
-      "code": "AnkC",
-      "unit": "cm"
-    },
-    {
-      "englishName": "Thigh Circumference",
-      "frenchName": "Périmètre de la cuisse",
-      "code": "TC",
-      "unit": "cm"
-    },
-    {
-      "englishName": "Mid-Thigh Circumference",
-      "frenchName": "Périmètre de la cuisse moyen",
-      "code": "MTC",
-      "unit": "cm"
-    },
-    {
-      "englishName": "Flexed Arm Circumference",
-      "frenchName": "Périmètre du bras plié",
-      "code": "FlAC",
-      "unit": "cm"
-    },
-    {
-      "englishName": "Neck Circumference",
-      "frenchName": "Périmètre du cou",
-      "code": "NC",
-      "unit": "cm"
-    },
-    {
-      "englishName": "Wrist Circumference",
-      "frenchName": "Périmètre du poignet",
-      "code": "WriC",
-      "unit": "cm"
-    },
-    {
-      "englishName": "Shoulder Circumference",
-      "frenchName": "Périmètre des épaules",
-      "code": "SC",
-      "unit": "cm"
-    },
-    {
-      "englishName": "Extended Arm Circumference",
-      "frenchName": "Périmètre du bras tendu",
-      "code": "EAC",
-      "unit": "cm"
-    },
-    {
-      "englishName": "Calf Circumference",
-      "frenchName": "Périmètre du mollet",
-      "code": "CalC",
-      "unit": "cm"
-    },
-    {
-      "englishName": "Waist-to-Hip Ratio",
-      "frenchName": "Rapport taille/hanche",
-      "code": "WHR",
-      "unit": "ratio"
-    },
-    {
-      "englishName": "Waist-to-Height Ratio",
-      "frenchName": "Rapport tour de taille-taille",
-      "code": "WHtR",
-      "unit": "ratio"
-    },
-    {
-      "englishName": "Sum of 8 Skinfolds",
-      "frenchName": "Somme de 8 plis",
-      "code": "S8S",
-      "unit": "mm"
-    },
-    {
-      "englishName": "Sum of 5 Skinfolds",
-      "frenchName": "Somme de 5 plis",
-      "code": "S5S",
-      "unit": "mm"
-    },
-    {
-      "englishName": "Hip Circumference",
-      "frenchName": "Tour de hanche",
-      "code": "HC",
-      "unit": "cm"
-    },
-    {
-      "englishName": "Chest Circumference",
-      "frenchName": "Tour de poitrine",
-      "code": "CheC",
-      "unit": "cm"
-    },
-    {
-      "englishName": "Waist Circumference",
-      "frenchName": "Tour de taille",
-      "code": "WaiC",
-      "unit": "cm"
-    }
-  ],
-  [
-    {
-      "englishName": "1-Propanol",
-      "frenchName": "1-Propanol",
-      "code": "1PROP",
-      "unit": "mg/L"
-    },
-    {
-      "englishName": "Alanine Aminotransferase (ALT/GPT)",
-      "frenchName": "ALAT/TGP",
-      "code": "ALT",
-      "unit": "U/L"
-    },
-    {
-      "englishName": "Ascorbic Acid (Vitamin C)",
-      "frenchName": "Acide ascorbique (vitamine C)",
-      "code": "ASCA",
-      "unit": "mg/L"
-    },
-    {
-      "englishName": "Isobutyric Acid",
-      "frenchName": "Acide isobutyrique",
-      "code": "ISOBA",
-      "unit": "mmol/L"
-    },
-    {
-      "englishName": "Uric Acid",
-      "frenchName": "Acide urique",
-      "code": "UA",
-      "unit": "mg/dL"
-    },
-    {
-      "englishName": "2-Propanol",
-      "frenchName": "2-Propanol",
-      "code": "2PROP",
-      "unit": "mg/L"
-    },
-    {
-      "englishName": "Aspartate Aminotransferase (AST/GOT)",
-      "frenchName": "ASAT/TGO",
-      "code": "AST",
-      "unit": "U/L"
-    },
-    {
-      "englishName": "Folic Acid",
-      "frenchName": "Acide folique",
-      "code": "FA",
-      "unit": "ng/mL"
-    },
-    {
-      "englishName": "Propionic Acid",
-      "frenchName": "Acide propanoique",
-      "code": "PROPA",
-      "unit": "mmol/L"
-    },
-    {
-      "englishName": "Acetone",
-      "frenchName": "Acétone",
-      "code": "ACET",
-      "unit": "mg/L"
-    },
-    {
-      "englishName": "Albumin",
-      "frenchName": "Albumine",
-      "code": "ALB",
-      "unit": "g/dL"
-    },
-    {
-      "englishName": "Amylase",
-      "frenchName": "Amylase",
-      "code": "AMY",
-      "unit": "U/L"
-    },
-    {
-      "englishName": "Apolipoprotein A",
-      "frenchName": "Apolipoprotéine A",
-      "code": "APOA",
-      "unit": "mg/dL"
-    },
-    {
-      "englishName": "Apolipoprotein B",
-      "frenchName": "Apolipoprotéine B",
-      "code": "APOB",
-      "unit": "mg/dL"
-    },
-    {
-      "englishName": "Basophils",
-      "frenchName": "Basophiles",
-      "code": "BASO",
-      "unit": "%"
-    },
-    {
-      "englishName": "Bilirubin",
-      "frenchName": "Bilirubine",
-      "code": "BIL",
-      "unit": "mg/dL"
-    },
-    {
-      "englishName": "Calcium",
-      "frenchName": "Calcium",
-      "code": "CA",
-      "unit": "mg/dL"
-    },
-    {
-      "englishName": "HDL Cholesterol",
-      "frenchName": "Cholesterol HDL",
-      "code": "HDL",
-      "unit": "mg/dL"
-    },
-    {
-      "englishName": "Total Cholesterol",
-      "frenchName": "Cholesterol total",
-      "code": "CHOL",
-      "unit": "mg/dL"
-    },
-    {
-      "englishName": "Copper",
-      "frenchName": "Cuivre",
-      "code": "CU",
-      "unit": "µg/dL"
-    },
-    {
-      "englishName": "Ferritin",
-      "frenchName": "Ferritine",
-      "code": "FERR",
-      "unit": "ng/mL"
-    },
-    {
-      "englishName": "Chloride",
-      "frenchName": "Chlorure",
-      "code": "CL",
-      "unit": "mEq/L"
-    },
-    {
-      "englishName": "LDL Cholesterol",
-      "frenchName": "Cholestérol LDL",
-      "code": "LDL",
-      "unit": "mg/dL"
-    },
-    {
-      "englishName": "Creatinine",
-      "frenchName": "Creatinine",
-      "code": "CREA",
-      "unit": "mg/dL"
-    },
-    {
-      "englishName": "Iron",
-      "frenchName": "Fer",
-      "code": "FE",
-      "unit": "µg/dL"
-    },
-    {
-      "englishName": "Heart Rate",
-      "frenchName": "Fréquence cardiaque",
-      "code": "HR",
-      "unit": "bpm"
-    },
-    {
-      "englishName": "Maximum Heart Rate",
-      "frenchName": "Fréquence cardiaque maximale",
-      "code": "MAXHR",
-      "unit": "bpm"
-    },
-    {
-      "englishName": "Red Blood Cells",
-      "frenchName": "Globules Rouges",
-      "code": "RBC",
-      "unit": "10^6/µL"
-    },
-    {
-      "englishName": "Glucose",
-      "frenchName": "Glucose",
-      "code": "GLU",
-      "unit": "mg/dL"
-    },
-    {
-      "englishName": "Thyroid Stimulating Hormone (TSH)",
-      "frenchName": "Hormone thyreotrope (TSH)",
-      "code": "TSH",
-      "unit": "µIU/mL"
-    },
-    {
-      "englishName": "Gamma-Glutamyl Transferase (GGT)",
-      "frenchName": "Gamma-GT",
-      "code": "GGT",
-      "unit": "U/L"
-    },
-    {
-      "englishName": "Glucagon",
-      "frenchName": "Glucagon",
-      "code": "GLUC",
-      "unit": "pg/mL"
-    },
-    {
-      "englishName": "Fasting Glucose",
-      "frenchName": "Glycémie à jeun",
-      "code": "FBG",
-      "unit": "mg/dL"
-    },
-    {
-      "englishName": "Hematocrit",
-      "frenchName": "Hématocrite",
-      "code": "HCT",
-      "unit": "%"
-    },
-    {
-      "englishName": "Hemoglobin",
-      "frenchName": "Hemoglobine",
-      "code": "HGB",
-      "unit": "g/dL"
-    },
-    {
-      "englishName": "Immunoglobulin E (IgE)",
-      "frenchName": "IgE",
-      "code": "IGE",
-      "unit": "IU/mL"
-    },
-    {
-      "englishName": "Hemoglobin A1c",
-      "frenchName": "Hemoglobine A1c",
-      "code": "HBA1C",
-      "unit": "%"
-    },
-    {
-      "englishName": "Immunoglobulin G (IgG)",
-      "frenchName": "IgG",
-      "code": "IGG",
-      "unit": "mg/dL"
-    },
-    {
-      "englishName": "Isoprene",
-      "frenchName": "Isoprène",
-      "code": "ISOP",
-      "unit": "ng/L"
-    },
-    {
-      "englishName": "White Blood Cells",
-      "frenchName": "Leucocytes",
-      "code": "WBC",
-      "unit": "10^3/µL"
-    },
-    {
-      "englishName": "Lymphocytes",
-      "frenchName": "Lymphocytes",
-      "code": "LYMPH",
-      "unit": "%"
-    },
-    {
-      "englishName": "Magnesium",
-      "frenchName": "Magnésium",
-      "code": "MG",
-      "unit": "mg/dL"
-    },
-    {
-      "englishName": "Monocytes",
-      "frenchName": "Monocytes",
-      "code": "MONO",
-      "unit": "%"
-    },
-    {
-      "englishName": "Methanol",
-      "frenchName": "Méthanol",
-      "code": "MEOH",
-      "unit": "mg/L"
-    },
-    {
-      "englishName": "Ammonia",
-      "frenchName": "NH3",
-      "code": "NH3",
-      "unit": "µmol/L"
-    },
-    {
-      "englishName": "Neutrophils",
-      "frenchName": "Neutrophiles",
-      "code": "NEUT",
-      "unit": "%"
-    },
-    {
-      "englishName": "Pentane",
-      "frenchName": "Pentane",
-      "code": "PENT",
-      "unit": "ng/L"
-    },
-    {
-      "englishName": "Parathyroid Hormone (PTH)",
-      "frenchName": "Parathormone (PTH)",
-      "code": "PTH",
-      "unit": "pg/mL"
-    },
-    {
-      "englishName": "Phosphorus",
-      "frenchName": "Phosphore",
-      "code": "PHOS",
-      "unit": "mg/dL"
-    },
-    {
-      "englishName": "Platelets",
-      "frenchName": "Plaquettes",
-      "code": "PLT",
-      "unit": "10^3/µL"
-    },
-    {
-      "englishName": "Diastolic Blood Pressure",
-      "frenchName": "Pression artérielle diastolique",
-      "code": "DBP",
-      "unit": "mmHg"
-    },
-    {
-      "englishName": "Prolactin",
-      "frenchName": "Prolactine",
-      "code": "PRL",
-      "unit": "ng/mL"
-    },
-    {
-      "englishName": "Protein in Urine",
-      "frenchName": "Protéines dans l'urine",
-      "code": "UPRO",
-      "unit": "mg/dL"
-    },
-    {
-      "englishName": "Potassium",
-      "frenchName": "Potassium",
-      "code": "K",
-      "unit": "mEq/L"
-    },
-    {
-      "englishName": "Systolic Blood Pressure",
-      "frenchName": "Pression artérielle systolique",
-      "code": "SBP",
-      "unit": "mmHg"
-    },
-    {
-      "englishName": "C-Reactive Protein",
-      "frenchName": "Protéine C réactive",
-      "code": "CRP",
-      "unit": "mg/L"
-    },
-    {
-      "englishName": "Total Protein",
-      "frenchName": "Protéines totales",
-      "code": "TP",
-      "unit": "g/dL"
-    },
-    {
-      "englishName": "Prealbumin",
-      "frenchName": "Préalbumine",
-      "code": "PRALB",
-      "unit": "mg/dL"
-    },
-    {
-      "englishName": "Sodium",
-      "frenchName": "Sodium",
-      "code": "NA",
-      "unit": "mEq/L"
-    },
-    {
-      "englishName": "Thyroxine (T4)",
-      "frenchName": "Thyroxine (T4)",
-      "code": "T4",
-      "unit": "µg/dL"
-    },
-    {
-      "englishName": "Transferrin",
-      "frenchName": "Transferrine",
-      "code": "TRSF",
-      "unit": "mg/dL"
-    },
-    {
-      "englishName": "Triglycerides",
-      "frenchName": "Triglycérides",
-      "code": "TG",
-      "unit": "mg/dL"
-    },
-    {
-      "englishName": "Urea",
-      "frenchName": "Urée",
-      "code": "BUN",
-      "unit": "mg/dL"
-    },
-    {
-      "englishName": "Vitamin B12",
-      "frenchName": "Vitamine B12",
-      "code": "VB12",
-      "unit": "pg/mL"
-    },
-    {
-      "englishName": "Vitamin D",
-      "frenchName": "Vitamine D",
-      "code": "VD",
-      "unit": "ng/mL"
-    },
-    {
-      "englishName": "Triiodothyronine (T3)",
-      "frenchName": "Triiodothyronine (T3)",
-      "code": "T3",
-      "unit": "ng/dL"
-    },
-    {
-      "englishName": "Vitamin A",
-      "frenchName": "Vitamine A",
-      "code": "VA",
-      "unit": "µg/dL"
-    },
-    {
-      "englishName": "Vitamin B6",
-      "frenchName": "Vitamine B6",
-      "code": "VB6",
-      "unit": "ng/mL"
-    },
-    {
-      "englishName": "Vitamin E",
-      "frenchName": "Vitamine E",
-      "code": "VE",
-      "unit": "mg/L"
-    },
-    {
-      "englishName": "Zinc",
-      "frenchName": "Zinc",
-      "code": "ZN",
-      "unit": "µg/dL"
-    },
-    {
-      "englishName": "Arterial pH",
-      "frenchName": "pH artériel",
-      "code": "ARTPH",
-      "unit": "units"
-    },
-    {
-      "englishName": "Eosinophils",
-      "frenchName": "Eosinophiles",
-      "code": "EOS",
-      "unit": "%"
-    },
-    {
-      "englishName": "Erythrocytes",
-      "frenchName": "Erythrocytes",
-      "code": "ERY",
-      "unit": "10^6/µL"
-    },
-    {
-      "englishName": "Ethanol",
-      "frenchName": "Ethanol",
-      "code": "ETH",
-      "unit": "mg/dL"
-    }
-  ],
-  [
-    {
-      "englishName": "Total Body Water",
-      "frenchName": "Eau corporelle totale",
-      "code": "TBW",
-      "unit": "L"
-    },
-    {
-      "englishName": "Extracellular Fluid",
-      "frenchName": "Liquide extracellulaire",
-      "code": "ECF",
-      "unit": "L"
-    },
-    {
-      "englishName": "Active Cell Mass",
-      "frenchName": "Masse cellulaire active",
-      "code": "ACM",
-      "unit": "kg"
-    },
-    {
-      "englishName": "Lean Body Mass",
-      "frenchName": "Masse maigre",
-      "code": "LBM",
-      "unit": "kg"
-    },
-    {
-      "englishName": "Fat-Free Mass",
-      "frenchName": "Masse non grasse",
-      "code": "FFM",
-      "unit": "kg"
-    },
-    {
-      "englishName": "Residual Mass",
-      "frenchName": "Masse résiduelle",
-      "code": "RM",
-      "unit": "kg"
-    },
-    {
-      "englishName": "Visceral Fat Percentage",
-      "frenchName": "Pourcentage de graisse viscérale",
-      "code": "VFP",
-      "unit": "%"
-    },
-    {
-      "englishName": "Intracellular Fluid Percentage",
-      "frenchName": "Pourcentage de liquide intracellulaire",
-      "code": "ICFP",
-      "unit": "%"
-    },
-    {
-      "englishName": "Lean Body Mass Percentage",
-      "frenchName": "Pourcentage de masse maigre",
-      "code": "LBMP",
-      "unit": "%"
-    },
-    {
-      "englishName": "Fat-Free Mass Percentage",
-      "frenchName": "Pourcentage de masse non grasse",
-      "code": "FFMP",
-      "unit": "%"
-    },
-    {
-      "englishName": "Residual Mass Percentage",
-      "frenchName": "Pourcentage de masse résiduelle",
-      "code": "RMP",
-      "unit": "%"
-    },
-    {
-      "englishName": "Visceral Fat",
-      "frenchName": "Graisse viscérale",
-      "code": "VF",
-      "unit": "kg"
-    },
-    {
-      "englishName": "Intracellular Fluid",
-      "frenchName": "Liquide intracellulaire",
-      "code": "ICF",
-      "unit": "L"
-    },
-    {
-      "englishName": "Fat Mass",
-      "frenchName": "Masse grasse",
-      "code": "FM",
-      "unit": "kg"
-    },
-    {
-      "englishName": "Muscle Mass",
-      "frenchName": "Masse musculaire",
-      "code": "MM",
-      "unit": "kg"
-    },
-    {
-      "englishName": "Bone Mass",
-      "frenchName": "Masse osseuse",
-      "code": "BM",
-      "unit": "kg"
-    },
-    {
-      "englishName": "Total Body Water Percentage",
-      "frenchName": "Pourcentage d'eau corporelle",
-      "code": "TBWP",
-      "unit": "%"
-    },
-    {
-      "englishName": "Extracellular Fluid Percentage",
-      "frenchName": "Pourcentage de liquide extracellulaire",
-      "code": "ECFP",
-      "unit": "%"
-    },
-    {
-      "englishName": "Fat Mass Percentage",
-      "frenchName": "Pourcentage de masse grasse",
-      "code": "FMP",
-      "unit": "%"
-    },
-    {
-      "englishName": "Muscle Mass Percentage",
-      "frenchName": "Pourcentage de masse musculaire",
-      "code": "MMP",
-      "unit": "%"
-    },
-    {
-      "englishName": "Bone Mass Percentage",
-      "frenchName": "Pourcentage de masse osseuse",
-      "code": "BMP",
-      "unit": "%"
-    },
-    {
-      "englishName": "Metabolic Age",
-      "frenchName": "Âge métabolique",
-      "code": "MA",
-      "unit": "years"
-    }
-  ]
+   [
+      {
+         "englishName": "Weight",
+         "frenchName": "Poids",
+         "code": "WT",
+         "unit": "kg"
+      },
+      {
+         "englishName": "Height",
+         "frenchName": "Taille",
+         "code": "HT",
+         "unit": "cm"
+      },
+      {
+         "englishName": "Arm Circumference",
+         "frenchName": "Circonférence brachiale",
+         "code": "AC",
+         "unit": "cm"
+      },
+      {
+         "englishName": "Ankle Diameter",
+         "frenchName": "Diamètre de la cheville",
+         "code": "AD",
+         "unit": "cm"
+      },
+      {
+         "englishName": "Elbow Diameter",
+         "frenchName": "Diamètre du coude",
+         "code": "ED",
+         "unit": "cm"
+      },
+      {
+         "englishName": "Abdominal Subcutaneous Fat",
+         "frenchName": "Graisse sous-cutanée abdominale",
+         "code": "ASF",
+         "unit": "mm"
+      },
+      {
+         "englishName": "Bistyloïdian Line",
+         "frenchName": "Ligne bistyloïdienne",
+         "code": "BL",
+         "unit": "cm"
+      },
+      {
+         "englishName": "Bicondylar Femoral Length",
+         "frenchName": "Longueur bicondylaire fémorale",
+         "code": "BFL",
+         "unit": "cm"
+      },
+      {
+         "englishName": "Axillary Medial Skinfold",
+         "frenchName": "Pli cutané axillaire médial",
+         "code": "AMS",
+         "unit": "mm"
+      },
+      {
+         "englishName": "Biceps Skinfold",
+         "frenchName": "Pli cutané bicipital",
+         "code": "BS",
+         "unit": "mm"
+      },
+      {
+         "englishName": "Iliocristal Skinfold",
+         "frenchName": "Pli cutané iliocristale",
+         "code": "IS",
+         "unit": "mm"
+      },
+      {
+         "englishName": "Umbilical Skinfold",
+         "frenchName": "Pli cutané ombilical",
+         "code": "US",
+         "unit": "mm"
+      },
+      {
+         "englishName": "Pectoral Skinfold",
+         "frenchName": "Pli cutané pectoral",
+         "code": "PS",
+         "unit": "mm"
+      },
+      {
+         "englishName": "Quadriceps Skinfold",
+         "frenchName": "Pli cutané quadricipital",
+         "code": "QS",
+         "unit": "mm"
+      },
+      {
+         "englishName": "Subscapular Skinfold",
+         "frenchName": "Pli cutané sous-scapulaire",
+         "code": "SSS",
+         "unit": "mm"
+      },
+      {
+         "englishName": "Suprailiac Skinfold",
+         "frenchName": "Pli cutané supra-iliaque",
+         "code": "SIS",
+         "unit": "mm"
+      },
+      {
+         "englishName": "Supraspinale Skinfold",
+         "frenchName": "Pli cutané supraspinale",
+         "code": "SPS",
+         "unit": "mm"
+      },
+      {
+         "englishName": "Calf Skinfold",
+         "frenchName": "Pli cutané sural",
+         "code": "CS",
+         "unit": "mm"
+      },
+      {
+         "englishName": "Triceps Skinfold",
+         "frenchName": "Pli cutané tricipital",
+         "code": "TS",
+         "unit": "mm"
+      },
+      {
+         "englishName": "Abdominal Circumference",
+         "frenchName": "Périmètre abdominal",
+         "code": "AbC",
+         "unit": "cm"
+      },
+      {
+         "englishName": "Cranial Circumference",
+         "frenchName": "Périmètre crânien",
+         "code": "CraC",
+         "unit": "cm"
+      },
+      {
+         "englishName": "Forearm Circumference",
+         "frenchName": "Périmètre de l'avant-bras",
+         "code": "FAC",
+         "unit": "cm"
+      },
+      {
+         "englishName": "Ankle Circumference",
+         "frenchName": "Périmètre de la cheville",
+         "code": "AnkC",
+         "unit": "cm"
+      },
+      {
+         "englishName": "Thigh Circumference",
+         "frenchName": "Périmètre de la cuisse",
+         "code": "TC",
+         "unit": "cm"
+      },
+      {
+         "englishName": "Mid-Thigh Circumference",
+         "frenchName": "Périmètre de la cuisse moyen",
+         "code": "MTC",
+         "unit": "cm"
+      },
+      {
+         "englishName": "Flexed Arm Circumference",
+         "frenchName": "Périmètre du bras plié",
+         "code": "FlAC",
+         "unit": "cm"
+      },
+      {
+         "englishName": "Neck Circumference",
+         "frenchName": "Périmètre du cou",
+         "code": "NC",
+         "unit": "cm"
+      },
+      {
+         "englishName": "Wrist Circumference",
+         "frenchName": "Périmètre du poignet",
+         "code": "WriC",
+         "unit": "cm"
+      },
+      {
+         "englishName": "Shoulder Circumference",
+         "frenchName": "Périmètre des épaules",
+         "code": "SC",
+         "unit": "cm"
+      },
+      {
+         "englishName": "Extended Arm Circumference",
+         "frenchName": "Périmètre du bras tendu",
+         "code": "EAC",
+         "unit": "cm"
+      },
+      {
+         "englishName": "Calf Circumference",
+         "frenchName": "Périmètre du mollet",
+         "code": "CalC",
+         "unit": "cm"
+      },
+      {
+         "englishName": "Waist-to-Hip Ratio",
+         "frenchName": "Rapport taille/hanche",
+         "code": "WHR",
+         "unit": "ratio"
+      },
+      {
+         "englishName": "Waist-to-Height Ratio",
+         "frenchName": "Rapport tour de taille-taille",
+         "code": "WHtR",
+         "unit": "ratio"
+      },
+      {
+         "englishName": "Sum of 8 Skinfolds",
+         "frenchName": "Somme de 8 plis",
+         "code": "S8S",
+         "unit": "mm"
+      },
+      {
+         "englishName": "Sum of 5 Skinfolds",
+         "frenchName": "Somme de 5 plis",
+         "code": "S5S",
+         "unit": "mm"
+      },
+      {
+         "englishName": "Hip Circumference",
+         "frenchName": "Tour de hanche",
+         "code": "HC",
+         "unit": "cm"
+      },
+      {
+         "englishName": "Chest Circumference",
+         "frenchName": "Tour de poitrine",
+         "code": "CheC",
+         "unit": "cm"
+      },
+      {
+         "englishName": "Waist Circumference",
+         "frenchName": "Tour de taille",
+         "code": "WaiC",
+         "unit": "cm"
+      }
+   ],
+   [
+      {
+         "englishName": "1-Propanol",
+         "frenchName": "1-Propanol",
+         "code": "1PROP",
+         "unit": "mg/L"
+      },
+      {
+         "englishName": "Alanine Aminotransferase (ALT/GPT)",
+         "frenchName": "ALAT/TGP",
+         "code": "ALT",
+         "unit": "U/L"
+      },
+      {
+         "englishName": "Ascorbic Acid (Vitamin C)",
+         "frenchName": "Acide ascorbique (vitamine C)",
+         "code": "ASCA",
+         "unit": "mg/L"
+      },
+      {
+         "englishName": "Isobutyric Acid",
+         "frenchName": "Acide isobutyrique",
+         "code": "ISOBA",
+         "unit": "mmol/L"
+      },
+      {
+         "englishName": "Uric Acid",
+         "frenchName": "Acide urique",
+         "code": "UA",
+         "unit": "mg/dL"
+      },
+      {
+         "englishName": "2-Propanol",
+         "frenchName": "2-Propanol",
+         "code": "2PROP",
+         "unit": "mg/L"
+      },
+      {
+         "englishName": "Aspartate Aminotransferase (AST/GOT)",
+         "frenchName": "ASAT/TGO",
+         "code": "AST",
+         "unit": "U/L"
+      },
+      {
+         "englishName": "Folic Acid",
+         "frenchName": "Acide folique",
+         "code": "FA",
+         "unit": "ng/mL"
+      },
+      {
+         "englishName": "Propionic Acid",
+         "frenchName": "Acide propanoique",
+         "code": "PROPA",
+         "unit": "mmol/L"
+      },
+      {
+         "englishName": "Acetone",
+         "frenchName": "Acétone",
+         "code": "ACET",
+         "unit": "mg/L"
+      },
+      {
+         "englishName": "Albumin",
+         "frenchName": "Albumine",
+         "code": "ALB",
+         "unit": "g/dL"
+      },
+      {
+         "englishName": "Amylase",
+         "frenchName": "Amylase",
+         "code": "AMY",
+         "unit": "U/L"
+      },
+      {
+         "englishName": "Apolipoprotein A",
+         "frenchName": "Apolipoprotéine A",
+         "code": "APOA",
+         "unit": "mg/dL"
+      },
+      {
+         "englishName": "Apolipoprotein B",
+         "frenchName": "Apolipoprotéine B",
+         "code": "APOB",
+         "unit": "mg/dL"
+      },
+      {
+         "englishName": "Basophils",
+         "frenchName": "Basophiles",
+         "code": "BASO",
+         "unit": "%"
+      },
+      {
+         "englishName": "Bilirubin",
+         "frenchName": "Bilirubine",
+         "code": "BIL",
+         "unit": "mg/dL"
+      },
+      {
+         "englishName": "Calcium",
+         "frenchName": "Calcium",
+         "code": "CA",
+         "unit": "mg/dL"
+      },
+      {
+         "englishName": "HDL Cholesterol",
+         "frenchName": "Cholesterol HDL",
+         "code": "HDL",
+         "unit": "mg/dL"
+      },
+      {
+         "englishName": "Total Cholesterol",
+         "frenchName": "Cholesterol total",
+         "code": "CHOL",
+         "unit": "mg/dL"
+      },
+      {
+         "englishName": "Copper",
+         "frenchName": "Cuivre",
+         "code": "CU",
+         "unit": "µg/dL"
+      },
+      {
+         "englishName": "Ferritin",
+         "frenchName": "Ferritine",
+         "code": "FERR",
+         "unit": "ng/mL"
+      },
+      {
+         "englishName": "Chloride",
+         "frenchName": "Chlorure",
+         "code": "CL",
+         "unit": "mEq/L"
+      },
+      {
+         "englishName": "LDL Cholesterol",
+         "frenchName": "Cholestérol LDL",
+         "code": "LDL",
+         "unit": "mg/dL"
+      },
+      {
+         "englishName": "Creatinine",
+         "frenchName": "Creatinine",
+         "code": "CREA",
+         "unit": "mg/dL"
+      },
+      {
+         "englishName": "Iron",
+         "frenchName": "Fer",
+         "code": "FE",
+         "unit": "µg/dL"
+      },
+      {
+         "englishName": "Heart Rate",
+         "frenchName": "Fréquence cardiaque",
+         "code": "HR",
+         "unit": "bpm"
+      },
+      {
+         "englishName": "Maximum Heart Rate",
+         "frenchName": "Fréquence cardiaque maximale",
+         "code": "MAXHR",
+         "unit": "bpm"
+      },
+      {
+         "englishName": "Red Blood Cells",
+         "frenchName": "Globules Rouges",
+         "code": "RBC",
+         "unit": "10^6/µL"
+      },
+      {
+         "englishName": "Glucose",
+         "frenchName": "Glucose",
+         "code": "GLU",
+         "unit": "mg/dL"
+      },
+      {
+         "englishName": "Thyroid Stimulating Hormone (TSH)",
+         "frenchName": "Hormone thyreotrope (TSH)",
+         "code": "TSH",
+         "unit": "µIU/mL"
+      },
+      {
+         "englishName": "Gamma-Glutamyl Transferase (GGT)",
+         "frenchName": "Gamma-GT",
+         "code": "GGT",
+         "unit": "U/L"
+      },
+      {
+         "englishName": "Glucagon",
+         "frenchName": "Glucagon",
+         "code": "GLUC",
+         "unit": "pg/mL"
+      },
+      {
+         "englishName": "Fasting Glucose",
+         "frenchName": "Glycémie à jeun",
+         "code": "FBG",
+         "unit": "mg/dL"
+      },
+      {
+         "englishName": "Hematocrit",
+         "frenchName": "Hématocrite",
+         "code": "HCT",
+         "unit": "%"
+      },
+      {
+         "englishName": "Hemoglobin",
+         "frenchName": "Hemoglobine",
+         "code": "HGB",
+         "unit": "g/dL"
+      },
+      {
+         "englishName": "Immunoglobulin E (IgE)",
+         "frenchName": "IgE",
+         "code": "IGE",
+         "unit": "IU/mL"
+      },
+      {
+         "englishName": "Hemoglobin A1c",
+         "frenchName": "Hemoglobine A1c",
+         "code": "HBA1C",
+         "unit": "%"
+      },
+      {
+         "englishName": "Immunoglobulin G (IgG)",
+         "frenchName": "IgG",
+         "code": "IGG",
+         "unit": "mg/dL"
+      },
+      {
+         "englishName": "Isoprene",
+         "frenchName": "Isoprène",
+         "code": "ISOP",
+         "unit": "ng/L"
+      },
+      {
+         "englishName": "White Blood Cells",
+         "frenchName": "Leucocytes",
+         "code": "WBC",
+         "unit": "10^3/µL"
+      },
+      {
+         "englishName": "Lymphocytes",
+         "frenchName": "Lymphocytes",
+         "code": "LYMPH",
+         "unit": "%"
+      },
+      {
+         "englishName": "Magnesium",
+         "frenchName": "Magnésium",
+         "code": "MG",
+         "unit": "mg/dL"
+      },
+      {
+         "englishName": "Monocytes",
+         "frenchName": "Monocytes",
+         "code": "MONO",
+         "unit": "%"
+      },
+      {
+         "englishName": "Methanol",
+         "frenchName": "Méthanol",
+         "code": "MEOH",
+         "unit": "mg/L"
+      },
+      {
+         "englishName": "Ammonia",
+         "frenchName": "NH3",
+         "code": "NH3",
+         "unit": "µmol/L"
+      },
+      {
+         "englishName": "Neutrophils",
+         "frenchName": "Neutrophiles",
+         "code": "NEUT",
+         "unit": "%"
+      },
+      {
+         "englishName": "Pentane",
+         "frenchName": "Pentane",
+         "code": "PENT",
+         "unit": "ng/L"
+      },
+      {
+         "englishName": "Parathyroid Hormone (PTH)",
+         "frenchName": "Parathormone (PTH)",
+         "code": "PTH",
+         "unit": "pg/mL"
+      },
+      {
+         "englishName": "Phosphorus",
+         "frenchName": "Phosphore",
+         "code": "PHOS",
+         "unit": "mg/dL"
+      },
+      {
+         "englishName": "Platelets",
+         "frenchName": "Plaquettes",
+         "code": "PLT",
+         "unit": "10^3/µL"
+      },
+      {
+         "englishName": "Diastolic Blood Pressure",
+         "frenchName": "Pression artérielle diastolique",
+         "code": "DBP",
+         "unit": "mmHg"
+      },
+      {
+         "englishName": "Prolactin",
+         "frenchName": "Prolactine",
+         "code": "PRL",
+         "unit": "ng/mL"
+      },
+      {
+         "englishName": "Protein in Urine",
+         "frenchName": "Protéines dans l'urine",
+         "code": "UPRO",
+         "unit": "mg/dL"
+      },
+      {
+         "englishName": "Potassium",
+         "frenchName": "Potassium",
+         "code": "K",
+         "unit": "mEq/L"
+      },
+      {
+         "englishName": "Systolic Blood Pressure",
+         "frenchName": "Pression artérielle systolique",
+         "code": "SBP",
+         "unit": "mmHg"
+      },
+      {
+         "englishName": "C-Reactive Protein",
+         "frenchName": "Protéine C réactive",
+         "code": "CRP",
+         "unit": "mg/L"
+      },
+      {
+         "englishName": "Total Protein",
+         "frenchName": "Protéines totales",
+         "code": "TP",
+         "unit": "g/dL"
+      },
+      {
+         "englishName": "Prealbumin",
+         "frenchName": "Préalbumine",
+         "code": "PRALB",
+         "unit": "mg/dL"
+      },
+      {
+         "englishName": "Sodium",
+         "frenchName": "Sodium",
+         "code": "NA",
+         "unit": "mEq/L"
+      },
+      {
+         "englishName": "Thyroxine (T4)",
+         "frenchName": "Thyroxine (T4)",
+         "code": "T4",
+         "unit": "µg/dL"
+      },
+      {
+         "englishName": "Transferrin",
+         "frenchName": "Transferrine",
+         "code": "TRSF",
+         "unit": "mg/dL"
+      },
+      {
+         "englishName": "Triglycerides",
+         "frenchName": "Triglycérides",
+         "code": "TG",
+         "unit": "mg/dL"
+      },
+      {
+         "englishName": "Urea",
+         "frenchName": "Urée",
+         "code": "BUN",
+         "unit": "mg/dL"
+      },
+      {
+         "englishName": "Vitamin B12",
+         "frenchName": "Vitamine B12",
+         "code": "VB12",
+         "unit": "pg/mL"
+      },
+      {
+         "englishName": "Vitamin D",
+         "frenchName": "Vitamine D",
+         "code": "VD",
+         "unit": "ng/mL"
+      },
+      {
+         "englishName": "Triiodothyronine (T3)",
+         "frenchName": "Triiodothyronine (T3)",
+         "code": "T3",
+         "unit": "ng/dL"
+      },
+      {
+         "englishName": "Vitamin A",
+         "frenchName": "Vitamine A",
+         "code": "VA",
+         "unit": "µg/dL"
+      },
+      {
+         "englishName": "Vitamin B6",
+         "frenchName": "Vitamine B6",
+         "code": "VB6",
+         "unit": "ng/mL"
+      },
+      {
+         "englishName": "Vitamin E",
+         "frenchName": "Vitamine E",
+         "code": "VE",
+         "unit": "mg/L"
+      },
+      {
+         "englishName": "Zinc",
+         "frenchName": "Zinc",
+         "code": "ZN",
+         "unit": "µg/dL"
+      },
+      {
+         "englishName": "Arterial pH",
+         "frenchName": "pH artériel",
+         "code": "ARTPH",
+         "unit": "units"
+      },
+      {
+         "englishName": "Eosinophils",
+         "frenchName": "Eosinophiles",
+         "code": "EOS",
+         "unit": "%"
+      },
+      {
+         "englishName": "Erythrocytes",
+         "frenchName": "Erythrocytes",
+         "code": "ERY",
+         "unit": "10^6/µL"
+      },
+      {
+         "englishName": "Ethanol",
+         "frenchName": "Ethanol",
+         "code": "ETH",
+         "unit": "mg/dL"
+      }
+   ],
+   [
+      {
+         "englishName": "Total Body Water",
+         "frenchName": "Eau corporelle totale",
+         "code": "TBW",
+         "unit": "L"
+      },
+      {
+         "englishName": "Extracellular Fluid",
+         "frenchName": "Liquide extracellulaire",
+         "code": "ECF",
+         "unit": "L"
+      },
+      {
+         "englishName": "Active Cell Mass",
+         "frenchName": "Masse cellulaire active",
+         "code": "ACM",
+         "unit": "kg"
+      },
+      {
+         "englishName": "Lean Body Mass",
+         "frenchName": "Masse maigre",
+         "code": "LBM",
+         "unit": "kg"
+      },
+      {
+         "englishName": "Fat-Free Mass",
+         "frenchName": "Masse non grasse",
+         "code": "FFM",
+         "unit": "kg"
+      },
+      {
+         "englishName": "Residual Mass",
+         "frenchName": "Masse résiduelle",
+         "code": "RM",
+         "unit": "kg"
+      },
+      {
+         "englishName": "Visceral Fat Percentage",
+         "frenchName": "Pourcentage de graisse viscérale",
+         "code": "VFP",
+         "unit": "%"
+      },
+      {
+         "englishName": "Intracellular Fluid Percentage",
+         "frenchName": "Pourcentage de liquide intracellulaire",
+         "code": "ICFP",
+         "unit": "%"
+      },
+      {
+         "englishName": "Lean Body Mass Percentage",
+         "frenchName": "Pourcentage de masse maigre",
+         "code": "LBMP",
+         "unit": "%"
+      },
+      {
+         "englishName": "Fat-Free Mass Percentage",
+         "frenchName": "Pourcentage de masse non grasse",
+         "code": "FFMP",
+         "unit": "%"
+      },
+      {
+         "englishName": "Residual Mass Percentage",
+         "frenchName": "Pourcentage de masse résiduelle",
+         "code": "RMP",
+         "unit": "%"
+      },
+      {
+         "englishName": "Visceral Fat",
+         "frenchName": "Graisse viscérale",
+         "code": "VF",
+         "unit": "kg"
+      },
+      {
+         "englishName": "Intracellular Fluid",
+         "frenchName": "Liquide intracellulaire",
+         "code": "ICF",
+         "unit": "L"
+      },
+      {
+         "englishName": "Fat Mass",
+         "frenchName": "Masse grasse",
+         "code": "FM",
+         "unit": "kg"
+      },
+      {
+         "englishName": "Muscle Mass",
+         "frenchName": "Masse musculaire",
+         "code": "MM",
+         "unit": "kg"
+      },
+      {
+         "englishName": "Bone Mass",
+         "frenchName": "Masse osseuse",
+         "code": "BM",
+         "unit": "kg"
+      },
+      {
+         "englishName": "Total Body Water Percentage",
+         "frenchName": "Pourcentage d'eau corporelle",
+         "code": "TBWP",
+         "unit": "%"
+      },
+      {
+         "englishName": "Extracellular Fluid Percentage",
+         "frenchName": "Pourcentage de liquide extracellulaire",
+         "code": "ECFP",
+         "unit": "%"
+      },
+      {
+         "englishName": "Fat Mass Percentage",
+         "frenchName": "Pourcentage de masse grasse",
+         "code": "FMP",
+         "unit": "%"
+      },
+      {
+         "englishName": "Muscle Mass Percentage",
+         "frenchName": "Pourcentage de masse musculaire",
+         "code": "MMP",
+         "unit": "%"
+      },
+      {
+         "englishName": "Bone Mass Percentage",
+         "frenchName": "Pourcentage de masse osseuse",
+         "code": "BMP",
+         "unit": "%"
+      },
+      {
+         "englishName": "Metabolic Age",
+         "frenchName": "Âge métabolique",
+         "code": "MA",
+         "unit": "years"
+      }
+   ]
 ]

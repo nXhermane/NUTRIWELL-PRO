@@ -1,5 +1,5 @@
 import { Result } from "./../../../../../../core";
-import { UseCaseError} from "./../../../../../../application"
+import { UseCaseError } from "./../../../../../../application";
 
 export namespace CreateMeasurementTypeErrors {
    export class CreateMeasurementTypeFailed extends Result<UseCaseError> {

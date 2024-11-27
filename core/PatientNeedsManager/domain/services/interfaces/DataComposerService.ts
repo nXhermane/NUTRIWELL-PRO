@@ -2,7 +2,7 @@
 
 import { VariableMappingTable } from "../../entities/types";
 export type ContextType = { [key: string]: any };
-export type ComposedObject = {[variableName: string]: any}
+export type ComposedObject = { [variableName: string]: any };
 export interface IDataComposerService {
    compose<T extends ContextType = any>(variableMappingTable: VariableMappingTable, context: T): Promise<ComposedObject>;
 }

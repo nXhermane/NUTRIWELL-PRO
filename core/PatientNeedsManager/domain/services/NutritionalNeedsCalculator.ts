@@ -6,8 +6,6 @@ import { INutritionalNeedsCalculator } from "./interfaces/NutritionalNeedsCalcul
 import { AggregateID } from "@/core/shared";
 import { NutrientNeedsValue, PatientNeeds } from "../entities/PatientNeeds";
 
-
-
 export class NutritionalNeedsCalculator implements INutritionalNeedsCalculator {
    constructor(private dataComposerService: IDataComposerService) {}
    async generatePatientNeeds(patientProfil: PatientProfil, patientNeedsModel: PatientNeedsModel): Promise<PatientNeeds> {

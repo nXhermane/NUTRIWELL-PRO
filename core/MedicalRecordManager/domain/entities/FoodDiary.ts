@@ -61,7 +61,7 @@ export class FoodDiary extends Entity<IFoodDiary> {
    }
    static async create(foodDiary: CreateFoodDiaryProps): Promise<Result<FoodDiary>> {
       try {
-         const recipeAndFoodProvider = (await FoodAndRecipeApi.getInstance())
+         const recipeAndFoodProvider = await FoodAndRecipeApi.getInstance();
          const mealTypeIds = await recipeAndFoodProvider.getAllMealTypeIds();
          const foodIds = await recipeAndFoodProvider.getAllFoodIds();
          const recipeIds = await recipeAndFoodProvider.getAllRecipeIds();

@@ -146,7 +146,7 @@ export class Patient extends AggregateRoot<IPatient> {
    public delete(): void {
       if (!this.isDeleted) {
          super.delete();
-         this.addDomainEvent(new PatientDeletedEvent(this.id))
+         this.addDomainEvent(new PatientDeletedEvent(this.id));
       }
    }
 }

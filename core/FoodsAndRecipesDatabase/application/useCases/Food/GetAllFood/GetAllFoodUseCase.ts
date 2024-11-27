@@ -1,4 +1,4 @@
-import { UseCase, Mapper, Result, left, right, AppError } from "@shared"
+import { UseCase, Mapper, Result, left, right, AppError } from "@shared";
 import { GetAllFoodRequest } from "./GetAllFoodRequest";
 import { GetAllFoodResponse } from "./GetAllFoodResponse";
 import { GetAllFoodErrors } from "./GetAllFoodErrors";

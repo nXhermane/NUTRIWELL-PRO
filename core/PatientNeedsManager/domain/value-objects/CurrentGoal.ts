@@ -1,7 +1,7 @@
 import { AggregateID, ArgumentOutOfRangeException, ExceptionBase, Result, ValueObject } from "@shared";
 export interface ICurrentGoal {
    goalId: AggregateID;
-   goalRules: string[]; // TODO: les regles doit etre modeliser avec soins plus tart : Les regles doit etre des instances de recommandation 
+   goalRules: string[]; // TODO: les regles doit etre modeliser avec soins plus tart : Les regles doit etre des instances de recommandation
 }
 export class CurrentGoal extends ValueObject<ICurrentGoal> {
    protected validate(props: ICurrentGoal): void {

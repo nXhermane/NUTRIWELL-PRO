@@ -27,7 +27,7 @@ export type IMedicalRecordAPI = IMedicalRecordDataProviderService;
 export class MedicalRecordAPI {
    private static instance: null | IMedicalRecordAPI = null;
 
-  static async getInstance(): Promise<IMedicalRecordAPI> {
+   static async getInstance(): Promise<IMedicalRecordAPI> {
       if (MedicalRecordAPI.instance) {
          const expo: SQLiteDatabase = (await db).db as SQLiteDatabase;
          const consultationInfoMapper = new ConsultationInformationMapper();
@@ -64,7 +64,7 @@ export class MedicalRecordAPI {
          });
          const getAllFoodDiaryUC = new GetAllFoodDiaryUseCase(medicalRecordRepo, medicalRecodMapper);
 
-         MedicalRecordAPI.instance = new MedicalRecordDataProvider(getAllFoodDiaryUC)
+         MedicalRecordAPI.instance = new MedicalRecordDataProvider(getAllFoodDiaryUC);
       }
       return MedicalRecordAPI.instance as IMedicalRecordAPI;
    }
