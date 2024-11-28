@@ -16,7 +16,7 @@ export class RemoveRecommendationFromStandardMedicalConditionUseCase
       try {
          const medicalCondition = await this.getStandardMedicalCondition(request.standardMedicalConditionId);
          this.removeRecommendationsFromStandardMedicalCondition(medicalCondition, request.recommendations);
-         await this.saveStandardObjective(medicalCondition);
+         await this.saveStandardMedicalCondition(medicalCondition);
          return right(Result.ok<boolean>(true));
       } catch (error) {
          if (
@@ -45,7 +45,7 @@ export class RemoveRecommendationFromStandardMedicalConditionUseCase
          throw new RemoveRecommendationFromStandardMedicalConditionErrors.StandardMedicalConditionnNotFoundError(error, medicalConditionId);
       }
    }
-   private async saveStandardObjective(medicalCondition: StandardMedicalCondition) {
+   private async saveStandardMedicalCondition(medicalCondition: StandardMedicalCondition) {
       try {
          await this.repo.save(medicalCondition);
       } catch (err: any) {

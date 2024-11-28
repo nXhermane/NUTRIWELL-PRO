@@ -31,3 +31,8 @@ export interface NutritionalRefPersistence {
 }
 
 type VariablesPersistence = { [key: string]: string };
+export interface PatientDataVariablePersistence extends Timestamp {
+   id: string,
+   patientId: string,
+   variables: Record<string, string>,
+}

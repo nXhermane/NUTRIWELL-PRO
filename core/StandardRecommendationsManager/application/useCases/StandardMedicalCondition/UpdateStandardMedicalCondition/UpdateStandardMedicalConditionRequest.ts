@@ -5,4 +5,4 @@ export type UpdateStandardMedicalConditionRequest = {
    standardMedicalConditionId: AggregateID;
    data: UpdateStandardMedicalConditionDto;
 };
-export type UpdateStandardMedicalConditionDto = Partial<Omit<StandardMedicalConditionDto, "id" | "recommendations">>;
+export type UpdateStandardMedicalConditionDto = Partial<Omit<StandardMedicalConditionDto, "id" | "recommendations" | "healthIndicators">>;

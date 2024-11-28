@@ -12,6 +12,7 @@ export type NutritionalRef = {
 export type Variables = {
    [variableAlias: string]: string;
 };
+export type PatientDataVariables = Record<string, string>
 export const nutritionalReferencesValues = sqliteTable("nutritional_reference_values", {
    id: text("id").primaryKey(),
    tagname: text("nutrientTagname"),
@@ -41,3 +42,11 @@ export const nutritionFormulars = sqliteTable("nutrition_formulars", {
       .default(sql`CURRENT_TIMESTAMP`)
       .$onUpdate(() => sql`CURRENT_TIMESTAMP`),
 });
+
+export const patientDataVariables = sqliteTable("patient_data_variables", {
+   id: text("id").primaryKey(),
+   patientId: text("patient_id").unique().notNull(),
+   variables: text("variables", { mode: "json" }).notNull().$type<PatientDataVariables>(),
+   createdAt: text("createdAt").notNull().default(sql`CURRENT_TIMESTAMP`),
+   updatedAt: text("updatedAt").notNull().default(sql`CURRENT_TIMESTAMP`).$onUpdate(() => sql`CURRENT_TIMESTAMP`),
+})

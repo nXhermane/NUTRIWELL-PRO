@@ -47,7 +47,6 @@ import {
    UpdateMedicalStoryResponse,
 } from "../useCases";
 import { IMedicalRecordService } from "./interfaces/MedicalRecordService";
-import { Use } from "react-native-svg";
 
 export class MedicalRecordService implements IMedicalRecordService {
    constructor(

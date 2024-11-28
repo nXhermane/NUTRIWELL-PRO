@@ -1,4 +1,4 @@
-import { AggregateID, Mapper } from "@/core/shared";
+import { AggregateID, DomainEvents, Mapper } from "@/core/shared";
 import { StandardMedicalCondition } from "../../domain/aggregate/StandardMedicalCondition";
 import { StandardMedicalConditionRepository } from "./interfaces/StandardMedicalConditionRepository";
 import { SQLiteDatabase } from "expo-sqlite";
@@ -29,6 +29,7 @@ export class StandardMedicalConditionRepositoryImpl implements StandardMedicalCo
          } else {
             await this.db.insert(standardMedicalConditions).values(medicalConditionPersistence);
          }
+         DomainEvents.dispatchEventsForAggregate(medicalCondition.id)
       } catch (error) {
          throw new StandardMedicalConditionError("Erreur lors du sauvegarde du condition medicale standard.", error as Error, {
             medicalCondition,
@@ -61,6 +62,7 @@ export class StandardMedicalConditionRepositoryImpl implements StandardMedicalCo
    async delete(medicalConditonId: AggregateID): Promise<void> {
       try {
          await this.db.delete(standardMedicalConditions).where(eq(standardMedicalConditions.id, medicalConditonId as string));
+         DomainEvents.dispatchEventsForAggregate(medicalConditonId)
       } catch (error) {
          throw new StandardMedicalConditionError("Erreur lors de la suppression du condition médicale.", error as Error, {
             medicalConditonId,

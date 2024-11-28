@@ -29,14 +29,6 @@ export class UpdateStandardMedicalConditionUseCase implements UseCase<UpdateStan
          if (data.criteria) medicalCondition.criteria = data.criteria;
          if (data.description) medicalCondition.description = data.description;
          if (data.name) medicalCondition.name = data.name;
-         if (data.healthIndicators) {
-            const healthIndicatorResults = data.healthIndicators.map((healthIndicator: IHealthIndicator) => HealthIndicator.create(healthIndicator));
-            const healthIndicatorCombineResult = Result.combine(healthIndicatorResults);
-            if (healthIndicatorCombineResult.isFailure)
-               throw new UpdateStandardMedicalConditionErrors.StandardMedicalConditionValidationError(healthIndicatorCombineResult.err);
-            const healthIndicators = healthIndicatorResults.map((healthIndicator) => healthIndicator.val);
-            medicalCondition.addHealthIndicator(...healthIndicators);
-         }
       } catch (e: any) {
          throw new UpdateStandardMedicalConditionErrors.StandardMedicalConditionValidationError(e);
       }
