@@ -30,9 +30,8 @@ export class CreateStandardMedicalConditionUseCase implements UseCase<CreateStan
          if (error instanceof StandardMedicalConditionError)
             return left(new CreateStandardMedicalConditionErrors.CreateStandardMedicalConditionError(error));
          else if (
-            error instanceof
-            (CreateStandardMedicalConditionErrors.CreateStandardMedicalConditionError ||
-               CreateStandardMedicalConditionErrors.CreateStandardMedicalConditionFailed)
+            error instanceof CreateStandardMedicalConditionErrors.CreateStandardMedicalConditionError ||
+            error instanceof CreateStandardMedicalConditionErrors.CreateStandardMedicalConditionFailed
          )
             return left(error);
          else return left(new AppError.UnexpectedError(error));

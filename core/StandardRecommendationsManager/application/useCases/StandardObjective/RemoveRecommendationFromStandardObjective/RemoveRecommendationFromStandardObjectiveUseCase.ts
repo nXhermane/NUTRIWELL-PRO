@@ -17,11 +17,10 @@ export class RemoveRecommendationFromStandardObjectiveUseCase
          return right(Result.ok<boolean>(true));
       } catch (error) {
          if (
-            error instanceof
-            (RemoveRecommendationFromStandardObjectiveErrors.NeedsRecommendationCreationFailed ||
-               RemoveRecommendationFromStandardObjectiveErrors.RecommendationNotFoundOnStandardObjective ||
-               RemoveRecommendationFromStandardObjectiveErrors.StandardObjectiveNotFoundError ||
-               RemoveRecommendationFromStandardObjectiveErrors.StandardObjectiveRepoError)
+            error instanceof RemoveRecommendationFromStandardObjectiveErrors.NeedsRecommendationCreationFailed ||
+            error instanceof RemoveRecommendationFromStandardObjectiveErrors.RecommendationNotFoundOnStandardObjective ||
+            error instanceof RemoveRecommendationFromStandardObjectiveErrors.StandardObjectiveNotFoundError ||
+            error instanceof RemoveRecommendationFromStandardObjectiveErrors.StandardObjectiveRepoError
          )
             return left(error);
          else return left(new AppError.UnexpectedError(error));
@@ -43,7 +42,6 @@ export class RemoveRecommendationFromStandardObjectiveUseCase
          throw new RemoveRecommendationFromStandardObjectiveErrors.NeedsRecommendationCreationFailed(removedRecommendationResultsCombine.err);
       const removedRecommendations = removedRecommendationResults.map((recommendationResult) => recommendationResult.val);
       objective.removeRecommendation(...removedRecommendations);
-      this.saveStandardObjective(objective);
    }
    private async saveStandardObjective(objective: StandardObjective) {
       try {

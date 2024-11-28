@@ -14,6 +14,7 @@ import { MedicalConditionRecommendationAddedEvent } from "../events/MedicalCondi
 import { MedicalConditionRecommendationRemovedEvent } from "../events/MedicalConditionRecommendationRemovedEvent";
 import { MedicalConditionHealthIndicatorAddedEvent } from "../events/MedicalConditionHealthIndicatorAddedEvent";
 import { CreateStandardMedicalConditionProps } from "../types";
+import { MedicalConditionHealthIndicatorRemovedEvent } from "../events/MedicalConditionHealthIndicatorRemovedEvent";
 
 export type StandardMedicalConditionCriteria = {
    expression: string;
@@ -60,13 +61,13 @@ export class StandardMedicalCondition extends AggregateRoot<IStandardMedicalCond
    get healthIndicators(): IHealthIndicator[] {
       return this.props.healthIndicators.map((healthIndicator) => healthIndicator.unpack());
    }
-   addHealthIndicator(healthIndicator: HealthIndicator) {
-      this.props.healthIndicators.push(healthIndicator);
+   addHealthIndicator(...healthIndicators: HealthIndicator[]) {
+      this.props.healthIndicators.push(...healthIndicators);
       this.validate();
       this.addDomainEvent(
          new MedicalConditionHealthIndicatorAddedEvent({
             medicalConditionId: this.id,
-            healthIndicator: healthIndicator,
+            healthIndicators: healthIndicators,
          }),
       );
    }
@@ -88,7 +89,7 @@ export class StandardMedicalCondition extends AggregateRoot<IStandardMedicalCond
       if (index !== -1) this.props.healthIndicators.splice(index, 1);
       this.validate();
       this.addDomainEvent(
-         new MedicalConditionHealthIndicatorAddedEvent({
+         new MedicalConditionHealthIndicatorRemovedEvent({
             medicalConditionId: this.id,
             healthIndicator: healthIndicator,
          }),

@@ -2,7 +2,7 @@ import { AggregateID, HealthIndicator, IDomainEvent } from "@/core/shared";
 
 export interface IMedicalConditionHealthIndicatorAddedObject {
    medicalConditionId: AggregateID;
-   healthIndicator: HealthIndicator;
+   healthIndicators: HealthIndicator[];
 }
 export class MedicalConditionHealthIndicatorAddedEvent implements IDomainEvent {
    dateTimeOccurred: Date;

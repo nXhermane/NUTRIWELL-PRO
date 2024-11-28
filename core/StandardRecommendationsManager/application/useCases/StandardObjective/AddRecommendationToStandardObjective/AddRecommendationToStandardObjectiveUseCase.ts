@@ -17,11 +17,10 @@ export class AddRecommendationToStandardObjectiveUseCase
          return right(Result.ok<void>());
       } catch (error) {
          if (
-            error instanceof
-            (AddRecommendationToStandardObjectiveErrors.NeedsRecommendationCreationFailed ||
-               AddRecommendationToStandardObjectiveErrors.StandardObjectiveNotFoundError ||
-               AddRecommendationToStandardObjectiveErrors.StandardObjectiveValidationError ||
-               AddRecommendationToStandardObjectiveErrors.StandardObjectiveRepoError)
+            error instanceof AddRecommendationToStandardObjectiveErrors.NeedsRecommendationCreationFailed ||
+            error instanceof AddRecommendationToStandardObjectiveErrors.StandardObjectiveNotFoundError ||
+            error instanceof AddRecommendationToStandardObjectiveErrors.StandardObjectiveValidationError ||
+            error instanceof AddRecommendationToStandardObjectiveErrors.StandardObjectiveRepoError
          )
             return left(error);
          else return left(new AppError.UnexpectedError(error));

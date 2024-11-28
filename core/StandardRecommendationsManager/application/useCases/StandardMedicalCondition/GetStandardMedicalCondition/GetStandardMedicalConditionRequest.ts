@@ -1,5 +1,5 @@
-import { AggregateID } from "@/core/shared"
+import { AggregateID } from "@/core/shared";
 
 export type GetStandardMedicalConditionRequest = {
-    standardMedicalConditionId?: AggregateID
-}
+   standardMedicalConditionId?: AggregateID;
+};
