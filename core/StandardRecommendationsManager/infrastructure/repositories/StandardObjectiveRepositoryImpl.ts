@@ -23,7 +23,7 @@ export class StandardObjectiveRepositoryImpl implements StandardObjectiveReposit
          const exist = await this.checkIfExist(objectivePersistence.id);
          if (!exist) await this.db.insert(standardObjectives).values(objectivePersistence);
          else await this.db.update(standardObjectives).set(objectivePersistence).where(eq(standardObjectives.id, objectivePersistence.id));
-         DomainEvents.dispatchEventsForAggregate(objective.id)
+         DomainEvents.dispatchEventsForAggregate(objective.id);
       } catch (error) {
          throw new StandardObjectiveError("Erreur lors du sauvegarde de l'objective standard.", error as Error, {
             objective,
@@ -56,7 +56,7 @@ export class StandardObjectiveRepositoryImpl implements StandardObjectiveReposit
    async delete(objectiveId: AggregateID): Promise<void> {
       try {
          await this.db.delete(standardObjectives).where(eq(standardObjectives.id, objectiveId as string));
-         DomainEvents.dispatchEventsForAggregate(objectiveId)
+         DomainEvents.dispatchEventsForAggregate(objectiveId);
       } catch (error) {
          throw new StandardObjectiveError("Erreur lors de la suppression de l'objective standard.");
       }

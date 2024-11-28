@@ -2,7 +2,7 @@ import { PatientDataVariable } from "@/core/PatientNeedsManager/domain/aggregate
 import { AggregateID } from "@/core/shared";
 
 export interface PatientDataVariableRepository {
-    save(patientDataVariable: PatientDataVariable): Promise<void>
-    getById(patientDataVariableId: AggregateID): Promise<PatientDataVariable>
-    delete(patientDataVariableId: AggregateID): Promise<void>
+   save(patientDataVariable: PatientDataVariable): Promise<void>;
+   getById(patientDataVariableId: AggregateID): Promise<PatientDataVariable>;
+   delete(patientDataVariableId: AggregateID): Promise<void>;
 }

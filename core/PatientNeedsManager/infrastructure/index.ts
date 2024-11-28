@@ -1,4 +1,4 @@
-export * from "./repositories"
+export * from "./repositories";
 
-export * from "./mappers/PatientDataVariableMapper"
-export * from './dtos/PatientDataVariableDto'
+export * from "./mappers/PatientDataVariableMapper";
+export * from "./dtos/PatientDataVariableDto";
