@@ -1,4 +1,5 @@
 import {
+   AggregateID,
    EmptyStringError,
    Entity,
    ExceptionBase,
@@ -32,13 +33,22 @@ import { CreateMedicalConditionProps } from "../types";
   */
 export interface IMedicalCondition {
    name: string;
+   standardMedicalConditionId?: AggregateID
    severity: MedicalConditionSeverity;
+   description: string
    recommendations: NeedsRecommendation[];
    otherInformation: { [key: string]: any };
    healthIndicators: HealthIndicator[];
 }
 
 export class MedicalCondition extends Entity<IMedicalCondition> {
+   get standardMedicalConditionId(): AggregateID | undefined {
+      return this.props.standardMedicalConditionId
+   }
+   set standardMedicalConditionId(id: AggregateID) {
+      this.props.standardMedicalConditionId = id
+      this.validate()
+   }
    get name(): string {
       return this.props.name;
    }
@@ -51,6 +61,13 @@ export class MedicalCondition extends Entity<IMedicalCondition> {
    }
    set severity(value: "light" | "moderate" | "severe") {
       this.props.severity = value as MedicalConditionSeverity;
+      this.validate()
+   }
+   get description(): string {
+      return this.props.description
+   }
+   set desciption(desc: string) {
+      this.props.description = desc
    }
    get recommendation(): INeedsRecommendation<any>[] {
       return this.props.recommendations.map((recommendation) => recommendation.unpack());
@@ -89,6 +106,8 @@ export class MedicalCondition extends Entity<IMedicalCondition> {
          const medicalCond = new MedicalCondition({
             props: {
                name: props.name,
+               standardMedicalConditionId: props.standardMedicalConditionId,
+               description: props.description,
                severity: props.severity as MedicalConditionSeverity,
                recommendations: props.recommendations,
                otherInformation: props.otherInformation,

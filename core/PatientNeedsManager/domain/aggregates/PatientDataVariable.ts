@@ -5,13 +5,13 @@ import { CreatePatientDataVariable } from "../types";
  * Représente un ensemble de variables dynamiques associées à un patient spécifique.
  */
 export interface IPatientDataVariable {
-   patientId: AggregateID; // L'identifiant unique du patient.
+   patientProfilId: AggregateID; // L'identifiant unique du patient Profil.
    variables: Record<string, string>; // Clé-valeur pour le nom et le chemin de la variable.
 }
 
 export class PatientDataVariable extends AggregateRoot<IPatientDataVariable> {
-   get patientId(): AggregateID {
-      return this.props.patientId;
+   get patientProfilId(): AggregateID {
+      return this.props.patientProfilId;
    }
    get variables(): Record<string, string> {
       return this.props.variables;
@@ -30,7 +30,8 @@ export class PatientDataVariable extends AggregateRoot<IPatientDataVariable> {
    }
 
    public validate(): void {
-      if (this.props.patientId === undefined) throw new EmptyStringError("Patient ID is required.");
+      if (this.props.patientProfilId === undefined) throw new EmptyStringError("Patient ID is required.");
+      // TODO: Je vais implementer la vrai validation du patient Profil Id dans la version suivante
       this._isValid = true;
    }
    public static create(props: CreatePatientDataVariable): Result<PatientDataVariable> {

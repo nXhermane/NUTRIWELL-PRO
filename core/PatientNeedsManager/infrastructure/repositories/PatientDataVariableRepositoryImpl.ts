@@ -3,11 +3,10 @@ import { PatientDataVariable } from "../../domain/aggregates/PatientDataVariable
 import { PatientDataVariableRepository } from "./interfaces/PatientDataVariableRepository";
 import { SQLiteDatabase } from "expo-sqlite";
 import { PatientDataVariablePersistence } from "./types";
-import { Patient } from "@/core/PatientManager";
 import { PatientDataVariableDto } from "../dtos/PatientDataVariableDto";
 import { drizzle } from "drizzle-orm/expo-sqlite";
 import { patientDataVariables } from "../database/patientNeeds";
-import { eq } from "drizzle-orm";
+import { eq, or } from "drizzle-orm";
 import { PatientDataVariableRepositoryError, PatientDataVariableRepositoryNotFoundException } from "./errors/PatientDataVariableRepositoryErrors";
 
 export class PatientDataVariableRepositoryImpl implements PatientDataVariableRepository {
@@ -33,30 +32,38 @@ export class PatientDataVariableRepositoryImpl implements PatientDataVariableRep
          throw new PatientDataVariableRepositoryError("Erreur lors du sauvegarde de patientDataVariable", error as Error, { patientDataVariable });
       }
    }
-   async getById(patientDataVariableId: AggregateID): Promise<PatientDataVariable> {
+   async getById(patientDataVariableOrPatientProfilId: AggregateID): Promise<PatientDataVariable> {
       try {
          const patientDataVariableRow = await this.db
             .select()
             .from(patientDataVariables)
-            .where(eq(patientDataVariables.id, patientDataVariableId as string))
+            .where(
+               or(
+                  eq(patientDataVariables.id, patientDataVariableOrPatientProfilId as string),
+                  eq(patientDataVariables.patientProfilId, patientDataVariableOrPatientProfilId as string),
+               ),
+            )
             .get();
          if (!patientDataVariableRow)
             throw new PatientDataVariableRepositoryNotFoundException("Le patient Data variable n'est pas trouvé.", new Error(), {
-               patientDataVariableId,
+               patientDataVariableOrPatientProfilId,
             });
          return this.mapper.toDomain(patientDataVariableRow);
       } catch (error) {
          throw new PatientDataVariableRepositoryError("Erreur lors de la récuperation du patient Data Variable", error as Error, {
-            patientDataVariableId,
+            patientDataVariableOrPatientProfilId,
          });
       }
    }
-   async delete(patientDataVariableId: AggregateID): Promise<void> {
+   async delete(patientDataVariableOrPatientProfilId: AggregateID): Promise<void> {
       try {
-         await this.db.delete(patientDataVariables).where(eq(patientDataVariables.id, patientDataVariableId as string));
+         await this.db.delete(patientDataVariables).where(or(
+            eq(patientDataVariables.id, patientDataVariableOrPatientProfilId as string),
+            eq(patientDataVariables.patientProfilId, patientDataVariableOrPatientProfilId as string),
+         ),);
       } catch (error) {
          throw new PatientDataVariableRepositoryError("Erreur lors de la suppression du patient Data Variables.", error as Error, {
-            patientDataVariableId,
+            patientDataVariableOrPatientProfilId,
          });
       }
    }

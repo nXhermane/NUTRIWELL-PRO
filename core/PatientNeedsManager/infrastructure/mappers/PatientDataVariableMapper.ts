@@ -7,7 +7,7 @@ export class PatientDataVariableMapper implements Mapper<PatientDataVariable, Pa
    toPersistence(entity: PatientDataVariable): PatientDataVariablePersistence {
       return {
          id: entity.id.toString(),
-         patientId: entity.patientId.toString(),
+         patientProfilId: entity.patientProfilId.toString(),
          variables: entity.variables,
          createdAt: entity.createdAt,
          updatedAt: entity.updatedAt,
@@ -19,7 +19,7 @@ export class PatientDataVariableMapper implements Mapper<PatientDataVariable, Pa
          createdAt: record.createdAt,
          updatedAt: record.updatedAt,
          props: {
-            patientId: record.patientId,
+            patientProfilId: record.patientProfilId,
             variables: record.variables,
          },
       });
@@ -27,7 +27,7 @@ export class PatientDataVariableMapper implements Mapper<PatientDataVariable, Pa
    toResponse(entity: PatientDataVariable): PatientDataVariableDto {
       return {
          id: entity.id,
-         patientId: entity.patientId,
+         patientProfilId: entity.patientProfilId,
          variables: entity.variables,
          createdAt: entity.createdAt,
          updatedAt: entity.updatedAt,

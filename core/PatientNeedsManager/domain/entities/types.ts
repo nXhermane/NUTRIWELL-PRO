@@ -1,9 +1,9 @@
 import { AggregateID } from "@/core/shared";
 import { NutrientNeedsValue } from "./PatientNeeds";
 
-// Mapping Table : Variable Alias : PathOrValue of Variable
+// Mapping Table : Variable Alias : Variable Name or variable value
 export type VariableMappingTable = {
-   [variableName: string]: string;
+   [variableName: string]: any;
 };
 
 export type CreatePatientNeedsProps = {

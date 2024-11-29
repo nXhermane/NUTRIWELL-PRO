@@ -45,7 +45,7 @@ export const nutritionFormulars = sqliteTable("nutrition_formulars", {
 
 export const patientDataVariables = sqliteTable("patient_data_variables", {
    id: text("id").primaryKey(),
-   patientId: text("patient_id").unique().notNull(),
+   patientProfilId: text("patient_profil_id").unique().notNull(),
    variables: text("variables", { mode: "json" }).notNull().$type<PatientDataVariables>(),
    createdAt: text("createdAt")
       .notNull()

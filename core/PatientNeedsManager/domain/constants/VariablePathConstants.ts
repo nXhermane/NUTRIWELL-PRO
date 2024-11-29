@@ -2,6 +2,7 @@ import { AggregateID } from "@/core/shared";
 
 export const invariablePath = {
    patientProfilPath: "patientProfil",
+   patientGender: "gender",
    patientAge: "age",
    patientAgeInYears: "ageYears",
    patientAgeInMonths: "ageMonths",

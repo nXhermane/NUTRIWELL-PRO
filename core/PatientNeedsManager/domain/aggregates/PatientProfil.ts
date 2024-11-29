@@ -22,6 +22,7 @@ import { HealthMetrics, IHealthMetrics } from "../value-objects/HealthMetrics";
 import { MeasurementAddedtoPatientProfilEvent } from "../events/MeasurementAddedToPatientProfil";
 import { combinePath, invariablePath } from "../constants/VariablePathConstants";
 import { MeasurementDeletedFromPatientProfilEvent } from "../events/MeasurementDeletedFromPatientProfilEvent";
+import { Objective } from "../entities/Objective";
 
 export interface IPatientProfil {
    patientId: AggregateID;
@@ -34,12 +35,13 @@ export interface IPatientProfil {
    bodyComposition: { [measureCode: string]: HealthMetrics };
    medicalAnalyses: { [measureCode: string]: HealthMetrics };
    medicalCondition: { [medicalConditionId: AggregateID]: MedicalCondition };
-   currentGoal: CurrentGoal;
+   objectives: Record<AggregateID,Objective>
    otherInformations: { [infoName: string]: any };
 }
 
 export class PatientProfil extends AggregateRoot<IPatientProfil> {
    public validate(): void {
+      // TODO: I can implement validation laters here...
       this._isValid = true;
    }
    get patientId(): AggregateID {
@@ -113,12 +115,7 @@ export class PatientProfil extends AggregateRoot<IPatientProfil> {
    get medicalConditionNames(): string[] {
       return Object.values(this.props.medicalCondition).map((measurement) => measurement.name);
    }
-   get currentGoal(): ICurrentGoal {
-      return this.props.currentGoal.unpack();
-   }
-   set currentGoal(currentGoal: CurrentGoal) {
-      this.props.currentGoal = currentGoal;
-   }
+
    addAnthropometricMeasure(healthMetrics: HealthMetrics) {
       this.props.anthropomethricMeasure[healthMetrics.unpack().code] = healthMetrics;
       this.validate();
@@ -329,7 +326,7 @@ export class PatientProfil extends AggregateRoot<IPatientProfil> {
                gender: genderResult.val,
                height: heightResult.val,
                weight: weightResult.val,
-               currentGoal: currentGoalResult.val,
+               objectives: [],
                medicalCondition: Object.fromEntries(
                   medicalConditionResult.map((medicalCondResult: Result<MedicalCondition>) => [medicalCondResult.val.id, medicalCondResult.val]),
                ),

@@ -1,61 +1,74 @@
 import { PathResolver } from "smart-path-resolver";
-import { NutritionalReferenceValueRepository } from "../../infrastructure/repositories/interfaces/NutritionalReferenceValueRepository";
-import { NutritionFormularRepository } from "../../infrastructure/repositories/interfaces/NutritionFormularRepository";
 import { NutritionalReferenceValue } from "../entities/NutritionalReferenceValue";
 import { NutritionFormular } from "../entities/NutritionFormular";
 import { VariableMappingTable } from "../entities/types";
-import { ComposedObject, ContextType, IDataComposerService } from "./interfaces/DataComposerService";
+import { ComposedObject, IDataComposerService } from "./interfaces/DataComposerService";
 import { INutritionFormularService } from "./interfaces/NutritionFormularService";
 import { INutritionalReferenceValueService } from "./interfaces/NutritionalReferenceValueService";
+import { DataRoot, IGenerateDataRootService } from "./interfaces/GenerateDataRoot";
+import { AggregateID } from "@/core/shared";
+import { PatientDataVariableRepository } from "../../infrastructure";
 
 export class DataComposerService implements IDataComposerService {
-   private dataIsLoaded = false;
-   private primaryData = {
-      formular: new Map<string, NutritionFormular>(),
-      anref: new Map<{ tagname: string; origin: string }, NutritionalReferenceValue>(),
-   };
+   private dataComposerCatch: Map<AggregateID, { data: DataRoot; variables: Record<string, string> }> = new Map();
+   private readonly maxCatchSize: number = 5;
    constructor(
-      private formularRepo: NutritionFormularRepository,
-      private nutritionalReferenceRepo: NutritionalReferenceValueRepository,
-      private nutritionFormularService: INutritionFormularService,
+      private rootGenerator: IGenerateDataRootService,
       private nutritionalReferenceValueService: INutritionalReferenceValueService,
-   ) {}
-   async loadPrimaryData() {
-      if (!this.dataIsLoaded) {
-         const formularData = await this.formularRepo.getAll();
-         const anrefData = await this.nutritionalReferenceRepo.getAll();
-         formularData.forEach((formular: NutritionFormular) => this.primaryData.formular.set(formular.name, formular));
-         anrefData.forEach((anref: NutritionalReferenceValue) =>
-            this.primaryData.anref.set({ tagname: anref.tagnames, origin: anref.origin }, anref),
-         );
-         this.dataIsLoaded = true;
+      private nutritionFormularService: INutritionFormularService,
+      private patientDataVariableRepo: PatientDataVariableRepository,
+   ) { }
+
+   async compose(variableMappingTable: VariableMappingTable, patientProfilId: AggregateID): Promise<ComposedObject> {
+      // TODO: getion du cache , 
+      // * Maintenant j'utilise le FIFO , mais je pourrais utiliser un cache plus avancé le Least Recently Used (LRU) ou un TTL (Time to Live)
+      if (!this.dataComposerCatch.has(patientProfilId)) {
+         if (this.dataComposerCatch.size >= this.maxCatchSize) {
+            const firstKey = this.dataComposerCatch.keys().next().value; // Récupère la première clé
+            this.dataComposerCatch.delete(firstKey as AggregateID); // Supprime la première entrée pour libérer de l'espace
+         }
+         const dataRoot = await this.rootGenerator.generate(patientProfilId);
+         const patientDataVariable = await this.patientDataVariableRepo.getById(patientProfilId);
+         const variables = patientDataVariable.variables
+         if (dataRoot.isFailure) throw new Error(String(dataRoot.err));
+         this.dataComposerCatch.set(patientProfilId, { data: dataRoot.val, variables });
       }
-   }
-   async compose<T extends ContextType = any>(variableMappingTable: VariableMappingTable, context: T): Promise<ComposedObject> {
-      await this.loadPrimaryData();
-      const rootObject = {
-         ...this.primaryData,
-         ...context,
-      };
+      // recuperer les données du catch
+      const dataComposerCatchObject = this.dataComposerCatch.get(patientProfilId)
+      if (!dataComposerCatchObject) {
+         throw new Error(`Cache miss for patient profile ID: ${patientProfilId}`);
+      }
+      // rootObject 
+      const rootObject = dataComposerCatchObject.data
+      // rootVariables : contient les noms de variables specifiques au patient Profil et les relies a leurs paths respectifs
+      const rootVariables = dataComposerCatchObject.variables
+
       const composedObject: ComposedObject = {};
+      // le path resolver permet d'analyser les paths afin de renvoyer la valeur de la variable correspondante
       const pathResolver = new PathResolver(rootObject);
-      for (const [key, path] of Object.entries(variableMappingTable)) {
-         const pathResolvedValue = await pathResolver.resolve(path);
-         if (pathResolvedValue instanceof NutritionalReferenceValue) {
-            const nutRefValueVariable = await this.compose<T>(pathResolvedValue.variables, context);
-            const nutritionalReferenceValueResult = this.nutritionalReferenceValueService.getNutritionalRecommendedValue(
-               pathResolvedValue,
-               nutRefValueVariable,
-            );
-            if (nutritionalReferenceValueResult.isFailure) throw new Error((nutritionalReferenceValueResult.err as any)?.message);
-            composedObject[key] = nutritionalReferenceValueResult.val.value;
-         } else if (pathResolvedValue instanceof NutritionFormular) {
-            const formularVariables = await this.compose<T>(pathResolvedValue.variables, context);
-            const nutritionFormularResult = this.nutritionFormularService.resolveFormular(pathResolvedValue, formularVariables);
-            if (nutritionFormularResult.isFailure) throw new Error((nutritionFormularResult.err as any)?.message);
-            composedObject[key] = nutritionFormularResult.val.value;
+
+      for (const [key, variableName] of Object.entries(variableMappingTable)) {
+         if (typeof variableName === 'string') {
+            const path = rootVariables[variableName]
+            const pathResolvedValue = await pathResolver.resolve(path);
+            if (pathResolvedValue instanceof NutritionalReferenceValue) {
+               const nutRefValueVariable = await this.compose(pathResolvedValue.variables, patientProfilId);
+               const nutritionalReferenceValueResult = this.nutritionalReferenceValueService.getNutritionalRecommendedValue(
+                  pathResolvedValue,
+                  nutRefValueVariable,
+               );
+               if (nutritionalReferenceValueResult.isFailure) throw new Error((nutritionalReferenceValueResult.err as any)?.message);
+               composedObject[key] = nutritionalReferenceValueResult.val.value;
+            } else if (pathResolvedValue instanceof NutritionFormular) {
+               const formularVariables = await this.compose(pathResolvedValue.variables, patientProfilId);
+               const nutritionFormularResult = this.nutritionFormularService.resolveFormular(pathResolvedValue, formularVariables);
+               if (nutritionFormularResult.isFailure) throw new Error((nutritionFormularResult.err as any)?.message);
+               composedObject[key] = nutritionFormularResult.val.value;
+            } else {
+               composedObject[key] = pathResolvedValue;
+            }
          } else {
-            composedObject[key] = pathResolvedValue;
+            composedObject[key] = variableName;
          }
       }
       return composedObject;

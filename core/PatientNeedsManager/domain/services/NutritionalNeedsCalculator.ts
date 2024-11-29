@@ -59,7 +59,7 @@ export class NutritionalNeedsCalculator implements INutritionalNeedsCalculator {
       patientProfil: PatientProfil,
    ): Promise<NutrientNeedsValue> {
       const variableMappingTable = nutrientModel.variables;
-      const composedTable = await this.dataComposerService.compose<PatientProfil>(variableMappingTable, patientProfil);
+      const composedTable = await this.dataComposerService.compose(variableMappingTable,patientProfil.id);
       const nutrientValue = SmartCalc(nutrientModel.value, composedTable);
       return {
          value: nutrientValue as number,

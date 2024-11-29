@@ -1,8 +1,10 @@
-// Data Composer : se charge de la recuperation des donnees a partir d'un mapping table composer du nom de la variable et du chemin vers la source de donnees
+// * Data Composer : se charge de la recuperation des donnees a partir d'un mapping table composer du nom de la variable et du chemin vers la source de donnees
+// * Changement de context pour le datacomposer , ce n'est plus lui qui se charge de la recupperation des données a partir des sources mais plutot
+// le Root Generator qui rencoie les l'element racines dans laquelle le datacomposer va naviguer avec le pathresolver pour identifier les variables.
 
+import { AggregateID } from "@/core/shared";
 import { VariableMappingTable } from "../../entities/types";
-export type ContextType = { [key: string]: any };
 export type ComposedObject = { [variableName: string]: any };
 export interface IDataComposerService {
-   compose<T extends ContextType = any>(variableMappingTable: VariableMappingTable, context: T): Promise<ComposedObject>;
+   compose(variableMappingTable: VariableMappingTable, patientProfilId: AggregateID): Promise<ComposedObject>;
 }

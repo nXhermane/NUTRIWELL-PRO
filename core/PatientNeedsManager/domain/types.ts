@@ -19,7 +19,7 @@ export interface CreatePatientProfilProps {
    otherInformations: { [infoName: string]: any };
 }
 export type CreatePatientDataVariable = {
-   patientId: AggregateID;
+   patientProfilId: AggregateID;
    variables: { [variableName: string]: string };
 };
 export interface CreateMedicalConditionProps extends Omit<IMedicalCondition, "severity" | "healthIndicators"> {
