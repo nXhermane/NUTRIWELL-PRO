@@ -17,10 +17,10 @@ export class DataComposerService implements IDataComposerService {
       private nutritionalReferenceValueService: INutritionalReferenceValueService,
       private nutritionFormularService: INutritionFormularService,
       private patientDataVariableRepo: PatientDataVariableRepository,
-   ) { }
+   ) {}
 
    async compose(variableMappingTable: VariableMappingTable, patientProfilId: AggregateID): Promise<ComposedObject> {
-      // TODO: getion du cache , 
+      // TODO: getion du cache ,
       // * Maintenant j'utilise le FIFO , mais je pourrais utiliser un cache plus avancé le Least Recently Used (LRU) ou un TTL (Time to Live)
       if (!this.dataComposerCatch.has(patientProfilId)) {
          if (this.dataComposerCatch.size >= this.maxCatchSize) {
@@ -29,27 +29,27 @@ export class DataComposerService implements IDataComposerService {
          }
          const dataRoot = await this.rootGenerator.generate(patientProfilId);
          const patientDataVariable = await this.patientDataVariableRepo.getById(patientProfilId);
-         const variables = patientDataVariable.variables
+         const variables = patientDataVariable.variables;
          if (dataRoot.isFailure) throw new Error(String(dataRoot.err));
          this.dataComposerCatch.set(patientProfilId, { data: dataRoot.val, variables });
       }
       // recuperer les données du catch
-      const dataComposerCatchObject = this.dataComposerCatch.get(patientProfilId)
+      const dataComposerCatchObject = this.dataComposerCatch.get(patientProfilId);
       if (!dataComposerCatchObject) {
          throw new Error(`Cache miss for patient profile ID: ${patientProfilId}`);
       }
-      // rootObject 
-      const rootObject = dataComposerCatchObject.data
+      // rootObject
+      const rootObject = dataComposerCatchObject.data;
       // rootVariables : contient les noms de variables specifiques au patient Profil et les relies a leurs paths respectifs
-      const rootVariables = dataComposerCatchObject.variables
+      const rootVariables = dataComposerCatchObject.variables;
 
       const composedObject: ComposedObject = {};
       // le path resolver permet d'analyser les paths afin de renvoyer la valeur de la variable correspondante
       const pathResolver = new PathResolver(rootObject);
 
       for (const [key, variableName] of Object.entries(variableMappingTable)) {
-         if (typeof variableName === 'string') {
-            const path = rootVariables[variableName]
+         if (typeof variableName === "string") {
+            const path = rootVariables[variableName];
             const pathResolvedValue = await pathResolver.resolve(path);
             if (pathResolvedValue instanceof NutritionalReferenceValue) {
                const nutRefValueVariable = await this.compose(pathResolvedValue.variables, patientProfilId);

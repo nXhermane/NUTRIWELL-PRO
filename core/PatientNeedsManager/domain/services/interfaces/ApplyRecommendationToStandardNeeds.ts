@@ -5,7 +5,10 @@ import { MedicalCondition } from "../../entities/MedicalCondition";
 import { Objective } from "../../entities/Objective";
 
 export interface IApplyRecommendationToStandardNeeds {
-    apply(patientNeeds: PatientNeeds, patientProfil: PatientProfil, applyMedicalConditionFirst: boolean): Promise<Result<PatientNeeds>>;
-    applyMedicalConditionRecommendationToPatientNeeds(patientNeeds: PatientNeeds, medicalConditions: MedicalCondition[]): Promise<Result<PatientNeeds>>
-    applyObjectiveRecommendationToPatientNeeds(patientNeeds: PatientNeeds, objectives: Objective[]): Promise<Result<PatientNeeds>>
+   apply(patientNeeds: PatientNeeds, patientProfil: PatientProfil, applyMedicalConditionFirst: boolean): Promise<Result<PatientNeeds>>;
+   applyMedicalConditionRecommendationToPatientNeeds(
+      patientNeeds: PatientNeeds,
+      medicalConditions: MedicalCondition[],
+   ): Promise<Result<PatientNeeds>>;
+   applyObjectiveRecommendationToPatientNeeds(patientNeeds: PatientNeeds, objectives: Objective[]): Promise<Result<PatientNeeds>>;
 }

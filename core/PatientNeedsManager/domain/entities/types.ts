@@ -25,4 +25,4 @@ export type CreateObjectiveProps = {
    targetValue?: number;
    unit?: string;
    description: string;
-}
+};

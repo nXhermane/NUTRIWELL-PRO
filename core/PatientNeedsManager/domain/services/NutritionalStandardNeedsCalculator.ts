@@ -13,7 +13,7 @@ export class NutritionalStandardNeedsCalculator implements INutritionalStandardN
       const micronutrientsNeedsValue = await this.calculateMicronutrientProportion(patientProfilId, patientNeedsModelProps.micronutrients);
       const energyNeedsValue = await this.calculateEnergyProportion(patientProfilId, patientNeedsModelProps.energy);
       const patientNeedsResult = PatientNeeds.create({
-         patientProfilId:patientProfilId ,
+         patientProfilId: patientProfilId,
          energy: energyNeedsValue,
          micronutrients: micronutrientsNeedsValue,
          macronutrients: macronutrientsNeedsValue,
@@ -58,7 +58,7 @@ export class NutritionalStandardNeedsCalculator implements INutritionalStandardN
       patientProfilId: AggregateID,
    ): Promise<NutrientNeedsValue> {
       const variableMappingTable = nutrientModel.variables;
-      const composedTable = await this.dataComposerService.compose(variableMappingTable,patientProfilId);
+      const composedTable = await this.dataComposerService.compose(variableMappingTable, patientProfilId);
       const nutrientValue = SmartCalc(nutrientModel.value, composedTable);
       return {
          value: nutrientValue as number,

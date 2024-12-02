@@ -103,7 +103,7 @@ export class CDate extends ValueObject<string> {
       return this.props.value;
    }
    getDate(): Date {
-      return new Date(this.props.value)
+      return new Date(this.props.value);
    }
    static create(date?: string): Result<CDate> {
       try {

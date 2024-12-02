@@ -36,16 +36,18 @@ export interface IPatientProfil {
    bodyComposition: { [measureCode: string]: HealthMetrics };
    medicalAnalyses: { [measureCode: string]: HealthMetrics };
    medicalCondition: { [medicalConditionId: AggregateID]: MedicalCondition };
-   objectives: Record<AggregateID, Objective>
-   patientNeedsModelId: AggregateID
+   objectives: Record<AggregateID, Objective>;
+   patientNeedsModelId: AggregateID;
    otherInformations: { [infoName: string]: any };
 }
 
 export class PatientProfil extends AggregateRoot<IPatientProfil> {
    public validate(): void {
       // TODO: I can implement validation laters here...
-      if (Guard.isEmpty(this.props.patientId).succeeded) throw new InvalidReference("La reference vers le patient ne doit être vide dans le PatientProfil.")
-      if (Guard.isEmpty(this.props.patientNeedsModelId).succeeded) throw new InvalidReference("La reference vers le model de besoins du patient ne doit être vide.")
+      if (Guard.isEmpty(this.props.patientId).succeeded)
+         throw new InvalidReference("La reference vers le patient ne doit être vide dans le PatientProfil.");
+      if (Guard.isEmpty(this.props.patientNeedsModelId).succeeded)
+         throw new InvalidReference("La reference vers le model de besoins du patient ne doit être vide.");
       this._isValid = true;
    }
    get patientId(): AggregateID {
@@ -56,7 +58,7 @@ export class PatientProfil extends AggregateRoot<IPatientProfil> {
    }
    set patientNeedsModelId(value: AggregateID) {
       this.props.patientNeedsModelId = value;
-      this.validate()
+      this.validate();
    }
 
    get gender(): "M" | "F" | "O" {
@@ -129,14 +131,14 @@ export class PatientProfil extends AggregateRoot<IPatientProfil> {
       return Object.values(this.props.medicalCondition).map((measurement) => measurement.name);
    }
    get objective(): { [objectiveId: AggregateID]: IObjective & BaseEntityProps } {
-      return Object.fromEntries(Object.values(this.props.objectives).map((value: Objective) => [value.id, value.getProps()]))
+      return Object.fromEntries(Object.values(this.props.objectives).map((value: Objective) => [value.id, value.getProps()]));
    }
 
    getObjectives(): Objective[] {
-      return Object.values(this.props.objectives)
+      return Object.values(this.props.objectives);
    }
    getMedicalConditions(): MedicalCondition[] {
-      return Object.values(this.props.medicalCondition)
+      return Object.values(this.props.medicalCondition);
    }
    addAnthropometricMeasure(healthMetrics: HealthMetrics) {
       this.props.anthropomethricMeasure[healthMetrics.unpack().code] = healthMetrics;
@@ -333,7 +335,7 @@ export class PatientProfil extends AggregateRoot<IPatientProfil> {
          const genderResult = Gender.create(createPatientProfilProps.gender);
          const heightResult = Height.create(createPatientProfilProps.height);
          const weightResult = Weight.create(createPatientProfilProps.weight);
-         const objectiveResult = createPatientProfilProps.objective.map(objectiveProps => Objective.create(objectiveProps))
+         const objectiveResult = createPatientProfilProps.objective.map((objectiveProps) => Objective.create(objectiveProps));
          const medicalConditionResult = createPatientProfilProps.medicalCondition?.map((medicalCondition: CreateMedicalConditionProps) =>
             MedicalCondition.create(medicalCondition),
          );
@@ -349,7 +351,7 @@ export class PatientProfil extends AggregateRoot<IPatientProfil> {
                gender: genderResult.val,
                height: heightResult.val,
                weight: weightResult.val,
-               objectives: Object.fromEntries(objectiveResult.map(objectiveRes => [objectiveRes.val.id, objectiveRes.val])),
+               objectives: Object.fromEntries(objectiveResult.map((objectiveRes) => [objectiveRes.val.id, objectiveRes.val])),
                medicalCondition: Object.fromEntries(
                   medicalConditionResult.map((medicalCondResult: Result<MedicalCondition>) => [medicalCondResult.val.id, medicalCondResult.val]),
                ),

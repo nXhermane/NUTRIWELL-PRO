@@ -33,9 +33,9 @@ import { CreateMedicalConditionProps } from "../types";
   */
 export interface IMedicalCondition {
    name: string;
-   standardMedicalConditionId?: AggregateID
+   standardMedicalConditionId?: AggregateID;
    severity: MedicalConditionSeverity;
-   description: string
+   description: string;
    recommendations: NeedsRecommendation[];
    otherInformation: { [key: string]: any };
    healthIndicators: HealthIndicator[];
@@ -43,11 +43,11 @@ export interface IMedicalCondition {
 
 export class MedicalCondition extends Entity<IMedicalCondition> {
    get standardMedicalConditionId(): AggregateID | undefined {
-      return this.props.standardMedicalConditionId
+      return this.props.standardMedicalConditionId;
    }
    set standardMedicalConditionId(id: AggregateID) {
-      this.props.standardMedicalConditionId = id
-      this.validate()
+      this.props.standardMedicalConditionId = id;
+      this.validate();
    }
    get name(): string {
       return this.props.name;
@@ -61,19 +61,19 @@ export class MedicalCondition extends Entity<IMedicalCondition> {
    }
    set severity(value: "light" | "moderate" | "severe") {
       this.props.severity = value as MedicalConditionSeverity;
-      this.validate()
+      this.validate();
    }
    get description(): string {
-      return this.props.description
+      return this.props.description;
    }
    set desciption(desc: string) {
-      this.props.description = desc
+      this.props.description = desc;
    }
    get recommendation(): INeedsRecommendation<any>[] {
       return this.props.recommendations.map((recommendation) => recommendation.unpack());
    }
-   getRecommendations(): NeedsRecommendation[]{
-      return this.props.recommendations
+   getRecommendations(): NeedsRecommendation[] {
+      return this.props.recommendations;
    }
    addRecommandation(...recommandations: NeedsRecommendation[]) {
       this.props.recommendations.push(...recommandations);

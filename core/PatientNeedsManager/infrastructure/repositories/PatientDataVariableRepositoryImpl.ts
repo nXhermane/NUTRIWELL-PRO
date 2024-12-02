@@ -57,10 +57,14 @@ export class PatientDataVariableRepositoryImpl implements PatientDataVariableRep
    }
    async delete(patientDataVariableOrPatientProfilId: AggregateID): Promise<void> {
       try {
-         await this.db.delete(patientDataVariables).where(or(
-            eq(patientDataVariables.id, patientDataVariableOrPatientProfilId as string),
-            eq(patientDataVariables.patientProfilId, patientDataVariableOrPatientProfilId as string),
-         ),);
+         await this.db
+            .delete(patientDataVariables)
+            .where(
+               or(
+                  eq(patientDataVariables.id, patientDataVariableOrPatientProfilId as string),
+                  eq(patientDataVariables.patientProfilId, patientDataVariableOrPatientProfilId as string),
+               ),
+            );
       } catch (error) {
          throw new PatientDataVariableRepositoryError("Erreur lors de la suppression du patient Data Variables.", error as Error, {
             patientDataVariableOrPatientProfilId,

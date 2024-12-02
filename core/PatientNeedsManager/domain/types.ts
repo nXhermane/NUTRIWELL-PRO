@@ -7,13 +7,13 @@ import { CreateObjectiveProps } from "./entities/types";
 
 export interface CreatePatientProfilProps {
    patientId: AggregateID;
-   patientNeedsModelId: AggregateID
+   patientNeedsModelId: AggregateID;
    age: number;
    gender: "M" | "F" | "O";
    height: number;
    weight: number;
    physicalActivityLevel: "Sedentary" | "Lightly Active" | "Moderately Active" | "Very Active" | "Extremely Active";
-   objective: CreateObjectiveProps[]
+   objective: CreateObjectiveProps[];
    medicalCondition: CreateMedicalConditionProps[];
    anthropomethricMeasure: { [measureCode: string]: HealthMetrics };
    bodyComposition: { [measureCode: string]: HealthMetrics };
