@@ -22,7 +22,8 @@ import { HealthMetrics, IHealthMetrics } from "../value-objects/HealthMetrics";
 import { MeasurementAddedtoPatientProfilEvent } from "../events/MeasurementAddedToPatientProfil";
 import { combinePath, invariablePath } from "../constants/VariablePathConstants";
 import { MeasurementDeletedFromPatientProfilEvent } from "../events/MeasurementDeletedFromPatientProfilEvent";
-import { Objective } from "../entities/Objective";
+import { IObjective, Objective } from "../entities/Objective";
+import { PatientNeedsModel } from "../entities/PatientNeedsModel";
 
 export interface IPatientProfil {
    patientId: AggregateID;
@@ -35,18 +36,29 @@ export interface IPatientProfil {
    bodyComposition: { [measureCode: string]: HealthMetrics };
    medicalAnalyses: { [measureCode: string]: HealthMetrics };
    medicalCondition: { [medicalConditionId: AggregateID]: MedicalCondition };
-   objectives: Record<AggregateID,Objective>
+   objectives: Record<AggregateID, Objective>
+   patientNeedsModelId: AggregateID
    otherInformations: { [infoName: string]: any };
 }
 
 export class PatientProfil extends AggregateRoot<IPatientProfil> {
    public validate(): void {
       // TODO: I can implement validation laters here...
+      if (Guard.isEmpty(this.props.patientId).succeeded) throw new InvalidReference("La reference vers le patient ne doit être vide dans le PatientProfil.")
+      if (Guard.isEmpty(this.props.patientNeedsModelId).succeeded) throw new InvalidReference("La reference vers le model de besoins du patient ne doit être vide.")
       this._isValid = true;
    }
    get patientId(): AggregateID {
       return this.props.patientId;
    }
+   get patientNeedsModelId(): AggregateID {
+      return this.props.patientNeedsModelId;
+   }
+   set patientNeedsModelId(value: AggregateID) {
+      this.props.patientNeedsModelId = value;
+      this.validate()
+   }
+
    get gender(): "M" | "F" | "O" {
       return this.props.gender.sexe;
    }
@@ -112,10 +124,20 @@ export class PatientProfil extends AggregateRoot<IPatientProfil> {
    get medicalCondition(): { [medicalRecordId: AggregateID]: IMedicalCondition & BaseEntityProps } {
       return Object.fromEntries(Object.values(this.props.medicalCondition).map((value: MedicalCondition) => [value.id, value.getProps()]));
    }
+
    get medicalConditionNames(): string[] {
       return Object.values(this.props.medicalCondition).map((measurement) => measurement.name);
    }
+   get objective(): { [objectiveId: AggregateID]: IObjective & BaseEntityProps } {
+      return Object.fromEntries(Object.values(this.props.objectives).map((value: Objective) => [value.id, value.getProps()]))
+   }
 
+   getObjectives(): Objective[] {
+      return Object.values(this.props.objectives)
+   }
+   getMedicalConditions(): MedicalCondition[] {
+      return Object.values(this.props.medicalCondition)
+   }
    addAnthropometricMeasure(healthMetrics: HealthMetrics) {
       this.props.anthropomethricMeasure[healthMetrics.unpack().code] = healthMetrics;
       this.validate();
@@ -311,22 +333,23 @@ export class PatientProfil extends AggregateRoot<IPatientProfil> {
          const genderResult = Gender.create(createPatientProfilProps.gender);
          const heightResult = Height.create(createPatientProfilProps.height);
          const weightResult = Weight.create(createPatientProfilProps.weight);
-         const currentGoalResult = CurrentGoal.create(createPatientProfilProps?.currrentGoal || { goalId: "", goalRules: [] }); // TODO : cette partir est a revoir a cause du default Goal
+         const objectiveResult = createPatientProfilProps.objective.map(objectiveProps => Objective.create(objectiveProps))
          const medicalConditionResult = createPatientProfilProps.medicalCondition?.map((medicalCondition: CreateMedicalConditionProps) =>
             MedicalCondition.create(medicalCondition),
          );
-         const validateResult = Result.combine([ageResult, genderResult, heightResult, weightResult, currentGoalResult, ...medicalConditionResult]);
+         const validateResult = Result.combine([ageResult, genderResult, heightResult, weightResult, ...objectiveResult, ...medicalConditionResult]);
          if (validateResult.isFailure) return Result.fail<PatientProfil>(`[Erreur]: ${(validateResult.err as any)?.toJSON() || validateResult.err}`);
 
          const patientProfil = new PatientProfil({
             props: {
                patientId,
+               patientNeedsModelId: createPatientProfilProps.patientNeedsModelId,
                physicalActivityLevel,
                age: ageResult.val,
                gender: genderResult.val,
                height: heightResult.val,
                weight: weightResult.val,
-               objectives: [],
+               objectives: Object.fromEntries(objectiveResult.map(objectiveRes => [objectiveRes.val.id, objectiveRes.val])),
                medicalCondition: Object.fromEntries(
                   medicalConditionResult.map((medicalCondResult: Result<MedicalCondition>) => [medicalCondResult.val.id, medicalCondResult.val]),
                ),

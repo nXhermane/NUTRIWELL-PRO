@@ -72,6 +72,9 @@ export class MedicalCondition extends Entity<IMedicalCondition> {
    get recommendation(): INeedsRecommendation<any>[] {
       return this.props.recommendations.map((recommendation) => recommendation.unpack());
    }
+   getRecommendations(): NeedsRecommendation[]{
+      return this.props.recommendations
+   }
    addRecommandation(...recommandations: NeedsRecommendation[]) {
       this.props.recommendations.push(...recommandations);
       this.validate();

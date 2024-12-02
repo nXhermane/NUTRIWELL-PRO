@@ -9,12 +9,12 @@ export class NeedsRecommendationPriorityManagerService implements INeedsRecommen
       return recommendations.sort((a, b) => a.unpack().priority - b.unpack().priority);
    }
    resolve(
-      nutirentBasicValue: NutrientNeedsValue,
+      nutrientBasicValue: NutrientNeedsValue,
       context: NeedsRecommendationContext,
       recommendations: NeedsRecommendation<any>[],
    ): NutrientNeedsValue {
       const sortedRecommendations = this.sortRecommendationByPriority(recommendations);
-      let nutrientAjustedValue = nutirentBasicValue;
+      let nutrientAjustedValue = nutrientBasicValue;
       for (let i = sortedRecommendations.length - 1; i < 0; i--) {
          const currentRecommendation = sortedRecommendations[i];
          nutrientAjustedValue = currentRecommendation.apply(nutrientAjustedValue, context);

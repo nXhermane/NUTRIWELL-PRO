@@ -3,15 +3,17 @@ import { ICurrentGoal } from "./value-objects/CurrentGoal";
 import { IMedicalCondition } from "./entities/MedicalCondition";
 import { HealthMetrics } from "./value-objects/HealthMetrics";
 import { IHealthIndicator } from "../../shared/modules/NeedsRecommendations/value-object/HealthIndicator";
+import { CreateObjectiveProps } from "./entities/types";
 
 export interface CreatePatientProfilProps {
    patientId: AggregateID;
+   patientNeedsModelId: AggregateID
    age: number;
    gender: "M" | "F" | "O";
    height: number;
    weight: number;
    physicalActivityLevel: "Sedentary" | "Lightly Active" | "Moderately Active" | "Very Active" | "Extremely Active";
-   currrentGoal?: ICurrentGoal;
+   objective: CreateObjectiveProps[]
    medicalCondition: CreateMedicalConditionProps[];
    anthropomethricMeasure: { [measureCode: string]: HealthMetrics };
    bodyComposition: { [measureCode: string]: HealthMetrics };
