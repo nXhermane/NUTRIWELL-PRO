@@ -8,6 +8,7 @@ import { INutritionalReferenceValueService } from "./interfaces/NutritionalRefer
 import { DataRoot, IGenerateDataRootService } from "./interfaces/GenerateDataRoot";
 import { AggregateID } from "@/core/shared";
 import { PatientDataVariableRepository } from "../../infrastructure";
+import { DataComposerServiceError } from "./errors/DataComposerError";
 
 export class DataComposerService implements IDataComposerService {
    private dataComposerCatch: Map<AggregateID, { data: DataRoot; variables: Record<string, string> }> = new Map();
@@ -30,7 +31,7 @@ export class DataComposerService implements IDataComposerService {
          const dataRoot = await this.rootGenerator.generate(patientProfilId);
          const patientDataVariable = await this.patientDataVariableRepo.getById(patientProfilId);
          const variables = patientDataVariable.variables;
-         if (dataRoot.isFailure) throw new Error(String(dataRoot.err));
+         if (dataRoot.isFailure) throw new DataComposerServiceError(String(dataRoot.err));
          this.dataComposerCatch.set(patientProfilId, { data: dataRoot.val, variables });
       }
       // recuperer les données du catch
@@ -60,9 +61,9 @@ export class DataComposerService implements IDataComposerService {
                if (nutritionalReferenceValueResult.isFailure) throw new Error((nutritionalReferenceValueResult.err as any)?.message);
                composedObject[key] = nutritionalReferenceValueResult.val.value;
             } else if (pathResolvedValue instanceof NutritionFormular) {
-               const formularVariables = await this.compose(pathResolvedValue.variables, patientProfilId);
-               const nutritionFormularResult = this.nutritionFormularService.resolveFormular(pathResolvedValue, formularVariables);
-               if (nutritionFormularResult.isFailure) throw new Error((nutritionFormularResult.err as any)?.message);
+               const formularVariables = await this.compose(pathResolvedValue.conditionVariables, patientProfilId);
+               const nutritionFormularResult = await this.nutritionFormularService.resolveFormular(pathResolvedValue, formularVariables,patientProfilId);
+               if (nutritionFormularResult.isFailure) throw new DataComposerServiceError((nutritionFormularResult.err as any)?.message);
                composedObject[key] = nutritionFormularResult.val.value;
             } else {
                composedObject[key] = pathResolvedValue;

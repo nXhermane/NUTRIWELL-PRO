@@ -1,5 +1,9 @@
 import { EmptyStringError, Entity, ExceptionBase, Guard, IQuantity, Result } from "@/core/shared";
-
+/**
+ * L'idée principle ici c'était d'augmenter la flexibilitée lors de la definition du model de besoins du patient 
+ * Donc dans la propiete value, on a une expression qui peut faire reference a une anref dans la base de donnée ou être 
+ * simplement une formule interpretable 
+ */
 export type NutrientNeedsCalculationModel = {
    isFormular: boolean;
    value: string;

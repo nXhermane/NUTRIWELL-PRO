@@ -10,3 +10,4 @@ export * from "./Time";
 export * from "./Date";
 export * from "./Timeframe";
 export * from "./Quantity";
+export * from "./NutritionnalSource";

@@ -1,6 +1,8 @@
-import { AggregateID } from "@/core/shared";
+import { AggregateID, INutritionalSource } from "@/core/shared";
 import { FormularVariables } from "../../domain/entities/NutritionFormular";
+import { IFormularExpression } from "../../domain/value-objects/FormularExpression";
 
+export type FormularExpressionPersistence = IFormularExpression
 export interface Timestamp {
    createdAt: string;
    updatedAt: string;
@@ -9,7 +11,7 @@ export interface Timestamp {
 export interface NutritionalReferenceValuePersistence extends Timestamp {
    id: AggregateID;
    tagnames: string;
-   origin: string;
+   source: INutritionalSource;
    unit: string;
    values: NutritionalRefPersistence[];
    conditionVariables: VariablesPersistence;
@@ -17,9 +19,9 @@ export interface NutritionalReferenceValuePersistence extends Timestamp {
 export interface NutritionFormularPersistence extends Timestamp {
    id: AggregateID;
    name: string;
-   expression: string;
-   condition: string;
-   variables: FormularVariables;
+   source: INutritionalSource
+   conditionVariables: VariablesPersistence
+   formularExpressions: FormularExpressionPersistence[]
 }
 export interface NutritionalRefPersistence {
    condition: string;

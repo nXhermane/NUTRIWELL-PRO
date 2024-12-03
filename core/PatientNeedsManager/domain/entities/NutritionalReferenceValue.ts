@@ -1,19 +1,18 @@
-import { EmptyStringError, Entity, Guard, Result } from "@/core/shared";
+import { EmptyStringError, Entity, Guard, INutritionalSource, NutritionalSource } from "@/core/shared";
 import { INutritionalRef, NutritionalRef } from "../value-objects/NutritionalRef";
-import { FormularVariables } from "./NutritionFormular";
 import { VariableMappingTable } from "./types";
-import SmartCal from "smartcal";
 
 export type VariableObject = { [variableName: string]: any };
 export type NutritionalRecommendedValue = {
    value: number;
    unit: string;
    tagname: string;
+   source: INutritionalSource
 };
 export type ConditionVariables = VariableMappingTable;
 export interface INutritionalReferenceValue {
    tagnames: string;
-   origin: string;
+   source: NutritionalSource;
    unit: string;
    values: NutritionalRef[];
    variables: ConditionVariables;
@@ -26,11 +25,11 @@ export class NutritionalReferenceValue extends Entity<INutritionalReferenceValue
       this.props.tagnames = value;
       this.validate();
    }
-   get origin(): string {
-      return this.props.origin;
+   get source(): INutritionalSource {
+      return this.props.source.unpack();
    }
-   set origin(value: string) {
-      this.props.origin = value;
+   set source(value: NutritionalSource) {
+      this.props.source = value;
       this.validate();
    }
    get unit(): string {
@@ -68,7 +67,6 @@ export class NutritionalReferenceValue extends Entity<INutritionalReferenceValue
    public validate(): void {
       this._isValid = false;
       if (Guard.isEmpty(this.props.tagnames).succeeded) throw new EmptyStringError("Le Tagnane ne doit pas etre vide.");
-      if (Guard.isEmpty(this.props.origin).succeeded) throw new EmptyStringError("l'origine pas etre vide");
       if (Guard.isEmpty(this.props.unit).succeeded) throw new EmptyStringError("L'unité ne doit pas etre vide");
       if (Guard.isEmpty(this.props.values).succeeded) throw new EmptyStringError("L'values pas etre vide");
       this._isValid = true;

@@ -1,5 +1,7 @@
 import { sql } from "drizzle-orm";
 import { sqliteTable, text } from "drizzle-orm/sqlite-core";
+import { FormularExpressionPersistence } from "../repositories";
+import { INutritionalSource } from "@/core/shared";
 
 export type NutritionalRef = {
    condition: string;
@@ -31,9 +33,9 @@ export const nutritionalReferencesValues = sqliteTable("nutritional_reference_va
 export const nutritionFormulars = sqliteTable("nutrition_formulars", {
    id: text("id").primaryKey(),
    name: text("formularName").notNull(),
-   expression: text("formularExpression").notNull(),
-   condition: text("formularCondition").default("1"),
-   variables: text("variables", { mode: "json" }).$type<Variables>(),
+   formularExpressions: text("formularExpressions", { mode: "json" }).$type<FormularExpressionPersistence[]>(),
+   conditionVariables: text("conditionVariables", { mode: "json" }).$type<Variables>(),
+   source: text("source", { mode: "json" }).$type<INutritionalSource>(),
    createdAt: text("createdAt")
       .notNull()
       .default(sql`CURRENT_TIMESTAMP`),
