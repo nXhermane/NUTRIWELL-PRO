@@ -12,3 +12,5 @@ export * from "./NutritionistServiceType";
 export * from "./NutritionistServicePatientType";
 export * from "./MedicalConditionSeverity";
 export * from "./env";
+export * from "./ModelType";
+export * from "./NutrientStaticTagname"
