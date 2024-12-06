@@ -7,7 +7,7 @@ export type NutritionalRecommendedValue = {
    value: number;
    unit: string;
    tagname: string;
-   source: INutritionalSource
+   source: INutritionalSource;
 };
 export type ConditionVariables = VariableMappingTable;
 export interface INutritionalReferenceValue {

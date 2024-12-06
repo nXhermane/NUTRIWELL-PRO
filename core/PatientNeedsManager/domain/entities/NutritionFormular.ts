@@ -7,14 +7,14 @@ export type NutritionFormularResult = {
    value: number | string;
    name: string;
 };
-// On a besoin que les formules aussi respecte la convention avec les valeurs de references . 
-// Donc on a un nom de formules et on a des conditions pour pouvoir choisir la version de la formule a utiliser deplus que ceux sont des entités 
+// On a besoin que les formules aussi respecte la convention avec les valeurs de references .
+// Donc on a un nom de formules et on a des conditions pour pouvoir choisir la version de la formule a utiliser deplus que ceux sont des entités
 
 export interface INutritionFormular {
    name: string;
-   source: NutritionalSource
-   conditionVariables: VariableMappingTable
-   formularExpressions: FormularExpression[]
+   source: NutritionalSource;
+   conditionVariables: VariableMappingTable;
+   formularExpressions: FormularExpression[];
 }
 
 export class NutritionFormular extends Entity<INutritionFormular> {
@@ -34,7 +34,7 @@ export class NutritionFormular extends Entity<INutritionFormular> {
    }
 
    get source(): INutritionalSource {
-      return this.props.source.unpack()
+      return this.props.source.unpack();
    }
 
    get conditionVariables(): VariableMappingTable {
@@ -42,7 +42,7 @@ export class NutritionFormular extends Entity<INutritionFormular> {
    }
 
    get formularExpressions(): IFormularExpression[] {
-      return this.props.formularExpressions.map(expression => expression.unpack());
+      return this.props.formularExpressions.map((expression) => expression.unpack());
    }
 
    public validate(): void {
@@ -57,25 +57,25 @@ export class NutritionFormular extends Entity<INutritionFormular> {
    }
 
    set source(value: NutritionalSource) {
-      this.props.source = value
-      this.validate()
+      this.props.source = value;
+      this.validate();
    }
 
    set conditionVariables(value: VariableMappingTable) {
       this.props.conditionVariables = value;
-      this.validate()
+      this.validate();
    }
    addFormularExpression(...formularExpressions: FormularExpression[]): void {
-      formularExpressions.forEach(expression => {
-         const index = this.props.formularExpressions.findIndex(exp => exp.equals(expression));
+      formularExpressions.forEach((expression) => {
+         const index = this.props.formularExpressions.findIndex((exp) => exp.equals(expression));
          if (index !== -1) this.props.formularExpressions[index] = expression;
          else this.props.formularExpressions.push(expression);
-      })
+      });
    }
    removeFormularExpression(...formularExpressions: FormularExpression[]): void {
-      formularExpressions.forEach(expression => {
-         const index = this.props.formularExpressions.findIndex(exp => exp.equals(expression));
+      formularExpressions.forEach((expression) => {
+         const index = this.props.formularExpressions.findIndex((exp) => exp.equals(expression));
          if (index !== -1) this.props.formularExpressions.splice(index, 1);
-      })
+      });
    }
 }

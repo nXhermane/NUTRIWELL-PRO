@@ -17,7 +17,7 @@ export class NutritionalReferenceValueService implements INutritionalReferenceVa
          value: nutritionalRefValue as number,
          unit: nutritionalReferenceValue.unit,
          tagname: nutritionalReferenceValue.tagnames,
-         source: nutritionalReferenceValue.source
+         source: nutritionalReferenceValue.source,
       });
    }
    getNutritionalAdaptedValue(nutritionalReferenceValue: NutritionalReferenceValue, variableObject: VariableObject): Result<NutritionalRef> {

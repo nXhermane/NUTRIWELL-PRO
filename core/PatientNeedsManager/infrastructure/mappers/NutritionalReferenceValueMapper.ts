@@ -22,7 +22,7 @@ export class NutritionalReferenceValueMapper
    toDomain(record: NutritionalReferenceValuePersistence): NutritionalReferenceValue {
       const { values, id, createdAt, updatedAt, ...otherProps } = record;
       const nutritionalRefs = values.map((value) => new NutritionalRef(value));
-      const source = NutritionalSource.create(record.source)
+      const source = NutritionalSource.create(record.source);
       return new NutritionalReferenceValue({
          id,
          createdAt,

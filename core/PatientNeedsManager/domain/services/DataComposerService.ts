@@ -62,7 +62,11 @@ export class DataComposerService implements IDataComposerService {
                composedObject[key] = nutritionalReferenceValueResult.val.value;
             } else if (pathResolvedValue instanceof NutritionFormular) {
                const formularVariables = await this.compose(pathResolvedValue.conditionVariables, patientProfilId);
-               const nutritionFormularResult = await this.nutritionFormularService.resolveFormular(pathResolvedValue, formularVariables,patientProfilId);
+               const nutritionFormularResult = await this.nutritionFormularService.resolveFormular(
+                  pathResolvedValue,
+                  formularVariables,
+                  patientProfilId,
+               );
                if (nutritionFormularResult.isFailure) throw new DataComposerServiceError((nutritionFormularResult.err as any)?.message);
                composedObject[key] = nutritionFormularResult.val.value;
             } else {

@@ -1,0 +1,110 @@
+  
+
+   
+   Parlons du patientNeedsModel 
+        Cette entité permet de storker les expressions a évaluer pour trouver la valeur 
+         d'un nutriment chez un patient 
+        L'idée de base ou le model de base est la suivante : 
+         - energy : Un key value object qui storkera les noms de l'energy a calculer (par ex: energ_kcal,energ_kj) 
+            chacun d'eux étant associé a une expression mathematque sous forme de string qu'on va se charger d'executer pour calculer la valeur lors du calcule des besoins du patient 
+         - macronutriments: Même structure 
+         - micronutriments : Même structure
+
+         Alors cette modelisation presente maintenant des risques , il n'y avais aucune méthode qui verifiait la validité des expressions entrées par le nutritionniste 
+         , pas de cohesion ou de validation entre les differents nutriments , il n'y avait pas de relation presente dans le domaine de la nutrition dans cette entité 
+
+         Alors comment améliorer cette entité pour avoir une modelisation plus proche de la realité tout en gardant la flexibilité , l'extensibilité et la maintenablité ?
+
+
+         On va s'attaquer a chaque problème de l'autre modelisation 
+          
+          1 - La validation des expressions mathematiques :
+           Pour cela on va d'abord exposé une api permettant de valider les expressions mathematiques depuis notre bibliothèque smartcal 
+           , puis on va la utiliser dans notre modelisation pour valider les expressions entrées lors de la creation de l'entité
+
+         2 - La cohesion entre les nutriments : 
+           Ici on doit repenser a la remodelisation , puisque ici , non seulement , on ne connait pas les nutriments qu'on manipulera , on a pas de regles solide pour limiter certaines actions du nutritionniste 
+
+           On sait dans la realité des choses , energy est en relation avec les macronutriments , les sous nutriments de chaque macronutriment est en relation avec son parent 
+           les micronutriments , eux ils sont pas reliés au autres groupes mais doivent respecter certaine règles aussi ( ne pas depasser une certaine valeur par ex.)
+
+
+      Maintenant j'ai une idée de la modelisation ideale. 
+      La modelisation actulle on peut toujour garder la flexibilité convenue avec une legère baisse .
+
+      Ici les nutriment sont toujour modeliser avec la structure suivante : 
+        Nom ou tagname : Un string qui represente le nom du nutriment
+        expression : Un string qui represente l'expression mathematique a valider et a executer pour calculer la valeur du nutriment
+        variablesExpression: les variables utilisées dans l'expression mathematique
+        unit: La unité du nutriment
+      
+      On ajoute dans le model une value object nommée validation regualar avec la structure suivante : 
+         expression : c'est l'expression qui va être valider en ayant une valeur de retour boolean ex: energy ==(proteine * .....) ou bien la somme des sous nutriments vont être inferieur a la valeur du nutriement parent ( glucide > sucrose + glucose + lactose + maltose + destrine ...)
+         variablesOfExpression: qui va contenir les nutriments qui entre en jeu et les autres variables utilisées 
+         * on va permettre la modification de cette expression par le nutritionniste a chaque modification du systeme 
+          * on peut aussi permettre de notifier les nutriments déja validés et les non validés
+          on valide ces notifications a chaque fois et il peuvent avoir une methode qui va examiner l'expression et verifier sa validité ou non 
+
+      On ajoute un service de validation qui encapsule la validation dell'entité et sa génération entant que composant valide du systeme 
+
+      Revenons a la structure meme de notre entité , la nouvelle structure est la suivante
+       * on a les macronutriments regrouper sous un meme objets mais cette fois en differenciant bien les les sous nutriments qui vont etre mise en dessou de leurs parents
+        on a quelque chose comme cela :
+          maconutriments : {( il est noté que ici nous avons une structure de base dans notre patient model pour laquelle le systeme etablir des régles predefine )
+            proteine{
+               value: Nutriment[]
+               sous nutriment : Nutriment[]
+            }
+          }     
+          comme nutriment dispo , on a les proteines , les glucides , les lipides , energies en kcal et en kj , fibre non inclure dans les glucides   , les polyols et quelque vitamines 
+          alors ici des problemes peuvent se poser a l'idée d'utilier le metabolisme de base pour determiner ces nutriments ou d'utiliser les équations de besoins estimatifs du canada
+          cela vas inclure l'utilisation du protocole du canada , donc on peut avoir des objet json qui peuvent former la structures de bases endehors du code et c'est notre capacités a intégrer cette structure la avec l'entité patientNeedsModel qui sera importante et il doit aussi être modifiable par le nutritionniste   
+      dans ce service la validation se faire par calcule a l'aide des expressions des valeurs numériques representant les besoins réels et c'est sur ces besoins là qu'on va appliqueer les regles afin de valider l'entité 
+      donc on doit aussi reflechir a la performance de notre librairy smartcal . 
+          
+
+
+
+
+      Maintenant j'ai une structure et une process un peu comprehensible,  du modelisation a avoir 
+
+      on a le patientNeedsModel {
+        dans le model systme qui sera consacrer au protocole on doit specifier le nom du protocole pour que le nutritionniste comprends ces choix donc lors de la creation du model patient 
+        macronutriments : {
+          les nutriments macro avec les objets Nutriments associer a leur tagname 
+          et on ne parlera plus de sous nutriment meme les glucose , sacarose et ag insature seront inclure ici sans exceptions meme l'eau 
+         La particularite est que on definir des structures de base prise en charge par le systeme donc le nutritionniste peut choisir d'utiliser un model existant a applique a un patient ou bien il choisi le model puis le modifiera plustard 
+
+        }
+        miconutriments : {
+          adapte les meme regles 
+        }
+        energyMetric: { 
+          tous ce qui contribue a la determination de l'energy 
+          peut contenir energy en kcal ou kj ou le metabolisme de base du patient 
+        }
+        leTypeDeModel : permettant de specifier et de dire que cela est juste un model present dans le systeme au debut et specifique quand c'est adopter par un patient 
+        lesReglesDeValidation: ValidationRegular{
+          expression a evaluer : revoyant 0 si elle est vrai et 1 si elle est fausse ou eleve une exception qui sera controler par le service validateur de patientModel 
+          listeDesNutrimentEnJeu: c'est le array des nutriments qui sont utilisés par l'expression 
+          ortherVariables : qui contiendra les autres variables utiliées dans l'expression 
+        }[]
+        
+      }
+       Nutriment{
+tagname: le code infoods du nutriments 
+expression: expressiono a evaluer
+unit: unité 
+variables : les variables contenues dans l'expression 
+      }
+
+      PatientModelValidatorSerive{
+        qui va etre le service de validation
+        alors ici on utiliser les ValidationRegular pour effecuter les validations 
+        et lors de la validation , c'est les expresions qui sont evaluer et que pour le nutriment prise en charge on calcule directment la valeur numerique du nutriment afin de l'utiliser dans l'expression a evaluer et c'est poour cela qu'on a principalement la liste des nutriments mise en jeu 
+      }
+      donc on peut dire en quelque sorte qu'on aura un model standard qui sera pour le systeme et un model qui est specifique pour chaque patient modifiable et adaptable pour des cas specifique du patient et la on peut lui permettre meme de modifier les règles de validations
+
+      donc le nutritionniste peut choisir pour un patient specifique un model type de besoins present dans le systeme mais adaptable selon les données du patient 
+       j'espere que je n'ai pas derailler la definition initiale de notre model 
+      

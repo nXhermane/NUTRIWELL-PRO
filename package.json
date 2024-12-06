@@ -51,7 +51,7 @@
       "react-native-web": "~0.19.13",
       "react-native-webview": "13.12.2",
       "smart-path-resolver": "^1.0.1",
-      "smartcal": "^1.0.0"
+      "smartcal": "^1.0.1"
    },
    "devDependencies": {
       "@babel/core": "^7.25.2",

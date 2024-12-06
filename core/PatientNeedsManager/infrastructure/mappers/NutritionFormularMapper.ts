@@ -17,15 +17,15 @@ export class NutritionFormularMapper implements Mapper<NutritionFormular, Nutrit
       };
    }
    toDomain(record: NutritionFormularPersistence): NutritionFormular {
-      const source = NutritionalSource.create(record.source)
-      const formularExpressions = record.formularExpressions.map((expression) => FormularExpression.create(expression))
+      const source = NutritionalSource.create(record.source);
+      const formularExpressions = record.formularExpressions.map((expression) => FormularExpression.create(expression));
       return new NutritionFormular({
          id: record.id,
          props: {
             name: record.name,
             source: source.val,
             conditionVariables: record.conditionVariables,
-            formularExpressions: formularExpressions.map(expression => expression.val)
+            formularExpressions: formularExpressions.map((expression) => expression.val),
          },
          createdAt: record.createdAt,
          updatedAt: record.updatedAt,

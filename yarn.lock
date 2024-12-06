@@ -2414,11 +2414,6 @@ ansi-styles@^6.1.0:
   resolved "https://registry.yarnpkg.com/ansi-styles/-/ansi-styles-6.2.1.tgz#0e62320cf99c21afff3b3012192546aacbfb05c5"
   integrity sha512-bN798gFfQX+viw3R7yrGWRqnrN2oRkEkUjjl4JNn4E8GxxbjtG3FbrEIIY3l8/hrwUwIeCZvi4QuOTP4MErVug==
 
-antlr4@^4.13.2:
-  version "4.13.2"
-  resolved "https://registry.yarnpkg.com/antlr4/-/antlr4-4.13.2.tgz#0d084ad0e32620482a9c3a0e2470c02e72e4006d"
-  integrity sha512-QiVbZhyy4xAZ17UPEuG3YTOt8ZaoeOR1CvEAqrEsDBsOqINslaB147i9xqljZqoyf5S+EUlGStaj+t22LT9MOg==
-
 any-promise@^1.0.0:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/any-promise/-/any-promise-1.3.0.tgz#abc6afeedcea52e809cdc0376aed3ce39635d17f"
@@ -7681,12 +7676,10 @@ smart-path-resolver@^1.0.1:
   resolved "https://registry.yarnpkg.com/smart-path-resolver/-/smart-path-resolver-1.0.1.tgz#b940110e1b0e28afd13f62d7322abd5c9b1e6ed5"
   integrity sha512-0OFNpoxXBFjykKOEWgZ8za4fzHXfh5AYIG8lmd2HmiF88eH1Pj17EVC23hz/XW1YVinteQdBdsSSWkWMGsbtFQ==
 
-smartcal@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/smartcal/-/smartcal-1.0.0.tgz#dc1d7ec50df96e3788d073991584598f2aca33fd"
-  integrity sha512-3tY7FAczdwi1qoVthiQ6ealuIABdOMhxdWFroQigADBXk+V8+nsmqZ3N3i6rBerohWWBzXnGxJ0asK39zQ09Dw==
-  dependencies:
-    antlr4 "^4.13.2"
+smartcal@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/smartcal/-/smartcal-1.0.1.tgz#6522451f78181106068e14102d893326c17eea25"
+  integrity sha512-c1DdW1iQDkBjRVP3FnMKJ8NMe/hFb9HuVQJvM1vNI1gdfmpRwVGLdfP1vvlxNLWYGCyjXicUPUfiGpysBRfaBA==
 
 source-map-js@^1.2.1:
   version "1.2.1"

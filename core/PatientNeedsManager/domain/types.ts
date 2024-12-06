@@ -3,7 +3,7 @@ import { ICurrentGoal } from "./value-objects/CurrentGoal";
 import { IMedicalCondition } from "./entities/MedicalCondition";
 import { HealthMetrics } from "./value-objects/HealthMetrics";
 import { IHealthIndicator } from "../../shared/modules/NeedsRecommendations/value-object/HealthIndicator";
-import { CreateObjectiveProps } from "./entities/types";
+import { CreateObjectiveProps, VariableMappingTable } from "./entities/types";
 
 export interface CreatePatientProfilProps {
    patientId: AggregateID;
@@ -38,4 +38,9 @@ export type CreateIntakeDataProps = {
       tagname: string;
       unit: string;
    }[];
+};
+export type CreateValidationRegularProps = {
+   expression: string;
+   nutrientInsolved: string[];
+   otherVariables: VariableMappingTable;
 };

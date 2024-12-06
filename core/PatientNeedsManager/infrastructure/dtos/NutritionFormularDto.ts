@@ -7,9 +7,9 @@ import { IFormularExpression } from "../../domain/value-objects/FormularExpressi
 export interface NutritionFormularDto {
    id: AggregateID;
    name: string;
-   source: INutritionalSource
-   conditionVariables: VariableMappingTable
-   formularExpressions: IFormularExpression[]
+   source: INutritionalSource;
+   conditionVariables: VariableMappingTable;
+   formularExpressions: IFormularExpression[];
    createdAt: string;
    updatedAt: string;
 }

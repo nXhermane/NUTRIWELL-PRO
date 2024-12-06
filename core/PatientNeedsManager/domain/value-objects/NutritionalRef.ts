@@ -8,14 +8,23 @@ export interface INutritionalRef {
    amt?: number;
    as?: number;
 }
+
 export class NutritionalRef extends ValueObject<INutritionalRef> {
    constructor(props: INutritionalRef) {
       super(props);
    }
    protected validate(props: INutritionalRef): void {
-      if (Guard.isEmpty(props.condition).succeeded) throw new EmptyStringError("La conditon de NutritionalRef ne peut être vide. Elle doit être mise a vrai au moins.")
-      if (Guard.isNegative(props.weight).succeeded) throw new NegativeValueError("La valeur du poids d'application du NutritionalRef ne doit être négative.")
-      if (Guard.isEmpty(props.amt).succeeded && Guard.isEmpty(props.anr).succeeded && Guard.isEmpty(props.as).succeeded && Guard.isEmpty(props.bme).succeeded) throw new ArgumentNotProvidedException("Au moins un des valeurs de références doivent être fourni.")
+      if (Guard.isEmpty(props.condition).succeeded)
+         throw new EmptyStringError("La conditon de NutritionalRef ne peut être vide. Elle doit être mise a vrai au moins.");
+      if (Guard.isNegative(props.weight).succeeded)
+         throw new NegativeValueError("La valeur du poids d'application du NutritionalRef ne doit être négative.");
+      if (
+         Guard.isEmpty(props.amt).succeeded &&
+         Guard.isEmpty(props.anr).succeeded &&
+         Guard.isEmpty(props.as).succeeded &&
+         Guard.isEmpty(props.bme).succeeded
+      )
+         throw new ArgumentNotProvidedException("Au moins un des valeurs de références doivent être fourni.");
    }
    static create(props: INutritionalRef): Result<NutritionalRef> {
       try {
