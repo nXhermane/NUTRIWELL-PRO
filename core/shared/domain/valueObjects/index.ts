@@ -11,3 +11,7 @@ export * from "./Date";
 export * from "./Timeframe";
 export * from "./Quantity";
 export * from "./NutritionnalSource";
+export * from "./NutrientTagname";
+export * from "./NutrientUnit";
+export * from "./FormularName";
+export * from "./FormularUnit";

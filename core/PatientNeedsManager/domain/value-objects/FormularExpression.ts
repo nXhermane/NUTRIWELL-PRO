@@ -1,21 +1,31 @@
 import { EmptyStringError, ExceptionBase, Guard, Result, ValueObject } from "@/core/shared";
 import { VariableMappingTable } from "../entities/types";
-
+import { Expression } from "./Expression";
+import { CreateFormularExpression } from "./types";
+// Ici c'est supposé que chaque formule nutritionnelle a une condititon a valider avant d'appliquer la formule a un patient
 export interface IFormularExpression {
-   condition: string;
-   expression: string;
+   condition: Expression; // condititon 
+   expression: Expression; // expression mathematique a évalué 
    expressionVariables: VariableMappingTable;
 }
 
 export class FormularExpression extends ValueObject<IFormularExpression> {
    protected validate(props: IFormularExpression): void {
-      if (Guard.isEmpty(props.expression).succeeded) throw new EmptyStringError("La valeur de l'expression d'une formule ne peux être vide.");
-      if (Guard.isEmpty(props.condition).succeeded)
-         throw new EmptyStringError("La valeur de la condition a remplir pour utiliser une formule ne peux être vide.");
    }
-   static create(props: IFormularExpression): Result<FormularExpression> {
+   get expression(): string { return this.props.expression.toString(); }
+   get condition(): string { return this.props.condition.toString(); }
+   get expressionVariables(): VariableMappingTable { return this.props.expressionVariables; }
+   static create(props: CreateFormularExpression): Result<FormularExpression> {
       try {
-         const formular = new FormularExpression(props);
+         const condition = Expression.create(props.condition)
+         const expression = Expression.create(props.expression);
+         const combinedResult = Result.combine([condition, expression])
+         if (combinedResult.isFailure) return Result.fail<FormularExpression>(String(combinedResult.err))
+         const formular = new FormularExpression({
+            condition: condition.val,
+            expression: expression.val,
+            expressionVariables: props.expressionVariables,
+         });
          return Result.ok(formular);
       } catch (error) {
          return error instanceof ExceptionBase

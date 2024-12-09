@@ -11,17 +11,24 @@ export type NutritionalRef = {
    amt?: number;
    as?: number;
 };
+export type NutritionalSourcePersistenceType = {
+   organization: string; // Nom de l'organisation (ex. "OMS", "Santé Canada")
+   country: string; // Pays d'origine (ex. "Canada", "États-Unis")
+   publicationYear: number; // Année de publication
+   version?: string; // Version spécifique (facultatif)
+}
 export type Variables = {
    [variableAlias: string]: string;
 };
 export type PatientDataVariables = Record<string, string>;
 export const nutritionalReferencesValues = sqliteTable("nutritional_reference_values", {
-   id: text("id").primaryKey(),
-   tagname: text("nutrientTagname"),
-   origin: text("origin"),
-   value: text("value", { mode: "json" }).$type<NutritionalRef[]>(),
+   id: text("id").primaryKey().notNull(),
+   tagname: text("nutrientTagname").notNull(),
+   source: text("source", { mode: "json" }).$type<NutritionalSourcePersistenceType>(),
+   values: text("values", { mode: "json" }).$type<NutritionalRef[]>(),
    conditionVariables: text("variables", { mode: "json" }).$type<Variables>(),
    unit: text("unit").notNull(),
+   systemVariableName: text("systemVariableName").notNull(),
    createdAt: text("createdAt")
       .notNull()
       .default(sql`CURRENT_TIMESTAMP`),
@@ -31,11 +38,13 @@ export const nutritionalReferencesValues = sqliteTable("nutritional_reference_va
       .$onUpdate(() => sql`CURRENT_TIMESTAMP`),
 });
 export const nutritionFormulars = sqliteTable("nutrition_formulars", {
-   id: text("id").primaryKey(),
+   id: text("id").primaryKey().notNull(),
    name: text("formularName").notNull(),
    formularExpressions: text("formularExpressions", { mode: "json" }).$type<FormularExpressionPersistence[]>(),
    conditionVariables: text("conditionVariables", { mode: "json" }).$type<Variables>(),
-   source: text("source", { mode: "json" }).$type<INutritionalSource>(),
+   source: text("source", { mode: "json" }).$type<NutritionalSourcePersistenceType>(),
+   unit : text("unit").notNull(),
+   systemVariableName: text("systemVariableName").notNull(),
    createdAt: text("createdAt")
       .notNull()
       .default(sql`CURRENT_TIMESTAMP`),

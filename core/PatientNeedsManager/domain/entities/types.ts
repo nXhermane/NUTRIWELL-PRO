@@ -1,5 +1,8 @@
-import { AggregateID, ITimeframe, NeedsRecommendation } from "@/core/shared";
+import { AggregateID, INutritionalSource, ITimeframe, NeedsRecommendation } from "@/core/shared";
 import { NutrientNeedsValue } from "./PatientNeeds";
+import { INutritionalRef } from "../value-objects/NutritionalRef";
+import { CreateFormularExpression, CreateNutritionalRef } from "../value-objects/types";
+import { IFormularExpression } from "../value-objects/FormularExpression";
 
 // Mapping Table : Variable Alias : Variable Name or variable value
 export type VariableMappingTable = {
@@ -26,3 +29,17 @@ export type CreateObjectiveProps = {
    unit?: string;
    description: string;
 };
+export type CreateNutritionalReferenceValueProps = {
+   tagnames: string;
+   source: INutritionalSource;
+   unit: string;
+   values: CreateNutritionalRef[];
+   variables: VariableMappingTable;
+}
+export type CreateNutritionFormulaProps = {
+   name : string
+   source: INutritionalSource;
+   conditionVariables: VariableMappingTable;
+   formularExpressions: CreateFormularExpression[];
+   unit: string
+}

@@ -1,6 +1,7 @@
-import { EmptyStringError, Entity, Guard, INutritionalSource, NutritionalSource } from "@/core/shared";
+import { EmptyStringError, Entity, ExceptionBase, Guard, INutritionalSource, NutrientTagname, NutrientUnit, NutritionalSource, Result } from "@/core/shared";
 import { INutritionalRef, NutritionalRef } from "../value-objects/NutritionalRef";
-import { VariableMappingTable } from "./types";
+import { CreateNutritionalReferenceValueProps, VariableMappingTable } from "./types";
+import { NutritionalVariable } from "../value-objects/NutritionalVariable";
 
 export type VariableObject = { [variableName: string]: any };
 export type NutritionalRecommendedValue = {
@@ -11,18 +12,19 @@ export type NutritionalRecommendedValue = {
 };
 export type ConditionVariables = VariableMappingTable;
 export interface INutritionalReferenceValue {
-   tagnames: string;
+   tagname: NutrientTagname;
    source: NutritionalSource;
-   unit: string;
+   unit: NutrientUnit;
    values: NutritionalRef[];
    variables: ConditionVariables;
+   systemVariableName: string
 }
 export class NutritionalReferenceValue extends Entity<INutritionalReferenceValue> {
-   get tagnames(): string {
-      return this.props.tagnames;
+   get tagname(): string {
+      return this.props.tagname.toString();
    }
-   set tagnames(value: string) {
-      this.props.tagnames = value;
+   set tagname(value: NutrientTagname) {
+      this.props.tagname = value ;
       this.validate();
    }
    get source(): INutritionalSource {
@@ -33,9 +35,9 @@ export class NutritionalReferenceValue extends Entity<INutritionalReferenceValue
       this.validate();
    }
    get unit(): string {
-      return this.props.unit;
+      return this.props.unit.toString();
    }
-   set unit(value: string) {
+   set unit(value: NutrientUnit) {
       this.props.unit = value;
       this.validate();
    }
@@ -48,6 +50,9 @@ export class NutritionalReferenceValue extends Entity<INutritionalReferenceValue
    set variables(value: ConditionVariables) {
       this.props.variables = value;
       this.validate();
+   }
+   get systemVariableName(): string {
+      return this.props.systemVariableName;
    }
 
    addValue(...values: NutritionalRef[]): void {
@@ -66,9 +71,39 @@ export class NutritionalReferenceValue extends Entity<INutritionalReferenceValue
 
    public validate(): void {
       this._isValid = false;
-      if (Guard.isEmpty(this.props.tagnames).succeeded) throw new EmptyStringError("Le Tagnane ne doit pas etre vide.");
-      if (Guard.isEmpty(this.props.unit).succeeded) throw new EmptyStringError("L'unité ne doit pas etre vide");
-      if (Guard.isEmpty(this.props.values).succeeded) throw new EmptyStringError("L'values pas etre vide");
+      if (Guard.isEmpty(this.props.values).succeeded) throw new EmptyStringError("On doit avoir au moin un anref par NutritionalReferenceValue pas etre vide");
       this._isValid = true;
+   }
+   static create(createNutritionalRefValue: CreateNutritionalReferenceValueProps): Result<NutritionalReferenceValue> {
+      try {
+         const tagname = NutrientTagname.create(createNutritionalRefValue.tagnames)
+         const source = NutritionalSource.create(createNutritionalRefValue.source)
+         const unit = NutrientUnit.create(createNutritionalRefValue.unit)
+         const combinedResults = Result.combine([tagname, source, unit])
+         if(combinedResults.isFailure) return Result.fail<NutritionalReferenceValue>(String(combinedResults.err))
+            const variableName = NutritionalVariable.create({
+               formularOrNutrientName: tagname.val,
+               source: source.val 
+            })
+            const nutritionalRefValues = createNutritionalRefValue.values.map(value => NutritionalRef.create(value))
+            const combinedResults2 = Result.combine([variableName,...nutritionalRefValues])
+            if(combinedResults2.isFailure) return Result.fail<NutritionalReferenceValue>(String(combinedResults2.err))  
+            const nutritionalReferenceValue = new NutritionalReferenceValue({
+               props:{
+                  tagname: tagname.val,
+                  source: source.val,
+                  unit: unit.val,
+                  values: nutritionalRefValues.map(value => value.val),
+                  variables: createNutritionalRefValue.variables,
+                  systemVariableName: variableName.val.getVariableName()
+               }
+            })
+            return Result.ok<NutritionalReferenceValue> (nutritionalReferenceValue)
+      } catch (error) {
+         return error instanceof ExceptionBase
+         ? Result.fail<NutritionalReferenceValue>(`[${error.code}]:${error.message}`)
+         : Result.fail<NutritionalReferenceValue>(`Erreur inattendue. ${NutritionalReferenceValue?.constructor.name}`);
+ 
+      }
    }
 }

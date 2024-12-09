@@ -1,12 +1,13 @@
-import { Guard, Result } from "./../../../../core";
-import { DomainPrimitive, ValueObject } from "./../../../../domain";
-import { EmptyStringError, ExceptionBase } from "./../../../../exceptions";
+import { Guard, Result } from "../../core";
+import { EmptyStringError, ExceptionBase } from "../../exceptions";
+import { ValueObject, DomainPrimitive } from "../ValueObject";
+
 export class NutrientTagname extends ValueObject<string> {
    toString(): string {
       return this.props.value;
    }
    protected validate(props: DomainPrimitive<string>): void {
-      if (Guard.isEmpty(props.value)) throw new EmptyStringError("Le tagname Infoods du nutriment ne peut être vide.");
+      if (Guard.isEmpty(props.value)) throw new EmptyStringError("Le tagname Infoods du nutriment ne peut pas être vide.");
    }
    static create(tagname: string): Result<NutrientTagname> {
       try {

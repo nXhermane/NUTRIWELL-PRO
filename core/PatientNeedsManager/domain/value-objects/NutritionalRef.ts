@@ -1,7 +1,9 @@
-import { ArgumentNotProvidedException, EmptyStringError, ExceptionBase, Guard, NegativeValueError, Result, ValueObject } from "@/core/shared";
+import { ArgumentNotProvidedException, EmptyStringError, EvaluateMathExpression, ExceptionBase, Guard, InvalidArgumentFormatError, NegativeValueError, Result, ValueObject } from "@/core/shared";
+import { Expression } from "./Expression";
+import { CreateNutritionalRef } from "./types";
 
 export interface INutritionalRef {
-   condition: string;
+   condition: Expression;
    weight: number;
    bme?: number;
    anr?: number;
@@ -14,8 +16,6 @@ export class NutritionalRef extends ValueObject<INutritionalRef> {
       super(props);
    }
    protected validate(props: INutritionalRef): void {
-      if (Guard.isEmpty(props.condition).succeeded)
-         throw new EmptyStringError("La conditon de NutritionalRef ne peut être vide. Elle doit être mise a vrai au moins.");
       if (Guard.isNegative(props.weight).succeeded)
          throw new NegativeValueError("La valeur du poids d'application du NutritionalRef ne doit être négative.");
       if (
@@ -26,9 +26,18 @@ export class NutritionalRef extends ValueObject<INutritionalRef> {
       )
          throw new ArgumentNotProvidedException("Au moins un des valeurs de références doivent être fourni.");
    }
-   static create(props: INutritionalRef): Result<NutritionalRef> {
+   static create(props: CreateNutritionalRef): Result<NutritionalRef> {
       try {
-         const ref = new NutritionalRef(props);
+         const condition = Expression.create(props.condition)
+         if (condition.isFailure) return Result.fail<NutritionalRef>(String(condition.err))
+         const ref = new NutritionalRef({
+            condition: condition.val,
+            weight: props.weight,
+            bme: props.bme,
+            anr: props.anr,
+            amt: props.amt,
+            as: props.as,
+         });
          return Result.ok<NutritionalRef>(ref);
       } catch (error) {
          return error instanceof ExceptionBase

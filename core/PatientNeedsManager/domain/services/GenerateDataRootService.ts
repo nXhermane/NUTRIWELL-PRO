@@ -25,7 +25,7 @@ export class GenerateDataRootService implements IGenerateDataRootService {
          const formularData = await this.formularRepo.getAll();
          const anrefData = await this.nutritionalReferenceRepo.getAll();
          formularData.forEach((formular: NutritionFormular) => (this.primaryData.formular[formular.name] = formular));
-         anrefData.forEach((anref: NutritionalReferenceValue) => (this.primaryData.anref[`${anref.tagnames}_${anref.origin}`] = anref));
+         anrefData.forEach((anref: NutritionalReferenceValue) => (this.primaryData.anref[`${anref.tagnames}_${anref.source}`] = anref));
          this.dataIsLoaded = true;
       }
    }

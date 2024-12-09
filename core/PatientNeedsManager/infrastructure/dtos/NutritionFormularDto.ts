@@ -1,15 +1,16 @@
-import { AggregateID, INutritionalSource } from "@/core/shared";
-import { FormularVariables } from "../../domain/entities/NutritionFormular";
-import { INutrientAmount } from "@/core/FoodsAndRecipesDatabase/domain";
+import { AggregateID } from "@/core/shared";
 import { VariableMappingTable } from "../../domain/entities/types";
-import { IFormularExpression } from "../../domain/value-objects/FormularExpression";
+import { CreateFormularExpression } from "../../domain/value-objects/types";
+import { NutritionalSourcePersistenceType } from "../database/patientNeeds";
 
 export interface NutritionFormularDto {
    id: AggregateID;
    name: string;
-   source: INutritionalSource;
+   source: NutritionalSourcePersistenceType;
    conditionVariables: VariableMappingTable;
-   formularExpressions: IFormularExpression[];
+   formularExpressions: CreateFormularExpression[];
+   unit: string
+   systemVariableName: string
    createdAt: string;
    updatedAt: string;
 }

@@ -8,7 +8,6 @@ import {
    MeasurementTypeService,
 } from "./application";
 import { MeasurementTypeRepositoryImplDb, MeasurementTypeDto } from "./infrastructure";
-export * from "./domain/value-object/NutritentTagname";
 import { db } from "./infrastructure/database/db.config";
 import { SQLiteDatabase } from "expo-sqlite";
 export interface INutritionData {
