@@ -3,7 +3,7 @@ import { NutrientDescriptor } from "../value-objects/NutrientDescriptor";
 import { IPatientNeedsValidationRule, PatientNeedsValidationRule } from "../value-objects/PatientNeedsValidationRule";
 
 
-interface IPatientNeedsModel {
+export interface IPatientNeedsModel {
     modelType: ModelType
     protocolName?: string;
     macronutrients: { [nutrientTagname: string]: NutrientDescriptor }
@@ -13,7 +13,7 @@ interface IPatientNeedsModel {
     isValidModel: boolean // Attribue permettant de dire que ce model est déjà verifier par le sercice de validation 
 }
 
-class PatientNeedsModel extends Entity<IPatientNeedsModel> {
+export class PatientNeedsModel extends Entity<IPatientNeedsModel> {
     get modelType(): "standard" | "specific" {
         return this.props.modelType;
     }

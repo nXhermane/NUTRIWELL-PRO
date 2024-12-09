@@ -37,7 +37,7 @@ export class PatientNeedsValidationRule extends ValueObject<IPatientNeedsValidat
             nutrientsInsolved: nutrientInsolved.map((nutrient) => nutrient.val),
             otherVariables: props.otherVariables,
          });
-         return Result.ok(validationRegular);
+         return Result.ok<PatientNeedsValidationRule>(validationRegular);
       } catch (e: any) {
          return e instanceof ExceptionBase
             ? Result.fail<PatientNeedsValidationRule>(`[${e.code}]: ${e.message}`)
