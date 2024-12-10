@@ -14,3 +14,10 @@ export type CreateFormularExpression = {
     expression: string
     expressionVariables: VariableMappingTable
 }
+
+export type CreateNutrientDescriptorProps = {
+    expression: string;
+    tagname: string;
+    unit: string;
+    variables: VariableMappingTable;
+}

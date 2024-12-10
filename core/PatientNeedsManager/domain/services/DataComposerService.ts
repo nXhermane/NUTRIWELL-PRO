@@ -9,6 +9,7 @@ import { DataRoot, IGenerateDataRootService } from "./interfaces/GenerateDataRoo
 import { AggregateID, EvaluatePath } from "@/core/shared";
 import { PatientDataVariableRepository } from "../../infrastructure";
 import { DataComposerServiceError } from "./errors/DataComposerError";
+import { PatientProfil } from "../aggregates/PatientProfil";
 
 export class DataComposerService implements IDataComposerService {
    private dataComposerCatch: Map<AggregateID, { data: DataRoot; variables: Record<string, string> }> = new Map();
@@ -20,24 +21,24 @@ export class DataComposerService implements IDataComposerService {
       private patientDataVariableRepo: PatientDataVariableRepository,
    ) {}
 
-   async compose(variableMappingTable: VariableMappingTable, patientProfilId: AggregateID): Promise<ComposedObject> {
+   async compose(variableMappingTable: VariableMappingTable, patientProfil: PatientProfil): Promise<ComposedObject> {
       // TODO: getion du cache ,
       // * Maintenant j'utilise le FIFO , mais je pourrais utiliser un cache plus avancé le Least Recently Used (LRU) ou un TTL (Time to Live)
-      if (!this.dataComposerCatch.has(patientProfilId)) {
+      if (!this.dataComposerCatch.has(patientProfil.id)) {
          if (this.dataComposerCatch.size >= this.maxCatchSize) {
             const firstKey = this.dataComposerCatch.keys().next().value; // Récupère la première clé
             this.dataComposerCatch.delete(firstKey as AggregateID); // Supprime la première entrée pour libérer de l'espace
          }
-         const dataRoot = await this.rootGenerator.generate(patientProfilId);
-         const patientDataVariable = await this.patientDataVariableRepo.getById(patientProfilId);
+         const dataRoot = await this.rootGenerator.generate(patientProfil);
+         const patientDataVariable = await this.patientDataVariableRepo.getById(patientProfil.id);
          const variables = patientDataVariable.variables;
          if (dataRoot.isFailure) throw new DataComposerServiceError(String(dataRoot.err));
-         this.dataComposerCatch.set(patientProfilId, { data: dataRoot.val, variables });
+         this.dataComposerCatch.set(patientProfil.id, { data: dataRoot.val, variables });
       }
       // recuperer les données du catch
-      const dataComposerCatchObject = this.dataComposerCatch.get(patientProfilId);
+      const dataComposerCatchObject = this.dataComposerCatch.get(patientProfil.id);
       if (!dataComposerCatchObject) {
-         throw new Error(`Cache miss for patient profile ID: ${patientProfilId}`);
+         throw new Error(`Cache miss for patient profile ID: ${patientProfil.id}`);
       }
       // rootObject
       const rootObject = dataComposerCatchObject.data;
@@ -53,7 +54,7 @@ export class DataComposerService implements IDataComposerService {
             const path = rootVariables[variableName] || variableName; // Ici on considere que si l'acces au nom de variable echoue pour le rootVariable , que c'est soit une formule soit une anref
             const pathResolvedValue = pathResolver.resolve(path);
             if (pathResolvedValue instanceof NutritionalReferenceValue) {
-               const nutRefValueVariable = await this.compose(pathResolvedValue.variables, patientProfilId);
+               const nutRefValueVariable = await this.compose(pathResolvedValue.variables, patientProfil);
                const nutritionalReferenceValueResult = this.nutritionalReferenceValueService.getNutritionalRecommendedValue(
                   pathResolvedValue,
                   nutRefValueVariable,
@@ -61,11 +62,11 @@ export class DataComposerService implements IDataComposerService {
                if (nutritionalReferenceValueResult.isFailure) throw new DataComposerServiceError((nutritionalReferenceValueResult.err as any)?.message); 
                composedObject[key] = nutritionalReferenceValueResult.val.value;
             } else if (pathResolvedValue instanceof NutritionFormular) {
-               const formularVariables = await this.compose(pathResolvedValue.conditionVariables, patientProfilId);
+               const formularVariables = await this.compose(pathResolvedValue.conditionVariables, patientProfil);
                const nutritionFormularResult = await this.nutritionFormularService.resolveFormular(
                   pathResolvedValue,
                   formularVariables,
-                  patientProfilId,
+                  patientProfil,
                );
                if (nutritionFormularResult.isFailure) throw new DataComposerServiceError((nutritionFormularResult.err as any)?.message);
                composedObject[key] = nutritionFormularResult.val.value;

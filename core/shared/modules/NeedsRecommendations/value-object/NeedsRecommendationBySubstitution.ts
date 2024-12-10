@@ -12,6 +12,10 @@ export class NeedsRecommendationBySubstitution extends NeedsRecommendation<INeed
       });
    }
    protected _apply(nutrientBasicValue: NutrientNeedsValue, context: NeedsRecommendationContext): NutrientNeedsValue {
-      return this.props.data;
+      return {
+         unit: this.props.data.unit,
+         value: this.props.data.value,
+         tagname: this.props.nutrientTagName
+      }
    }
 }

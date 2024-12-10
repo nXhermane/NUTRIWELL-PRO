@@ -4,20 +4,21 @@ import { NutritionFormular, NutritionFormularResult } from "../entities/Nutritio
 import { INutritionFormularService } from "./interfaces/NutritionFormularService";
 import { IFormularExpression } from "../value-objects/FormularExpression";
 import { IDataComposerService } from "./interfaces/DataComposerService";
+import { PatientProfil } from "../aggregates/PatientProfil";
 
 export class NutritionFormularService implements INutritionFormularService {
    constructor(private dataComposer: IDataComposerService) {}
    async resolveFormular(
       nutritionFormular: NutritionFormular,
       variableObject: VariableObject,
-      patientProfilId: AggregateID,
+      patientProfil:PatientProfil,
    ): Promise<Result<NutritionFormularResult>> {
       try {
          const adaptedFormularResult = this.getAdaptedFormular(nutritionFormular, variableObject);
          if (adaptedFormularResult.isFailure) return Result.fail<NutritionFormularResult>(String(adaptedFormularResult.err));
-         const expressionVariablesObject = await this.dataComposer.compose(adaptedFormularResult.val.expressionVariables, patientProfilId);
+         const expressionVariablesObject = await this.dataComposer.compose(adaptedFormularResult.val.expressionVariables, patientProfil);
          const expressionResult = EvaluateMathExpression.evaluate<typeof expressionVariablesObject>(
-            adaptedFormularResult.val.expression,
+            adaptedFormularResult.val.expression.toString(),
             expressionVariablesObject,
          );
          return Result.ok<NutritionFormularResult>({ value: expressionResult as number | string, name: nutritionFormular.name });
@@ -29,7 +30,7 @@ export class NutritionFormularService implements INutritionFormularService {
       try {
          const formularExpressions = nutritionFormular.formularExpressions;
          const adaptedFormular = formularExpressions.filter((expression: IFormularExpression) => {
-            const condition = expression.condition;
+            const condition = expression.condition.toString();
             const result = EvaluateMathExpression.evaluate<typeof variableObject>(condition, variableObject);
             return result === 0;
          });

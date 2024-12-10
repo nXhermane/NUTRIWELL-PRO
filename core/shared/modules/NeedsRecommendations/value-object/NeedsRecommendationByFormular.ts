@@ -25,6 +25,7 @@ export class NeedsRecommendationByFormular extends NeedsRecommendation<INeedsRec
       if (!Guard.isNumber(formularEvaluationResult).succeeded)
          throw new InvalidResultError("La formule de la recommandation renvoie un resultat incorrecte.");
       return {
+         tagname: this.props.nutrientTagName,
          value: formularEvaluationResult as number,
          unit: this.props.data.unit, // TODO: En principe je devrais coder un convertisseur d'unité pour garantir la coherence .
       };

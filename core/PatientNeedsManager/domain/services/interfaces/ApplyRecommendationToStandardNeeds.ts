@@ -9,6 +9,7 @@ export interface IApplyRecommendationToStandardNeeds {
    applyMedicalConditionRecommendationToPatientNeeds(
       patientNeeds: PatientNeeds,
       medicalConditions: MedicalCondition[],
+      patientProfil: PatientProfil
    ): Promise<Result<PatientNeeds>>;
-   applyObjectiveRecommendationToPatientNeeds(patientNeeds: PatientNeeds, objectives: Objective[]): Promise<Result<PatientNeeds>>;
+   applyObjectiveRecommendationToPatientNeeds(patientNeeds: PatientNeeds, objectives: Objective[], patientProfil: PatientProfil): Promise<Result<PatientNeeds>>;
 }

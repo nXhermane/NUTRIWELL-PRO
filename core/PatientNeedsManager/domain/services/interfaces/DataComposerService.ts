@@ -2,9 +2,9 @@
 // * Changement de context pour le datacomposer , ce n'est plus lui qui se charge de la recupperation des données a partir des sources mais plutot
 // le Root Generator qui rencoie les l'element racines dans laquelle le datacomposer va naviguer avec le pathresolver pour identifier les variables.
 
-import { AggregateID } from "@/core/shared";
+import { PatientProfil } from "../../aggregates/PatientProfil";
 import { VariableMappingTable } from "../../entities/types";
 export type ComposedObject = { [variableName: string]: any };
 export interface IDataComposerService {
-   compose(variableMappingTable: VariableMappingTable, patientProfilId: AggregateID): Promise<ComposedObject>;
+   compose(variableMappingTable: VariableMappingTable, patientProfil: PatientProfil): Promise<ComposedObject>;
 }

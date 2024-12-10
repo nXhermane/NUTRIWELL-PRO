@@ -2,7 +2,6 @@ import {
    AggregateID,
    AggregateRoot,
    BaseEntityProps,
-   Entity,
    ExceptionBase,
    Gender,
    Guard,
@@ -15,7 +14,6 @@ import { Age } from "../value-objects/Age";
 import { Height } from "../value-objects/Height";
 import { Weight } from "../value-objects/Weight";
 import { IMedicalCondition, MedicalCondition } from "./../entities/MedicalCondition";
-import { CurrentGoal, ICurrentGoal } from "../value-objects/CurrentGoal";
 import { CreateMedicalConditionProps, CreatePatientProfilProps } from "../types";
 import { PatientApi } from "@patientManager/application/api";
 import { HealthMetrics, IHealthMetrics } from "../value-objects/HealthMetrics";
@@ -23,7 +21,6 @@ import { MeasurementAddedtoPatientProfilEvent } from "../events/MeasurementAdded
 import { combinePath, invariablePath } from "../constants/VariablePathConstants";
 import { MeasurementDeletedFromPatientProfilEvent } from "../events/MeasurementDeletedFromPatientProfilEvent";
 import { IObjective, Objective } from "../entities/Objective";
-import { PatientNeedsModel } from "../entities/PatientNeedsModel";
 
 export interface IPatientProfil {
    patientId: AggregateID;

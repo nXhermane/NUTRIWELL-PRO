@@ -13,6 +13,7 @@ export class NeedsRecommendationByRelativity extends NeedsRecommendation<INeedsR
    protected _apply(nutrientBasicValue: NutrientNeedsValue, conext: NeedsRecommendationContext): NutrientNeedsValue {
       const value = nutrientBasicValue.value * this.props.data.percentage;
       return {
+         tagname: this.props.nutrientTagName,
          value,
          unit: nutrientBasicValue.unit,
       };

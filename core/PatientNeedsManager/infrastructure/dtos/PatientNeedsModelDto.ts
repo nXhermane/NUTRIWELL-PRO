@@ -1,5 +1,5 @@
 import { AggregateID } from "@/core/shared";
-import { Energy, Macronutrients, Micronutrients } from "../../domain/entities/PatientNeedsModel";
+import { Energy, Macronutrients, Micronutrients } from "../../domain/entities/PatientNeedsModel.legacy";
 
 export interface PatientNeedsModelDto {
    id: AggregateID;

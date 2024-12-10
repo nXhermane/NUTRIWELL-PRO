@@ -26,7 +26,7 @@ export class NutritionalReferenceValueService implements INutritionalReferenceVa
          const referenceValueWhoValidTheCondition: NutritionalRef[] = [];
          // Selection des valeurs de reference valide pour ce patient en fonction de ces donéés
          nutritionalRefValueProps.values.forEach((value: NutritionalRef) => {
-            const condition = value.unpack().condition;
+            const condition = value.unpack().condition.toString();
             const result = EvaluateMathExpression.evaluate<typeof variableObject>(condition, variableObject);
             if (result === 0) referenceValueWhoValidTheCondition.push(value);
          });

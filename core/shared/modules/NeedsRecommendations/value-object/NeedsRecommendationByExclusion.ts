@@ -13,6 +13,7 @@ export class NeedsRecommendationByExclusion extends NeedsRecommendation<INeedsRe
    }
    protected _apply(nutrientBasicValue: NutrientNeedsValue, context: NeedsRecommendationContext): NutrientNeedsValue {
       return {
+         tagname: this.props.nutrientTagName,
          value: this.props.data.attribuateValue || 0,
          unit: this.props.data.unit || nutrientBasicValue.unit,
       };

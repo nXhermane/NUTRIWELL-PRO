@@ -1,10 +1,12 @@
-import { EmptyStringError, EvaluateMathExpression, ExceptionBase, Guard, InvalidArgumentFormatError, Result, ValueObject } from "@/core/shared";
+import { ExceptionBase, NutrientTagname, NutrientUnit, Result, ValueObject } from "@/core/shared";
 import { VariableMappingTable } from "../entities/types";
+import { Expression } from "./Expression";
+import { CreateNutrientDescriptorProps } from "./types";
 
 export interface INutrientDescriptor {
-   expression: string;
-   tagname: string;
-   unit: string;
+   expression: Expression;
+   tagname: NutrientTagname;
+   unit: NutrientUnit;
    variables: VariableMappingTable;
 }
 
@@ -13,25 +15,39 @@ export class NutrientDescriptor extends ValueObject<INutrientDescriptor> {
       return this.props.variables;
    }
    get expression(): string {
-      return this.props.expression;
+      return this.props.expression.toString();
    }
    get tagname(): string {
-      return this.props.tagname;
+      return this.props.tagname.toString();
    }
    get unit(): string {
-      return this.props.unit;
+      return this.props.unit.toString();
+   }
+   toObject(): CreateNutrientDescriptorProps {
+      return {
+         expression: this.expression,
+         tagname: this.tagname,
+         unit: this.unit,
+         variables: this.getVariableTable()
+      }
    }
    protected validate(props: INutrientDescriptor): void {
-      if (Guard.isEmpty(props.tagname).succeeded) throw new EmptyStringError("Le tagname du nutriment ne peut être vide.");
-      if (Guard.isEmpty(props.expression).succeeded)
-         throw new EmptyStringError("La valeur de l'expression a evaluer pour calculer le besoin nutritionnel ne peut être vide.");
-      if (Guard.isEmpty(props.unit).succeeded) throw new EmptyStringError("L'unite du nutriment ne peut être vide .");
-      if (EvaluateMathExpression.isValidExpression(props.expression))
-         throw new InvalidArgumentFormatError("L'expression à évaluer n'est pas correcte. Veillez modifier l'expression.");
+
    }
-   static create(props: INutrientDescriptor): Result<NutrientDescriptor> {
+   static create(createNutrientDescriptorProps: CreateNutrientDescriptorProps): Result<NutrientDescriptor> {
       try {
-         const descriptor = new NutrientDescriptor(props);
+         const expression = Expression.create(createNutrientDescriptorProps.expression)
+         const tagname = NutrientTagname.create(createNutrientDescriptorProps.tagname)
+         const unit = NutrientUnit.create(createNutrientDescriptorProps.unit)
+         const combinedResult = Result.combine([expression, unit, tagname])
+         if (combinedResult.isFailure) return Result.fail<NutrientDescriptor>(String(combinedResult.err))
+
+         const descriptor = new NutrientDescriptor({
+            expression: expression.val,
+            tagname: tagname.val,
+            unit: unit.val,
+            variables: createNutrientDescriptorProps.variables
+         });
          return Result.ok<NutrientDescriptor>(descriptor);
       } catch (error) {
          return error instanceof ExceptionBase

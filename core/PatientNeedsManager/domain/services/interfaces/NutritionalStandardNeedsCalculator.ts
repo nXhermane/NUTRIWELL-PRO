@@ -1,7 +1,7 @@
-import { AggregateID } from "@/core/shared";
 import { PatientNeeds } from "../../entities/PatientNeeds";
+import { PatientProfil } from "../../aggregates/PatientProfil";
 import { PatientNeedsModel } from "../../entities/PatientNeedsModel";
 
 export interface INutritionalStandardNeedsCalculator {
-   generatePatientNeeds(patientProfilId: AggregateID, patientNeedsModel: PatientNeedsModel): Promise<PatientNeeds>;
+   generatePatientNeeds(patientProfil: PatientProfil, patientNeedsModel: PatientNeedsModel): Promise<PatientNeeds>;
 }

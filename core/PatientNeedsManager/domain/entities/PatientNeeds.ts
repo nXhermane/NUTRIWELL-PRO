@@ -1,7 +1,7 @@
 import { AggregateID, Entity, ExceptionBase, Guard, InvalidReference, Result } from "@/core/shared";
 import { CreatePatientNeedsProps } from "./types";
 
-export type NutrientNeedsValue = { value: number; unit: string };
+export type NutrientNeedsValue = { tagname: string, value: number; unit: string };
 export interface IPatientNeeds {
    patientProfilId: AggregateID;
    energy: { [energyType: string]: NutrientNeedsValue };
@@ -12,6 +12,7 @@ export interface IPatientNeeds {
 export class PatientNeeds extends Entity<IPatientNeeds> {
    public validate(): void {
       this._isValid = false;
+      // TODO : cette partie doit être implementer via la methode correcte plustard
       if (Guard.isEmpty(this.props.patientProfilId).succeeded)
          throw new InvalidReference("La reference vers le profil du patient doit être fournir et ne doit être vide.");
       this._isValid = true;

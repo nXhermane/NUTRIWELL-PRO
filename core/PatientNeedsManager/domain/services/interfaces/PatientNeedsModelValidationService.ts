@@ -1,4 +1,4 @@
-import { PatientNeedsModel } from "../../entities/PatientNeedsModel.next"
+import { PatientNeedsModel } from "../../entities/PatientNeedsModel"
 
 
 export interface IPatientNeedsModelValidationService {

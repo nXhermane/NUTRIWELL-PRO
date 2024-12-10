@@ -3,6 +3,7 @@ import { DataRoot, IGenerateDataRootService } from "./interfaces/GenerateDataRoo
 import { NutritionalReferenceValueRepository, NutritionFormularRepository, PatientProfilRepository } from "../../infrastructure";
 import { NutritionalReferenceValue } from "../entities/NutritionalReferenceValue";
 import { NutritionFormular } from "../entities/NutritionFormular";
+import { PatientProfil } from "../aggregates/PatientProfil";
 
 export class GenerateDataRootService implements IGenerateDataRootService {
    private dataIsLoaded = false;
@@ -10,7 +11,6 @@ export class GenerateDataRootService implements IGenerateDataRootService {
    constructor(
       private formularRepo: NutritionFormularRepository,
       private nutritionalReferenceRepo: NutritionalReferenceValueRepository,
-      private patientProfilRepo: PatientProfilRepository,
    ) { }
 
    async loadPrimaryData() {
@@ -22,10 +22,9 @@ export class GenerateDataRootService implements IGenerateDataRootService {
          this.dataIsLoaded = true;
       }
    }
-   async generate(patientProfilId: AggregateID): Promise<Result<DataRoot>> {
+   async generate(patientProfil: PatientProfil): Promise<Result<DataRoot>> {
       try {
          await this.loadPrimaryData();
-         const patientProfil = await this.patientProfilRepo.getById(patientProfilId);
          return Result.ok<DataRoot>({
             patientProfil: patientProfil,
             ...this.primaryData

@@ -12,7 +12,7 @@ export class ApplyRecommendationToStandarddNeeds implements IApplyRecommendation
    constructor(
       private dataComposerService: IDataComposerService,
       private needsRecommendatonPriorityManager: INeedsRecommendationPriorityManagerService,
-   ) {}
+   ) { }
    async apply(patientNeeds: PatientNeeds, patientProfil: PatientProfil, applyMedicalConditionFirst: boolean = false): Promise<Result<PatientNeeds>> {
       try {
          const medicalConditions = patientProfil.getMedicalConditions();
@@ -21,20 +21,23 @@ export class ApplyRecommendationToStandarddNeeds implements IApplyRecommendation
             const patientNeedsModifyByMedicalCondition = await this.applyMedicalConditionRecommendationToPatientNeeds(
                patientNeeds,
                medicalConditions,
+               patientProfil
             );
             if (patientNeedsModifyByMedicalCondition.isFailure) return Result.fail<PatientNeeds>(String(patientNeedsModifyByMedicalCondition.err));
             const patientNeedsModifyByObjective = await this.applyObjectiveRecommendationToPatientNeeds(
                patientNeedsModifyByMedicalCondition.val,
                objectives,
+               patientProfil
             );
             if (patientNeedsModifyByObjective.isFailure) return Result.fail<PatientNeeds>(String(patientNeedsModifyByObjective.err));
             return Result.ok<PatientNeeds>(patientNeedsModifyByObjective.val);
          } else {
-            const patientNeedsModifyByObjective = await this.applyObjectiveRecommendationToPatientNeeds(patientNeeds, objectives);
+            const patientNeedsModifyByObjective = await this.applyObjectiveRecommendationToPatientNeeds(patientNeeds, objectives, patientProfil);
             if (patientNeedsModifyByObjective.isFailure) return Result.fail<PatientNeeds>(String(patientNeedsModifyByObjective.err));
             const patientNeedsModifyByMedicalCondition = await this.applyMedicalConditionRecommendationToPatientNeeds(
                patientNeedsModifyByObjective.val,
                medicalConditions,
+               patientProfil
             );
             if (patientNeedsModifyByMedicalCondition.isFailure) return Result.fail<PatientNeeds>(String(patientNeedsModifyByMedicalCondition.err));
             return Result.ok<PatientNeeds>(patientNeedsModifyByObjective.val);
@@ -46,21 +49,22 @@ export class ApplyRecommendationToStandarddNeeds implements IApplyRecommendation
    async applyMedicalConditionRecommendationToPatientNeeds(
       patientNeeds: PatientNeeds,
       medicalConditions: MedicalCondition[],
+      patientProfil: PatientProfil
    ): Promise<Result<PatientNeeds>> {
       try {
          const patientNeedsProps = patientNeeds.getProps();
          const medicalConditionRecommendations = medicalConditions.flatMap((condition) => condition.getRecommendations());
          const [energy, macronutrients, micronutrients] = await Promise.all([
-            this.applyRecommendationToNutrientGroup(patientNeedsProps.energy, medicalConditionRecommendations, patientNeedsProps.patientProfilId),
+            this.applyRecommendationToNutrientGroup(patientNeedsProps.energy, medicalConditionRecommendations, patientProfil),
             this.applyRecommendationToNutrientGroup(
                patientNeedsProps.macronutrients,
                medicalConditionRecommendations,
-               patientNeedsProps.patientProfilId,
+               patientProfil,
             ),
             this.applyRecommendationToNutrientGroup(
                patientNeedsProps.micronutrients,
                medicalConditionRecommendations,
-               patientNeedsProps.patientProfilId,
+               patientProfil
             ),
          ]);
 
@@ -73,14 +77,14 @@ export class ApplyRecommendationToStandarddNeeds implements IApplyRecommendation
          return Result.fail<PatientNeeds>(String(error));
       }
    }
-   async applyObjectiveRecommendationToPatientNeeds(patientNeeds: PatientNeeds, objectives: Objective[]): Promise<Result<PatientNeeds>> {
+   async applyObjectiveRecommendationToPatientNeeds(patientNeeds: PatientNeeds, objectives: Objective[], patientProfil: PatientProfil): Promise<Result<PatientNeeds>> {
       try {
          const patientNeedsProps = patientNeeds.getProps();
          const objectiveRecommendations = objectives.flatMap((objective) => objective.getRecommendation());
          const [energy, macronutrients, micronutrients] = await Promise.all([
-            this.applyRecommendationToNutrientGroup(patientNeedsProps.energy, objectiveRecommendations, patientNeedsProps.patientProfilId),
-            this.applyRecommendationToNutrientGroup(patientNeedsProps.macronutrients, objectiveRecommendations, patientNeedsProps.patientProfilId),
-            this.applyRecommendationToNutrientGroup(patientNeedsProps.micronutrients, objectiveRecommendations, patientNeedsProps.patientProfilId),
+            this.applyRecommendationToNutrientGroup(patientNeedsProps.energy, objectiveRecommendations, patientProfil),
+            this.applyRecommendationToNutrientGroup(patientNeedsProps.macronutrients, objectiveRecommendations, patientProfil),
+            this.applyRecommendationToNutrientGroup(patientNeedsProps.micronutrients, objectiveRecommendations, patientProfil),
          ]);
 
          patientNeeds.setEnergy(energy);
@@ -92,13 +96,13 @@ export class ApplyRecommendationToStandarddNeeds implements IApplyRecommendation
          return Result.fail<PatientNeeds>(String(error));
       }
    }
-   private async composeData(variableMappingTable: VariableMappingTable, patientProfilId: AggregateID): Promise<ComposedObject> {
-      return await this.dataComposerService.compose(variableMappingTable, patientProfilId);
+   private async composeData(variableMappingTable: VariableMappingTable, patientProfil: PatientProfil): Promise<ComposedObject> {
+      return await this.dataComposerService.compose(variableMappingTable, patientProfil);
    }
    private async applyRecommendationToNutrientGroup(
       nutrientGroup: { [nutrientCode: string]: NutrientNeedsValue },
       recommendations: NeedsRecommendation[],
-      patientProfilId: AggregateID,
+      patientProfil: PatientProfil,
    ): Promise<{ [nutrientCode: string]: NutrientNeedsValue }> {
       const nutrientGroupModifyWithRecommendation: { [nutrientTagname: string]: NutrientNeedsValue } = {};
 
@@ -118,7 +122,7 @@ export class ApplyRecommendationToStandarddNeeds implements IApplyRecommendation
                (contextVariableTable, recommendation) => ({ ...contextVariableTable, ...recommendation.getVariableTable() }),
                {},
             );
-            const context = await this.composeData(contextVariableTables, patientProfilId);
+            const context = await this.composeData(contextVariableTables, patientProfil);
             const recommendationValue = this.needsRecommendatonPriorityManager.resolve(
                nutrientNeedsValue,
                { ...context, currentDate: new CDate() },

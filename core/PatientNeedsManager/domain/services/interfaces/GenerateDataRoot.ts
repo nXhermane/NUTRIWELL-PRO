@@ -5,5 +5,5 @@ import { NutritionFormular } from "../../entities/NutritionFormular";
 
 export type DataRoot = { [systemVariableName: string]: NutritionFormular | NutritionalReferenceValue | PatientProfil};
 export interface IGenerateDataRootService {
-   generate(patientProfilId: AggregateID): Promise<Result<DataRoot>>;
+   generate(patientProfil: PatientProfil): Promise<Result<DataRoot>>;
 }
