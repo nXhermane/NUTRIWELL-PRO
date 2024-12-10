@@ -1,4 +1,3 @@
-import { PathResolver } from "smart-path-resolver";
 import { NutritionalReferenceValue } from "../entities/NutritionalReferenceValue";
 import { NutritionFormular } from "../entities/NutritionFormular";
 import { VariableMappingTable } from "../entities/types";
@@ -10,6 +9,7 @@ import { AggregateID, EvaluatePath } from "@/core/shared";
 import { PatientDataVariableRepository } from "../../infrastructure";
 import { DataComposerServiceError } from "./errors/DataComposerError";
 import { PatientProfil } from "../aggregates/PatientProfil";
+import { NutrientNeedsValue } from "@/core/shared";
 
 export class DataComposerService implements IDataComposerService {
    private dataComposerCatch: Map<AggregateID, { data: DataRoot; variables: Record<string, string> }> = new Map();
@@ -19,9 +19,9 @@ export class DataComposerService implements IDataComposerService {
       private nutritionalReferenceValueService: INutritionalReferenceValueService,
       private nutritionFormularService: INutritionFormularService,
       private patientDataVariableRepo: PatientDataVariableRepository,
-   ) {}
+   ) { }
 
-   async compose(variableMappingTable: VariableMappingTable, patientProfil: PatientProfil): Promise<ComposedObject> {
+   async compose(variableMappingTable: VariableMappingTable, patientProfil: PatientProfil, additionalContext: { [key: string]: any } = {}): Promise<ComposedObject> {
       // TODO: getion du cache ,
       // * Maintenant j'utilise le FIFO , mais je pourrais utiliser un cache plus avancé le Least Recently Used (LRU) ou un TTL (Time to Live)
       if (!this.dataComposerCatch.has(patientProfil.id)) {
@@ -41,7 +41,7 @@ export class DataComposerService implements IDataComposerService {
          throw new Error(`Cache miss for patient profile ID: ${patientProfil.id}`);
       }
       // rootObject
-      const rootObject = dataComposerCatchObject.data;
+      const rootObject = { ...dataComposerCatchObject.data, ...additionalContext }
       // rootVariables : contient les noms de variables specifiques au patient Profil et les relies a leurs paths respectifs
       const rootVariables = dataComposerCatchObject.variables;
 
@@ -59,7 +59,7 @@ export class DataComposerService implements IDataComposerService {
                   pathResolvedValue,
                   nutRefValueVariable,
                );
-               if (nutritionalReferenceValueResult.isFailure) throw new DataComposerServiceError((nutritionalReferenceValueResult.err as any)?.message); 
+               if (nutritionalReferenceValueResult.isFailure) throw new DataComposerServiceError((nutritionalReferenceValueResult.err as any)?.message);
                composedObject[key] = nutritionalReferenceValueResult.val.value;
             } else if (pathResolvedValue instanceof NutritionFormular) {
                const formularVariables = await this.compose(pathResolvedValue.conditionVariables, patientProfil);

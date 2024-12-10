@@ -6,5 +6,5 @@ import { PatientProfil } from "../../aggregates/PatientProfil";
 import { VariableMappingTable } from "../../entities/types";
 export type ComposedObject = { [variableName: string]: any };
 export interface IDataComposerService {
-   compose(variableMappingTable: VariableMappingTable, patientProfil: PatientProfil): Promise<ComposedObject>;
+   compose(variableMappingTable: VariableMappingTable, patientProfil: PatientProfil, additionalContext?: { [key: string]: any }): Promise<ComposedObject>;
 }
