@@ -6,7 +6,7 @@ import { ComposedObject, IDataComposerService } from "./interfaces/DataComposerS
 import { INutritionFormularService } from "./interfaces/NutritionFormularService";
 import { INutritionalReferenceValueService } from "./interfaces/NutritionalReferenceValueService";
 import { DataRoot, IGenerateDataRootService } from "./interfaces/GenerateDataRoot";
-import { AggregateID } from "@/core/shared";
+import { AggregateID, EvaluatePath } from "@/core/shared";
 import { PatientDataVariableRepository } from "../../infrastructure";
 import { DataComposerServiceError } from "./errors/DataComposerError";
 
@@ -46,19 +46,19 @@ export class DataComposerService implements IDataComposerService {
 
       const composedObject: ComposedObject = {};
       // le path resolver permet d'analyser les paths afin de renvoyer la valeur de la variable correspondante
-      const pathResolver = new PathResolver(rootObject);
+      const pathResolver = EvaluatePath.getPathResolver(rootObject)
 
       for (const [key, variableName] of Object.entries(variableMappingTable)) {
          if (typeof variableName === "string") {
-            const path = rootVariables[variableName];
-            const pathResolvedValue = await pathResolver.resolve(path);
+            const path = rootVariables[variableName] || variableName; // Ici on considere que si l'acces au nom de variable echoue pour le rootVariable , que c'est soit une formule soit une anref
+            const pathResolvedValue = pathResolver.resolve(path);
             if (pathResolvedValue instanceof NutritionalReferenceValue) {
                const nutRefValueVariable = await this.compose(pathResolvedValue.variables, patientProfilId);
                const nutritionalReferenceValueResult = this.nutritionalReferenceValueService.getNutritionalRecommendedValue(
                   pathResolvedValue,
                   nutRefValueVariable,
                );
-               if (nutritionalReferenceValueResult.isFailure) throw new Error((nutritionalReferenceValueResult.err as any)?.message);
+               if (nutritionalReferenceValueResult.isFailure) throw new DataComposerServiceError((nutritionalReferenceValueResult.err as any)?.message); 
                composedObject[key] = nutritionalReferenceValueResult.val.value;
             } else if (pathResolvedValue instanceof NutritionFormular) {
                const formularVariables = await this.compose(pathResolvedValue.conditionVariables, patientProfilId);

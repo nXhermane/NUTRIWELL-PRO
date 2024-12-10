@@ -16,7 +16,7 @@ export class NutritionalReferenceValueService implements INutritionalReferenceVa
       return Result.ok<NutritionalRecommendedValue>({
          value: nutritionalRefValue as number,
          unit: nutritionalReferenceValue.unit,
-         tagname: nutritionalReferenceValue.tagnames,
+         tagname: nutritionalReferenceValue.tagname,
          source: nutritionalReferenceValue.source,
       });
    }

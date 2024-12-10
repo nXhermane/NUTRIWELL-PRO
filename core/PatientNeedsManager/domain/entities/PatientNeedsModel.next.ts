@@ -1,11 +1,15 @@
-import { ArgumentNotProvidedException, ArgumentOutOfRangeException, EmptyStringError, EnergyStaticTagname, Entity, Guard, MacronutrientStaticTagname, ModelType } from "@/core/shared";
+import { ArgumentNotProvidedException, ArgumentOutOfRangeException, NutritionalSource,INutritionalSource,EmptyStringError, EnergyStaticTagname, Entity, Guard, MacronutrientStaticTagname, ModelType, Result, ExceptionBase } from "@/core/shared";
 import { NutrientDescriptor } from "../value-objects/NutrientDescriptor";
 import { IPatientNeedsValidationRule, PatientNeedsValidationRule } from "../value-objects/PatientNeedsValidationRule";
+import { NutritionalVariable } from "../value-objects/NutritionalVariable";
 
+// TODO : Maintenant je vais laisser la parise ne charge de pathologies maintenant et reflechir par rapport a cela après quand le model serai pres .
 
+// La creation de PatientNeedsModel sera fait dans le factory
 export interface IPatientNeedsModel {
     modelType: ModelType
-    protocolName?: string;
+    protocolName?: string // Lors de la creation je vais utiliser le nutritional variable pour le generer 
+    protocolSource?: NutritionalSource
     macronutrients: { [nutrientTagname: string]: NutrientDescriptor }
     micronutrients: { [nutrientTagname: string]: NutrientDescriptor }
     energyMetrics: { [nutrientTagname: string]: NutrientDescriptor }
@@ -17,8 +21,11 @@ export class PatientNeedsModel extends Entity<IPatientNeedsModel> {
     get modelType(): "standard" | "specific" {
         return this.props.modelType;
     }
-    get protocolName(): string {
-        return this.props.protocolName || ""
+    get protocolSource(): INutritionalSource {
+        return this.props.protocolSource?.unpack() as INutritionalSource
+    }
+    get protocolName(): string{
+        return this.props.protocolName as string
     }
     getValidationRules(): IPatientNeedsValidationRule[] {
         return this.props.validationRules.map(rule => rule.unpack())

@@ -1,8 +1,8 @@
-import { AggregateID, INutritionalSource, ITimeframe, NeedsRecommendation } from "@/core/shared";
+import { AggregateID, INutritionalSource, ITimeframe, ModelType, NeedsRecommendation } from "@/core/shared";
 import { NutrientNeedsValue } from "./PatientNeeds";
-import { INutritionalRef } from "../value-objects/NutritionalRef";
 import { CreateFormularExpression, CreateNutritionalRef } from "../value-objects/types";
-import { IFormularExpression } from "../value-objects/FormularExpression";
+import { CreateValidationRegularProps } from "../types";
+import { INutrientDescriptor } from "../value-objects/NutrientDescriptor";
 
 // Mapping Table : Variable Alias : Variable Name or variable value
 export type VariableMappingTable = {
@@ -37,9 +37,20 @@ export type CreateNutritionalReferenceValueProps = {
    variables: VariableMappingTable;
 }
 export type CreateNutritionFormulaProps = {
-   name : string
+   name: string
    source: INutritionalSource;
    conditionVariables: VariableMappingTable;
    formularExpressions: CreateFormularExpression[];
    unit: string
+}
+
+
+export type CreatePatientNeedsModel = {
+   modelType: ModelType
+   protocolSource?: INutritionalSource
+   macronutrients: { [nutrientTagname: string]: INutrientDescriptor }
+   micronutrients: { [nutrientTagname: string]: INutrientDescriptor }
+   energyMetrics: { [nutrientTagname: string]: INutrientDescriptor }
+   validationRules: CreateValidationRegularProps[]
+   isValidModel: boolean
 }

@@ -6,26 +6,19 @@ import { NutritionFormular } from "../entities/NutritionFormular";
 
 export class GenerateDataRootService implements IGenerateDataRootService {
    private dataIsLoaded = false;
-   private primaryData: {
-      formular: Record<string, NutritionFormular>;
-      //Notation specific [Tagname]_[Origin]
-      anref: Record<string, NutritionalReferenceValue>;
-   } = {
-      formular: {},
-      anref: {},
-   };
+   private primaryData: { [systemVariableName: string]: NutritionFormular | NutritionalReferenceValue } = {}
    constructor(
       private formularRepo: NutritionFormularRepository,
       private nutritionalReferenceRepo: NutritionalReferenceValueRepository,
       private patientProfilRepo: PatientProfilRepository,
-   ) {}
+   ) { }
 
    async loadPrimaryData() {
       if (!this.dataIsLoaded) {
          const formularData = await this.formularRepo.getAll();
          const anrefData = await this.nutritionalReferenceRepo.getAll();
-         formularData.forEach((formular: NutritionFormular) => (this.primaryData.formular[formular.name] = formular));
-         anrefData.forEach((anref: NutritionalReferenceValue) => (this.primaryData.anref[`${anref.tagnames}_${anref.source}`] = anref));
+         formularData.forEach((formular: NutritionFormular) => (this.primaryData[formular.systemVariableName] = formular));
+         anrefData.forEach((anref: NutritionalReferenceValue) => (this.primaryData[anref.systemVariableName] = anref));
          this.dataIsLoaded = true;
       }
    }
@@ -34,8 +27,8 @@ export class GenerateDataRootService implements IGenerateDataRootService {
          await this.loadPrimaryData();
          const patientProfil = await this.patientProfilRepo.getById(patientProfilId);
          return Result.ok<DataRoot>({
-            ...this.primaryData,
             patientProfil: patientProfil,
+            ...this.primaryData
          });
       } catch (error) {
          return Result.fail<DataRoot>("Erreur lors de la generation du PatientDataRoot");

@@ -1,7 +1,7 @@
-import { EmptyStringError, ExceptionBase, FormularName, Guard, NutrientTagname, NutritionalSource, Result, ValueObject } from "@/core/shared"
+import { EmptyStringError, ExceptionBase, FormularName, Guard, NutrientTagname, NutritionalSource, ProtocolName, Result, ValueObject } from "@/core/shared"
 
 export interface INutritionalVariable {
-    formularOrNutrientName: NutrientTagname | FormularName
+    formularOrNutrientName: NutrientTagname | FormularName | ProtocolName
     source: NutritionalSource
 }
 

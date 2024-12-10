@@ -15,3 +15,4 @@ export * from "./NutrientTagname";
 export * from "./NutrientUnit";
 export * from "./FormularName";
 export * from "./FormularUnit";
+export * from "./ProtocolName";
