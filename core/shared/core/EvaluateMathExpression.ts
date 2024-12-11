@@ -1,5 +1,5 @@
 import { Guard } from "./Guard";
-import SmartCal, { isValidExpression } from "smartcal";
+import SmartCal, { ConditionResult, isValidExpression } from "smartcal";
 
 export class EvaluateMathExpression {
    static evaluate<T extends { [key: string]: number | string | any[] }>(expression: string, data: T): string | number | any[] {
@@ -8,4 +8,6 @@ export class EvaluateMathExpression {
    static isValidExpression(expression: string): boolean {
       return isValidExpression(expression) && !Guard.isEmpty(expression).succeeded;
    }
+   static ConditionResult = ConditionResult
 }
+

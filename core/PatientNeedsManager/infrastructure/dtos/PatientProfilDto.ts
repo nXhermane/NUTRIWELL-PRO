@@ -1,5 +1,5 @@
 import { AggregateID } from "@/core/shared";
-import { IHealthMetrics } from "../../domain/value-objects/HealthMetrics";
+import { HealthMetricsPersistence } from "../repositories";
 
 export interface PatientProfilDto {
    id: AggregateID;
@@ -10,9 +10,9 @@ export interface PatientProfilDto {
    height: number;
    weight: number;
    physicalActivityLevel: "Sedentary" | "Lightly Active" | "Moderately Active" | "Very Active" | "Extremely Active";
-   anthropometricMeasure: Record<string, IHealthMetrics>;
-   bodyCompositionMeasure: Record<string, IHealthMetrics>;
-   medicalAnalyses: Record<string, IHealthMetrics>;
+   anthropometricMeasure:HealthMetricsPersistence[]
+   bodyCompositionMeasure: HealthMetricsPersistence[]
+   medicalAnalyses: HealthMetricsPersistence[]
    medicalConditionIds: AggregateID[];
    objectiveIds: AggregateID[];
    otherInformations: Record<string, any>;

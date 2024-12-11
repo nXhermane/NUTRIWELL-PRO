@@ -1,10 +1,10 @@
-import { AggregateID, INeedsRecommendation, ITimeframe } from "@/core/shared";
+import { AggregateID, INeedsRecommendation, ITimeframe, NeedsRecommendationDto } from "@/core/shared";
 
 export interface ObjectiveDto {
    id: AggregateID;
    name: string;
    type: "General" | "Measure";
-   status: "Achieved" | "NotAchieved" | "Achieved";
+   status: "InProgress" | "Achieved" | "NotAchieved";
    description: string;
    unit?: string;
    timeframe: ITimeframe;
@@ -12,7 +12,7 @@ export interface ObjectiveDto {
    initialValue?: number;
    targetValue?: number;
    currentValue?: number;
-   recommendations: INeedsRecommendation<any>[];
+   recommendations: NeedsRecommendationDto[];
    standardObjectiveId?: AggregateID;
    createdAt: string;
    updatedAt: string;

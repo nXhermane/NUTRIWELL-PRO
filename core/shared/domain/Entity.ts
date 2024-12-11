@@ -2,6 +2,7 @@ import { EntityUniqueID } from "./EntityUniqueId";
 import { DateManager, convertPropsToObject } from "../utils";
 import { Guard } from "./../core";
 import { ValueObject } from "./ValueObject";
+import { CDate } from "./valueObjects";
 export type AggregateID = string | number;
 
 export interface BaseEntityProps {
@@ -16,30 +17,47 @@ export interface CreateEntityProps<T> {
    updatedAt?: string;
 }
 // Entity Class Base
-export abstract class Entity<EntityProps> {
+export abstract class Entity<EntityProps extends { [key: string]: any }> {
    private readonly _id: EntityUniqueID;
-   private readonly _createdAt: string;
-   private _updatedAt: string;
+   private readonly _createdAt: CDate;
+   private _updatedAt: CDate;
    protected _isValid: boolean = false;
    protected _isDeleted: boolean = false;
    public readonly props: EntityProps;
    constructor({ createdAt, updatedAt, id, props }: CreateEntityProps<EntityProps>) {
       this._id = new EntityUniqueID(id);
       this.validateProps(props);
-      const now = DateManager.dateToTimestamps(DateManager.date);
-      this._createdAt = createdAt || now;
-      this._updatedAt = updatedAt || now;
-      this.props = props;
+
+      this._createdAt = CDate.create(createdAt).val;
+      this._updatedAt = CDate.create(updatedAt).val;
+      this.props = this.createProxy(props)
       this?.validate();
+   }
+   private handler(): ProxyHandler<EntityProps> {
+      const handler: ProxyHandler<EntityProps> = {
+         set: (target: EntityProps, key: string | symbol, newValue: any) => {
+            if (typeof key === "string" && !(key in target)) {
+               throw new Error(`Property "${key}" does not exist on entity props.`);
+            }
+            const isSuccess = Reflect.set(target, key, newValue)
+            if (isSuccess)
+               this._updatedAt = new CDate();
+            return isSuccess;
+         }
+      }
+      return handler
+   }
+   private createProxy(props: EntityProps): EntityProps {
+      return new Proxy(props, this.handler())
    }
    get id(): AggregateID {
       return this._id.toValue();
    }
    get createdAt(): string {
-      return this._createdAt;
+      return this._createdAt.date;
    }
    get updatedAt(): string {
-      return this._updatedAt;
+      return this._updatedAt.date;
    }
 
    /**

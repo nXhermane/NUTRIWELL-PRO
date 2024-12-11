@@ -104,6 +104,9 @@ export class Objective extends Entity<IObjective> {
       this.validate();
       this.updateStatusBasedOnProgress();
    }
+   get standardObjectiveId(): AggregateID | undefined {
+      return this.props.standardObjectiveId
+   }
    get recommendations(): INeedsRecommendation<any>[] {
       return this.props.recommendations.map((recommendation) => recommendation.unpack());
    }

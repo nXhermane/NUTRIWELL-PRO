@@ -42,9 +42,10 @@ export class MedicalRecordRepositoryImpl implements MedicalRecordRepository {
    async save(medicalRecord: MedicalRecord): Promise<void> {
       const { consultationInformation, foodStory, medicalStory, measure, personalAndSocialStory, foodDiaries, objectives } = medicalRecord.getProps();
       const persistenceMedicalRecord = this.mapper.toPersistence(medicalRecord);
-      const exist = await this.checkIfExist(persistenceMedicalRecord.id);
+      
 
       try {
+         const exist = await this.checkIfExist(persistenceMedicalRecord.id);
          await this.db.transaction(async (tx) => {
             await this.repositories.consultationInfoRepo.save(consultationInformation, tx);
             await this.repositories.foodStoryRepo.save(foodStory, tx);

@@ -54,6 +54,9 @@ export class PatientNeedsModel extends Entity<IPatientNeedsModel> {
     get isValidModel(): boolean {
         return this.props.isValidModel;
     }
+    set isValidModel(value: boolean){
+        this.props.isValidModel = true
+    }
     private updation() {
         this.props.isValidModel = false
     }

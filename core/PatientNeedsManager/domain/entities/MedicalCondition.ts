@@ -72,6 +72,9 @@ export class MedicalCondition extends Entity<IMedicalCondition> {
    get recommendation(): INeedsRecommendation<any>[] {
       return this.props.recommendations.map((recommendation) => recommendation.unpack());
    }
+   get otherInformation(): { [key: string]: any } {
+      return this.props.otherInformation
+   }
    getRecommendations(): NeedsRecommendation[] {
       return this.props.recommendations;
    }
@@ -91,7 +94,7 @@ export class MedicalCondition extends Entity<IMedicalCondition> {
       this.props.healthIndicators = healthIndicators;
       this.validate();
    }
-   addOrdersInformations(informationName: string, informationValue: any) {
+   addOtherInformations(informationName: string, informationValue: any) {
       this.props.otherInformation[informationName] = informationValue;
       this.validate();
    }

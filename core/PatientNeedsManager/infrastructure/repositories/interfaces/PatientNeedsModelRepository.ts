@@ -5,4 +5,5 @@ export interface PatientNeedsModelRepository {
    getById(patientNeedsModelId: AggregateID): Promise<PatientNeedsModel>;
    save(patientNeedsModel: PatientNeedsModel, trx?: any): Promise<void>;
    delete(patientNeedsModelId: AggregateID, trx?: any): Promise<void>;
+   getAll(): Promise<PatientNeedsModel[]>;
 }

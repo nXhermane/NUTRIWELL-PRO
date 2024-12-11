@@ -1,6 +1,12 @@
-import { AggregateID, INutritionalSource } from "@/core/shared";
-import { CreateFormularExpression } from "../../domain/value-objects/types";
+import { AggregateID, IHealthIndicator, INeedsRecommendation, INutritionalSource, ITimeframe, NeedsRecommendationDto, NeedsRecommendationMapper, Time } from "@/core/shared";
+import { CreateFormularExpression, CreateNutrientDescriptorProps } from "../../domain/value-objects/types";
+import { CreateValidationRegularProps } from "../../domain/types";
+import { IHealthMetrics } from "../../domain/value-objects/HealthMetrics";
+import { MedicalCondition } from "../../domain/entities/MedicalCondition";
+import { Objective } from "../../domain/entities/Objective";
 
+export type HealthMetricsPersistence = IHealthMetrics
+export type HealthIndicatorsPersistence = IHealthIndicator
 export type FormularExpressionPersistence = CreateFormularExpression;
 export interface Timestamp {
    createdAt: string;
@@ -43,4 +49,62 @@ export interface PatientDataVariablePersistence extends Timestamp {
 
 export interface PatientProfilPersistence extends Timestamp {
    id: string;
+   patientId: string,
+   patientNeedsModelId: string,
+   gender: "M" | "F" | "O";
+   age: number;
+   height: number;
+   weight: number;
+   physicalActivityLevel: "Sedentary" | "Lightly Active" | "Moderately Active" | "Very Active" | "Extremely Active";
+   anthropometricMeasure: HealthMetricsPersistence[]
+   bodyCompositionMeasure: HealthMetricsPersistence[]
+   medicalAnalyses: HealthMetricsPersistence[];
+   medicalConditionIds: AggregateID[];
+   objectiveIds: AggregateID[]
+   otherInformations: Record<string, any>;
+}
+export interface PatientProfilPersistenceRecord extends Omit<PatientProfilPersistence, "medicalConditionIds" | "objectiveIds"> {
+   medicalConditions: MedicalCondition[]
+   objectives: Objective[]
+}
+
+export interface PatientNeedsModelPersistence extends Timestamp {
+   id: string
+   modelType: "specific" | "standard",
+   protocolName: string
+   protocolSource: INutritionalSource
+   energyMetrics: CreateNutrientDescriptorProps[];
+   macronutrients: CreateNutrientDescriptorProps[];
+   micronutrients: CreateNutrientDescriptorProps[];
+   validationRules: CreateValidationRegularProps[];
+   isValidModel: boolean
+}
+
+export type NutrientDescriptorPersistence = CreateNutrientDescriptorProps
+export type PatientNeedsValidationRulePersistence = CreateValidationRegularProps
+
+export interface MedicalConditionPersistence extends Timestamp {
+   id: string,
+   name: string,
+   standardMedicalConditionId?: string;
+   severity: "severe" | "light" | "moderate";
+   recommendations: NeedsRecommendationDto[];
+   otherInformation: { [key: string]: any };
+   healthIndicators: HealthIndicatorsPersistence[];
+   description: string;
+}
+export interface ObjectivePersistence extends Timestamp {
+   id: string
+   name: string;
+   type: "General" | "Measure";
+   status: "InProgress" | "Achieved" | "NotAchieved"
+   description: string;
+   unit?: string;
+   timeframe: ITimeframe;
+   measureCode?: string;
+   initialValue?: number;
+   targetValue?: number;
+   currentValue?: number;
+   recommendations: NeedsRecommendationDto[];
+   standardObjectiveId?: string;
 }

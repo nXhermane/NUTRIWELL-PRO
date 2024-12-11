@@ -1,6 +1,6 @@
 import { AggregateID, INutritionalSource, ITimeframe, ModelType, NeedsRecommendation } from "@/core/shared";
 import { NutrientNeedsValue } from "./PatientNeeds";
-import { CreateFormularExpression, CreateNutritionalRef } from "../value-objects/types";
+import { CreateFormularExpression, CreateNutrientDescriptorProps, CreateNutritionalRef } from "../value-objects/types";
 import { CreateValidationRegularProps } from "../types";
 import { INutrientDescriptor } from "../value-objects/NutrientDescriptor";
 
@@ -46,11 +46,11 @@ export type CreateNutritionFormulaProps = {
 
 
 export type CreatePatientNeedsModel = {
-   modelType: ModelType
+   modelType: "specific" | "standard"
    protocolSource?: INutritionalSource
-   macronutrients: { [nutrientTagname: string]: INutrientDescriptor }
-   micronutrients: { [nutrientTagname: string]: INutrientDescriptor }
-   energyMetrics: { [nutrientTagname: string]: INutrientDescriptor }
+   macronutrients: CreateNutrientDescriptorProps[]
+   micronutrients: CreateNutrientDescriptorProps[]
+   energyMetrics: CreateNutrientDescriptorProps[]
    validationRules: CreateValidationRegularProps[]
    isValidModel: boolean
 }

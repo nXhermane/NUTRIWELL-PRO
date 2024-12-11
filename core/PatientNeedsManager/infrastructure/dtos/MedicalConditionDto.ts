@@ -1,4 +1,5 @@
-import { AggregateID, IHealthIndicator, INeedsRecommendation } from "@/core/shared";
+import { AggregateID, IHealthIndicator, INeedsRecommendation, NeedsRecommendationDto } from "@/core/shared";
+import { HealthMetricsPersistence } from "../repositories";
 
 export interface MedicalConditionDto {
    id: AggregateID;
@@ -6,9 +7,9 @@ export interface MedicalConditionDto {
    standardMedicalConditionId?: AggregateID;
    severity: "severe" | "light" | "moderate";
    description: string;
-   recommendations: INeedsRecommendation<any>[];
+   recommendations: NeedsRecommendationDto[];
    otherInformation: { [key: string]: any };
-   healthIndicators: IHealthIndicator[];
+   healthIndicators: HealthMetricsPersistence[];
    createdAt: string;
    updatedAt: string;
 }

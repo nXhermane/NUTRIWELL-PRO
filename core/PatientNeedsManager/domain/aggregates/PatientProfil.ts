@@ -32,7 +32,7 @@ export interface IPatientProfil {
    anthropomethricMeasure: { [measureCode: string]: HealthMetrics };
    bodyComposition: { [measureCode: string]: HealthMetrics };
    medicalAnalyses: { [measureCode: string]: HealthMetrics };
-   medicalCondition: { [medicalConditionId: AggregateID]: MedicalCondition };
+   medicalConditions: { [medicalConditionId: AggregateID]: MedicalCondition };
    objectives: Record<AggregateID, Objective>;
    patientNeedsModelId: AggregateID;
    otherInformations: { [infoName: string]: any };
@@ -121,21 +121,24 @@ export class PatientProfil extends AggregateRoot<IPatientProfil> {
       return Object.fromEntries(Object.values(this.props.medicalAnalyses).map((measurement) => [measurement.unpack().code, measurement.unpack()]));
    }
    get medicalCondition(): { [medicalRecordId: AggregateID]: IMedicalCondition & BaseEntityProps } {
-      return Object.fromEntries(Object.values(this.props.medicalCondition).map((value: MedicalCondition) => [value.id, value.getProps()]));
+      return Object.fromEntries(Object.values(this.props.medicalConditions).map((value: MedicalCondition) => [value.id, value.getProps()]));
    }
 
    get medicalConditionNames(): string[] {
-      return Object.values(this.props.medicalCondition).map((measurement) => measurement.name);
+      return Object.values(this.props.medicalConditions).map((measurement) => measurement.name);
    }
    get objective(): { [objectiveId: AggregateID]: IObjective & BaseEntityProps } {
       return Object.fromEntries(Object.values(this.props.objectives).map((value: Objective) => [value.id, value.getProps()]));
+   }
+   get otherInformations(): Record<string, any> {
+      return this.props.otherInformations
    }
 
    getObjectives(): Objective[] {
       return Object.values(this.props.objectives);
    }
    getMedicalConditions(): MedicalCondition[] {
-      return Object.values(this.props.medicalCondition);
+      return Object.values(this.props.medicalConditions);
    }
    addAnthropometricMeasure(healthMetrics: HealthMetrics) {
       this.props.anthropomethricMeasure[healthMetrics.unpack().code] = healthMetrics;
@@ -200,16 +203,16 @@ export class PatientProfil extends AggregateRoot<IPatientProfil> {
 
    addMedicalCondition(...medicalConditions: MedicalCondition[]) {
       medicalConditions.forEach((value: MedicalCondition) => {
-         this.props.medicalCondition[value.id] = value;
+         this.props.medicalConditions[value.id] = value;
       });
    }
    addOrdersInformationsToMedicalCondition(
       mediacalConditionId: AggregateID,
       otherInformationObject: { informationName: string; informationValue: any },
    ) {
-      const medicalCondition = this.props.medicalCondition[mediacalConditionId];
+      const medicalCondition = this.props.medicalConditions[mediacalConditionId];
       if (medicalCondition) {
-         medicalCondition.addOrdersInformations(otherInformationObject.informationName, otherInformationObject.informationValue);
+         medicalCondition.addOtherInformations(otherInformationObject.informationName, otherInformationObject.informationValue);
       } else {
          throw new InvalidReference(`Medical condition with id ${mediacalConditionId} not found`);
       }
@@ -239,7 +242,7 @@ export class PatientProfil extends AggregateRoot<IPatientProfil> {
    }
 
    updateMedicalConditionName(medicalConditionId: AggregateID, name: string) {
-      const mediacalCondition = this.props.medicalCondition[medicalConditionId];
+      const mediacalCondition = this.props.medicalConditions[medicalConditionId];
       if (mediacalCondition) {
          mediacalCondition.name = name;
       } else {
@@ -248,7 +251,7 @@ export class PatientProfil extends AggregateRoot<IPatientProfil> {
       this.validate();
    }
    updateMedicalConditionSeverity(medicalConditionId: AggregateID, severity: "light" | "moderate" | "severe") {
-      const mediacalCondition = this.props.medicalCondition[medicalConditionId];
+      const mediacalCondition = this.props.medicalConditions[medicalConditionId];
       if (mediacalCondition) {
          mediacalCondition.severity = severity;
       } else {
@@ -258,7 +261,7 @@ export class PatientProfil extends AggregateRoot<IPatientProfil> {
    }
 
    addRecommendationToMedicalCondition(medicalConditionId: AggregateID, recommendations: NeedsRecommendation[]) {
-      const mediacalCondition = this.props.medicalCondition[medicalConditionId];
+      const mediacalCondition = this.props.medicalConditions[medicalConditionId];
       if (mediacalCondition) {
          mediacalCondition.addRecommandation(...recommendations);
       } else {
@@ -268,8 +271,8 @@ export class PatientProfil extends AggregateRoot<IPatientProfil> {
    }
 
    removeMedicalCondition(medicalconditionId: AggregateID) {
-      if (this.props.medicalCondition[medicalconditionId]) {
-         delete this.props.medicalCondition[medicalconditionId];
+      if (this.props.medicalConditions[medicalconditionId]) {
+         delete this.props.medicalConditions[medicalconditionId];
       }
    }
    removeAnthropometricMeasure(measureCode: string) {
@@ -349,7 +352,7 @@ export class PatientProfil extends AggregateRoot<IPatientProfil> {
                height: heightResult.val,
                weight: weightResult.val,
                objectives: Object.fromEntries(objectiveResult.map((objectiveRes) => [objectiveRes.val.id, objectiveRes.val])),
-               medicalCondition: Object.fromEntries(
+               medicalConditions: Object.fromEntries(
                   medicalConditionResult.map((medicalCondResult: Result<MedicalCondition>) => [medicalCondResult.val.id, medicalCondResult.val]),
                ),
                anthropomethricMeasure: createPatientProfilProps.anthropomethricMeasure,

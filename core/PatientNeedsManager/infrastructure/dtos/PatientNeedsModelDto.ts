@@ -1,15 +1,15 @@
 import { AggregateID, INutritionalSource } from "@/core/shared";
-import { NutrientModelGroup } from "../../domain/services/NutritionalStandardNeedsCalculator";
 import { CreateValidationRegularProps } from "../../domain/types";
+import { CreateNutrientDescriptorProps } from "../../domain/value-objects/types";
 
 export interface PatientNeedsModelDto {
    id: AggregateID;
-   modelType: "specific"| "standard",
+   modelType: "specific" | "standard",
    protocolName: string
    protocolSource: INutritionalSource
-   energyMetrics:NutrientModelGroup ;
-   macronutrients: NutrientModelGroup;
-   micronutrients: NutrientModelGroup;
+   energyMetrics: CreateNutrientDescriptorProps[];
+   macronutrients: CreateNutrientDescriptorProps[];
+   micronutrients: CreateNutrientDescriptorProps[];
    validationRules: CreateValidationRegularProps[]
    createdAt: string;
    updatedAt: string;
