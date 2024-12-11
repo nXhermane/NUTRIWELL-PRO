@@ -1,5 +1,5 @@
 export enum ModelType {
-    Standard = "standard",
-    Specific = "specific",
-    // Pathologie = "pathologie" 
+   Standard = "standard",
+   Specific = "specific",
+   // Pathologie = "pathologie"
 }

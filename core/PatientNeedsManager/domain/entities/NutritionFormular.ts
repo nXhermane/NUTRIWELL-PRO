@@ -1,4 +1,15 @@
-import { CreateEntityProps, EmptyStringError, Entity, ExceptionBase, FormularName, FormularUnit, Guard, INutritionalSource, NutritionalSource, Result } from "@/core/shared";
+import {
+   CreateEntityProps,
+   EmptyStringError,
+   Entity,
+   ExceptionBase,
+   FormularName,
+   FormularUnit,
+   Guard,
+   INutritionalSource,
+   NutritionalSource,
+   Result,
+} from "@/core/shared";
 import { CreateNutritionFormulaProps, VariableMappingTable } from "./types";
 import { FormularExpression, IFormularExpression } from "../value-objects/FormularExpression";
 import { NutritionalVariable } from "../value-objects/NutritionalVariable";
@@ -16,25 +27,25 @@ export interface INutritionFormular {
    source: NutritionalSource;
    conditionVariables: VariableMappingTable;
    formularExpressions: FormularExpression[];
-   systemVariableName: string
-   unit: FormularUnit // Ici c'est supposé que toute formule a une unité pour sa valeur de retour  
+   systemVariableName: string;
+   unit: FormularUnit; // Ici c'est supposé que toute formule a une unité pour sa valeur de retour
 }
 
 export class NutritionFormular extends Entity<INutritionFormular> {
    static create(props: CreateNutritionFormulaProps): Result<NutritionFormular> {
       try {
-         const name = FormularName.create(props.name)
+         const name = FormularName.create(props.name);
          const source = NutritionalSource.create(props.source);
-         const combinedResult = Result.combine([name, source])
-         if (combinedResult.isFailure) return Result.fail<NutritionFormular>(String(combinedResult.err))
+         const combinedResult = Result.combine([name, source]);
+         if (combinedResult.isFailure) return Result.fail<NutritionFormular>(String(combinedResult.err));
          const systemVariableName = NutritionalVariable.create({
             formularOrNutrientName: name.val,
-            source: source.val
-         })
-         const unit = FormularUnit.create(props.unit)
-         const formularExpressions = props.formularExpressions.map(formularExpression => FormularExpression.create(formularExpression))
-         const combinedResult2 = Result.combine([systemVariableName, unit, ...formularExpressions])
-         if (combinedResult2.isFailure) return Result.fail<NutritionFormular>(String(combinedResult2.err))
+            source: source.val,
+         });
+         const unit = FormularUnit.create(props.unit);
+         const formularExpressions = props.formularExpressions.map((formularExpression) => FormularExpression.create(formularExpression));
+         const combinedResult2 = Result.combine([systemVariableName, unit, ...formularExpressions]);
+         if (combinedResult2.isFailure) return Result.fail<NutritionFormular>(String(combinedResult2.err));
          const nutritionFormular = new NutritionFormular({
             props: {
                name: name.val,
@@ -43,7 +54,7 @@ export class NutritionFormular extends Entity<INutritionFormular> {
                formularExpressions: formularExpressions.map((expression) => expression.val),
                systemVariableName: systemVariableName.val.getVariableName(),
                unit: unit.val,
-            }
+            },
          });
          return Result.ok<NutritionFormular>(nutritionFormular);
       } catch (error) {
@@ -77,7 +88,7 @@ export class NutritionFormular extends Entity<INutritionFormular> {
 
    public validate(): void {
       this._isValid = false;
-      if (Guard.isEmpty(this.props.systemVariableName).succeeded) throw new EmptyStringError("Le systemVariableName ne peux être vide.")
+      if (Guard.isEmpty(this.props.systemVariableName).succeeded) throw new EmptyStringError("Le systemVariableName ne peux être vide.");
       this._isValid = true;
    }
 
@@ -98,7 +109,7 @@ export class NutritionFormular extends Entity<INutritionFormular> {
 
    set unit(value: FormularUnit) {
       this.props.unit = value;
-      this.validate()
+      this.validate();
    }
    addFormularExpression(...formularExpressions: FormularExpression[]): void {
       formularExpressions.forEach((expression) => {

@@ -19,11 +19,13 @@ export class NeedsRecommendationByInterval extends NeedsRecommendation<INeedsRec
    protected _apply(nutrientBasicValue: NutrientNeedsValue, context: NeedsRecommendationContext): NutrientNeedsValue {
       if (this.props.data.min != null) {
          const nutrientBaseValueIsLowerToMinValue = nutrientBasicValue.value < this.props.data.min;
-         if (nutrientBaseValueIsLowerToMinValue) return {tagname: this.props.nutrientTagName, value: this.props.data.min, unit: this.props.data.unit };
+         if (nutrientBaseValueIsLowerToMinValue)
+            return { tagname: this.props.nutrientTagName, value: this.props.data.min, unit: this.props.data.unit };
       }
       if (this.props.data.max != null) {
          const nutrientBaseValueIsSuperiorToMaxValue = nutrientBasicValue.value > this.props.data.max;
-         if (nutrientBaseValueIsSuperiorToMaxValue) return {tagname: this.props.nutrientTagName, value: this.props.data.max, unit: this.props.data.unit };
+         if (nutrientBaseValueIsSuperiorToMaxValue)
+            return { tagname: this.props.nutrientTagName, value: this.props.data.max, unit: this.props.data.unit };
       }
       return nutrientBasicValue;
    }

@@ -8,6 +8,5 @@ export class EvaluateMathExpression {
    static isValidExpression(expression: string): boolean {
       return isValidExpression(expression) && !Guard.isEmpty(expression).succeeded;
    }
-   static ConditionResult = ConditionResult
+   static ConditionResult = ConditionResult;
 }
-

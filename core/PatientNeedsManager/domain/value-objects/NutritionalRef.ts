@@ -1,4 +1,14 @@
-import { ArgumentNotProvidedException, EmptyStringError, EvaluateMathExpression, ExceptionBase, Guard, InvalidArgumentFormatError, NegativeValueError, Result, ValueObject } from "@/core/shared";
+import {
+   ArgumentNotProvidedException,
+   EmptyStringError,
+   EvaluateMathExpression,
+   ExceptionBase,
+   Guard,
+   InvalidArgumentFormatError,
+   NegativeValueError,
+   Result,
+   ValueObject,
+} from "@/core/shared";
 import { Expression } from "./Expression";
 import { CreateNutritionalRef } from "./types";
 
@@ -28,8 +38,8 @@ export class NutritionalRef extends ValueObject<INutritionalRef> {
    }
    static create(props: CreateNutritionalRef): Result<NutritionalRef> {
       try {
-         const condition = Expression.create(props.condition)
-         if (condition.isFailure) return Result.fail<NutritionalRef>(String(condition.err))
+         const condition = Expression.create(props.condition);
+         if (condition.isFailure) return Result.fail<NutritionalRef>(String(condition.err));
          const ref = new NutritionalRef({
             condition: condition.val,
             weight: props.weight,

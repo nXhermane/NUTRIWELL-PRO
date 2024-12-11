@@ -30,7 +30,7 @@ export abstract class Entity<EntityProps extends { [key: string]: any }> {
 
       this._createdAt = CDate.create(createdAt).val;
       this._updatedAt = CDate.create(updatedAt).val;
-      this.props = this.createProxy(props)
+      this.props = this.createProxy(props);
       this?.validate();
    }
    private handler(): ProxyHandler<EntityProps> {
@@ -39,16 +39,15 @@ export abstract class Entity<EntityProps extends { [key: string]: any }> {
             if (typeof key === "string" && !(key in target)) {
                throw new Error(`Property "${key}" does not exist on entity props.`);
             }
-            const isSuccess = Reflect.set(target, key, newValue)
-            if (isSuccess)
-               this._updatedAt = new CDate();
+            const isSuccess = Reflect.set(target, key, newValue);
+            if (isSuccess) this._updatedAt = new CDate();
             return isSuccess;
-         }
-      }
-      return handler
+         },
+      };
+      return handler;
    }
    private createProxy(props: EntityProps): EntityProps {
-      return new Proxy(props, this.handler())
+      return new Proxy(props, this.handler());
    }
    get id(): AggregateID {
       return this._id.toValue();

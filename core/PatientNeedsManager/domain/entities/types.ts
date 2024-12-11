@@ -35,22 +35,21 @@ export type CreateNutritionalReferenceValueProps = {
    unit: string;
    values: CreateNutritionalRef[];
    variables: VariableMappingTable;
-}
+};
 export type CreateNutritionFormulaProps = {
-   name: string
+   name: string;
    source: INutritionalSource;
    conditionVariables: VariableMappingTable;
    formularExpressions: CreateFormularExpression[];
-   unit: string
-}
-
+   unit: string;
+};
 
 export type CreatePatientNeedsModel = {
-   modelType: "specific" | "standard"
-   protocolSource?: INutritionalSource
-   macronutrients: CreateNutrientDescriptorProps[]
-   micronutrients: CreateNutrientDescriptorProps[]
-   energyMetrics: CreateNutrientDescriptorProps[]
-   validationRules: CreateValidationRegularProps[]
-   isValidModel: boolean
-}
+   modelType: "specific" | "standard";
+   protocolSource?: INutritionalSource;
+   macronutrients: CreateNutrientDescriptorProps[];
+   micronutrients: CreateNutrientDescriptorProps[];
+   energyMetrics: CreateNutrientDescriptorProps[];
+   validationRules: CreateValidationRegularProps[];
+   isValidModel: boolean;
+};

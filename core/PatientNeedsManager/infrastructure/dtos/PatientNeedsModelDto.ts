@@ -4,13 +4,13 @@ import { CreateNutrientDescriptorProps } from "../../domain/value-objects/types"
 
 export interface PatientNeedsModelDto {
    id: AggregateID;
-   modelType: "specific" | "standard",
-   protocolName: string
-   protocolSource: INutritionalSource
+   modelType: "specific" | "standard";
+   protocolName: string;
+   protocolSource: INutritionalSource;
    energyMetrics: CreateNutrientDescriptorProps[];
    macronutrients: CreateNutrientDescriptorProps[];
    micronutrients: CreateNutrientDescriptorProps[];
-   validationRules: CreateValidationRegularProps[]
+   validationRules: CreateValidationRegularProps[];
    createdAt: string;
    updatedAt: string;
 }

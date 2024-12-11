@@ -11,7 +11,7 @@ export class NutritionFormularService implements INutritionFormularService {
    async resolveFormular(
       nutritionFormular: NutritionFormular,
       variableObject: VariableObject,
-      patientProfil:PatientProfil,
+      patientProfil: PatientProfil,
    ): Promise<Result<NutritionFormularResult>> {
       try {
          const adaptedFormularResult = this.getAdaptedFormular(nutritionFormular, variableObject);

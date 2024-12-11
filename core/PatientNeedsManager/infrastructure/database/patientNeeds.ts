@@ -1,9 +1,14 @@
 import { sql } from "drizzle-orm";
 import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
-import { FormularExpressionPersistence, HealthIndicatorsPersistence, NutrientDescriptorPersistence, PatientNeedsValidationRulePersistence } from "../repositories";
+import {
+   FormularExpressionPersistence,
+   HealthIndicatorsPersistence,
+   NutrientDescriptorPersistence,
+   PatientNeedsValidationRulePersistence,
+} from "../repositories";
 import { AggregateID, ITimeframe, NeedsRecommendationDto, PhysicalActivityLevel } from "@/core/shared";
 
-export type NutrientModelGroup = NutrientDescriptorPersistence[]
+export type NutrientModelGroup = NutrientDescriptorPersistence[];
 export type NutritionalRef = {
    condition: string;
    weight: number;
@@ -17,7 +22,7 @@ export type NutritionalSourcePersistenceType = {
    country: string; // Pays d'origine (ex. "Canada", "États-Unis")
    publicationYear: number; // Année de publication
    version?: string; // Version spécifique (facultatif)
-}
+};
 export type Variables = {
    [variableAlias: string]: string;
 };
@@ -31,7 +36,7 @@ export const nutritionalReferencesValues = sqliteTable("nutritional_reference_va
    unit: text("unit").notNull(),
    systemVariableName: text("systemVariableName").notNull(),
    createdAt: text("createdAt").notNull(),
-   updatedAt: text("updatedAt").notNull()
+   updatedAt: text("updatedAt").notNull(),
 });
 export const nutritionFormulars = sqliteTable("nutrition_formulars", {
    id: text("id").primaryKey().notNull(),
@@ -42,7 +47,7 @@ export const nutritionFormulars = sqliteTable("nutrition_formulars", {
    unit: text("unit").notNull(),
    systemVariableName: text("systemVariableName").notNull(),
    createdAt: text("createdAt").notNull(),
-   updatedAt: text("updatedAt").notNull()
+   updatedAt: text("updatedAt").notNull(),
 });
 
 export const patientDataVariables = sqliteTable("patient_data_variables", {
@@ -50,7 +55,7 @@ export const patientDataVariables = sqliteTable("patient_data_variables", {
    patientProfilId: text("patient_profil_id").unique().notNull(),
    variables: text("variables", { mode: "json" }).notNull().$type<PatientDataVariables>(),
    createdAt: text("createdAt").notNull(),
-   updatedAt: text("updatedAt").notNull()
+   updatedAt: text("updatedAt").notNull(),
 });
 
 export const patientNeedsModels = sqliteTable("patient_needs_models", {
@@ -59,16 +64,15 @@ export const patientNeedsModels = sqliteTable("patient_needs_models", {
    protocolName: text("protocol_name"),
    protocolSource: text("protocol_source", { mode: "json" }).$type<NutritionalSourcePersistenceType>(),
    macronutrients: text("macronutrients", { mode: "json" }).$type<NutrientModelGroup>(),
-   micronutrients: text("micronutrients", { mode: 'json' }).$type<NutrientModelGroup>(),
-   energyMetrics: text("energy_metrics", { mode: 'json' }).$type<NutrientModelGroup>(),
+   micronutrients: text("micronutrients", { mode: "json" }).$type<NutrientModelGroup>(),
+   energyMetrics: text("energy_metrics", { mode: "json" }).$type<NutrientModelGroup>(),
    validationRules: text("validation_rules", { mode: "json" }).$type<PatientNeedsValidationRulePersistence[]>(),
-   isValidModel: integer("is_valid_model", { mode: 'boolean' }),
+   isValidModel: integer("is_valid_model", { mode: "boolean" }),
    createdAt: text("createdAt").notNull(),
-   updatedAt: text("updatedAt").notNull()
-})
+   updatedAt: text("updatedAt").notNull(),
+});
 
 export const objectives = sqliteTable("objectives", {
-
    id: text("id").primaryKey(),
    name: text("name").notNull(),
    type: text("type", { enum: ["General", "Measure"] }).notNull(),
@@ -79,14 +83,13 @@ export const objectives = sqliteTable("objectives", {
    measureCode: text("measure_code"),
    initialValue: integer("initial_value"),
    targetValue: integer("target_value"),
-   currentValue: integer('current_value'),
+   currentValue: integer("current_value"),
    recommendations: text("recommendations", { mode: "json" }).$type<NeedsRecommendationDto[]>(),
    standardObjectiveId: text("standard_objective_id"),
    otherInformation: text("other_information", { mode: "json" }).$type<{ [key: string]: any }>(),
    createdAt: text("createdAt").notNull(),
-   updatedAt: text("updatedAt").notNull()
-})
-
+   updatedAt: text("updatedAt").notNull(),
+});
 
 export const medicalConditions = sqliteTable("medical_conditions", {
    id: text("id").primaryKey(),
@@ -98,9 +101,8 @@ export const medicalConditions = sqliteTable("medical_conditions", {
    healthIndicators: text("health_indicators", { mode: "json" }).$type<HealthIndicatorsPersistence[]>(),
    descriptions: text("descriptions"),
    createdAt: text("createdAt").notNull(),
-   updatedAt: text("updatedAt").notNull()
-})
-
+   updatedAt: text("updatedAt").notNull(),
+});
 
 export const patientProfils = sqliteTable("patient_profils", {
    id: text("id").primaryKey(),
@@ -110,7 +112,9 @@ export const patientProfils = sqliteTable("patient_profils", {
    age: integer("age"),
    height: integer("height"),
    weight: integer("weight"),
-   physicalActivityLevel: text("physical_activity_level", { enum: ["Sedentary", "Lightly Active", "Moderately Active", "Very Active", "Extremely Active"] }),
+   physicalActivityLevel: text("physical_activity_level", {
+      enum: ["Sedentary", "Lightly Active", "Moderately Active", "Very Active", "Extremely Active"],
+   }),
    anthropometricMeasure: text("anthropometric_measure", { mode: "json" }).$type<HealthIndicatorsPersistence[]>(),
    bodyCompositionMeasure: text("body_composition_measure", { mode: "json" }).$type<HealthIndicatorsPersistence[]>(),
    medicalAnalyse: text("medical_analyses", { mode: "json" }).$type<HealthIndicatorsPersistence[]>(),
@@ -118,5 +122,5 @@ export const patientProfils = sqliteTable("patient_profils", {
    objectiveIds: text("objective_ids", { mode: "json" }).$type<AggregateID[]>(),
    otherInformation: text("other_information", { mode: "json" }).$type<{ [key: string]: any }>(),
    createdAt: text("createdAt").notNull(),
-   updatedAt: text("updatedAt").notNull()
-})
+   updatedAt: text("updatedAt").notNull(),
+});

@@ -73,7 +73,7 @@ export class MedicalCondition extends Entity<IMedicalCondition> {
       return this.props.recommendations.map((recommendation) => recommendation.unpack());
    }
    get otherInformation(): { [key: string]: any } {
-      return this.props.otherInformation
+      return this.props.otherInformation;
    }
    getRecommendations(): NeedsRecommendation[] {
       return this.props.recommendations;

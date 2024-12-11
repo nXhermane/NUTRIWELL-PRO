@@ -10,9 +10,9 @@ export interface PatientProfilDto {
    height: number;
    weight: number;
    physicalActivityLevel: "Sedentary" | "Lightly Active" | "Moderately Active" | "Very Active" | "Extremely Active";
-   anthropometricMeasure:HealthMetricsPersistence[]
-   bodyCompositionMeasure: HealthMetricsPersistence[]
-   medicalAnalyses: HealthMetricsPersistence[]
+   anthropometricMeasure: HealthMetricsPersistence[];
+   bodyCompositionMeasure: HealthMetricsPersistence[];
+   medicalAnalyses: HealthMetricsPersistence[];
    medicalConditionIds: AggregateID[];
    objectiveIds: AggregateID[];
    otherInformations: Record<string, any>;

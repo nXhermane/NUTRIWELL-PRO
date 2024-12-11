@@ -1,6 +1,5 @@
-import { PatientNeedsModel } from "../../entities/PatientNeedsModel"
-
+import { PatientNeedsModel } from "../../entities/PatientNeedsModel";
 
 export interface IPatientNeedsModelValidationService {
-    validate(patientNeedsModel: PatientNeedsModel): Promise<boolean>
+   validate(patientNeedsModel: PatientNeedsModel): Promise<boolean>;
 }

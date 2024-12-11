@@ -131,7 +131,7 @@ export class PatientProfil extends AggregateRoot<IPatientProfil> {
       return Object.fromEntries(Object.values(this.props.objectives).map((value: Objective) => [value.id, value.getProps()]));
    }
    get otherInformations(): Record<string, any> {
-      return this.props.otherInformations
+      return this.props.otherInformations;
    }
 
    getObjectives(): Objective[] {

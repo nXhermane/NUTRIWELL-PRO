@@ -24,7 +24,11 @@ export interface INeedsRecommendation<T> {
    condition?: Condition;
    type: "Formular" | "Exclusion" | "Interval" | "Substitution" | "Relativity";
 }
-export interface NutrientNeedsValue { tagname: string ,value: number; unit: string };
+export interface NutrientNeedsValue {
+   tagname: string;
+   value: number;
+   unit: string;
+}
 export type NeedsRecommendationContext = { [variableName: string]: any } & { currentDate: CDate };
 export abstract class NeedsRecommendation<T = any> extends ValueObject<INeedsRecommendation<T>> {
    /**

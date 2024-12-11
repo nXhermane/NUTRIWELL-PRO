@@ -1,6 +1,6 @@
 import { AggregateID, EmptyStringError, ExceptionBase, Guard, NegativeValueError, Result, ValueObject } from "@/core/shared";
 
-// TODO: je dois remodeliser les noms et code du HealthMetrics après afin d'avoir une validation de type externe  ainsi que les units 
+// TODO: je dois remodeliser les noms et code du HealthMetrics après afin d'avoir une validation de type externe  ainsi que les units
 export interface IHealthMetrics {
    name: string;
    code: string;

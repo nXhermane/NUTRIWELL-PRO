@@ -7,11 +7,11 @@ import { PatientProfil } from "../aggregates/PatientProfil";
 
 export class GenerateDataRootService implements IGenerateDataRootService {
    private dataIsLoaded = false;
-   private primaryData: { [systemVariableName: string]: NutritionFormular | NutritionalReferenceValue } = {}
+   private primaryData: { [systemVariableName: string]: NutritionFormular | NutritionalReferenceValue } = {};
    constructor(
       private formularRepo: NutritionFormularRepository,
       private nutritionalReferenceRepo: NutritionalReferenceValueRepository,
-   ) { }
+   ) {}
 
    async loadPrimaryData() {
       if (!this.dataIsLoaded) {
@@ -27,7 +27,7 @@ export class GenerateDataRootService implements IGenerateDataRootService {
          await this.loadPrimaryData();
          return Result.ok<DataRoot>({
             patientProfil: patientProfil,
-            ...this.primaryData
+            ...this.primaryData,
          });
       } catch (error) {
          return Result.fail<DataRoot>("Erreur lors de la generation du PatientDataRoot");

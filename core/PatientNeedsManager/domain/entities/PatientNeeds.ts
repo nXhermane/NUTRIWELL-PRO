@@ -1,7 +1,7 @@
 import { AggregateID, Entity, ExceptionBase, Guard, InvalidReference, Result } from "@/core/shared";
 import { CreatePatientNeedsProps } from "./types";
 
-export type NutrientNeedsValue = { tagname: string, value: number; unit: string };
+export type NutrientNeedsValue = { tagname: string; value: number; unit: string };
 export interface IPatientNeeds {
    patientProfilId: AggregateID;
    energy: { [energyType: string]: NutrientNeedsValue };

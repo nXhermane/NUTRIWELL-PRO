@@ -1,4 +1,13 @@
-import { DomainPrimitive, EmptyStringError, EvaluateMathExpression, ExceptionBase, Guard, InvalidArgumentFormatError, Result, ValueObject } from "@/core/shared";
+import {
+   DomainPrimitive,
+   EmptyStringError,
+   EvaluateMathExpression,
+   ExceptionBase,
+   Guard,
+   InvalidArgumentFormatError,
+   Result,
+   ValueObject,
+} from "@/core/shared";
 
 export class Expression extends ValueObject<string> {
    toString(): string {
@@ -6,7 +15,7 @@ export class Expression extends ValueObject<string> {
    }
    protected validate(props: DomainPrimitive<string>): void {
       if (Guard.isEmpty(props.value).succeeded) throw new EmptyStringError("La valeur d'une expression ne peut être vide.");
-      if (!EvaluateMathExpression.isValidExpression(props.value)) throw new InvalidArgumentFormatError("L'expression n'est pas valide.")
+      if (!EvaluateMathExpression.isValidExpression(props.value)) throw new InvalidArgumentFormatError("L'expression n'est pas valide.");
    }
    static create(expression: string): Result<Expression> {
       try {

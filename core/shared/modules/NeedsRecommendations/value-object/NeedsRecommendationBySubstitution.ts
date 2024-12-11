@@ -15,7 +15,7 @@ export class NeedsRecommendationBySubstitution extends NeedsRecommendation<INeed
       return {
          unit: this.props.data.unit,
          value: this.props.data.value,
-         tagname: this.props.nutrientTagName
-      }
+         tagname: this.props.nutrientTagName,
+      };
    }
 }

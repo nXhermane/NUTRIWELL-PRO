@@ -9,8 +9,8 @@ export interface NutritionFormularDto {
    source: NutritionalSourcePersistenceType;
    conditionVariables: VariableMappingTable;
    formularExpressions: CreateFormularExpression[];
-   unit: string
-   systemVariableName: string
+   unit: string;
+   systemVariableName: string;
    createdAt: string;
    updatedAt: string;
 }

@@ -17,7 +17,7 @@ export class NutritionalSource extends ValueObject<INutritionalSource> {
       if (Guard.isNegative(props.publicationYear).succeeded)
          throw new NegativeValueError("L'année de publication doit être un nombre positif dans lors de la definition du source nutritionnelle.");
    }
-   
+
    static create(props: INutritionalSource): Result<NutritionalSource> {
       try {
          const source = new NutritionalSource(props);

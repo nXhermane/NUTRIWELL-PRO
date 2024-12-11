@@ -12,7 +12,7 @@ export class ApplyRecommendationToStandarddNeeds implements IApplyRecommendation
    constructor(
       private dataComposerService: IDataComposerService,
       private needsRecommendatonPriorityManager: INeedsRecommendationPriorityManagerService,
-   ) { }
+   ) {}
    async apply(patientNeeds: PatientNeeds, patientProfil: PatientProfil, applyMedicalConditionFirst: boolean = false): Promise<Result<PatientNeeds>> {
       try {
          const medicalConditions = patientProfil.getMedicalConditions();
@@ -21,13 +21,13 @@ export class ApplyRecommendationToStandarddNeeds implements IApplyRecommendation
             const patientNeedsModifyByMedicalCondition = await this.applyMedicalConditionRecommendationToPatientNeeds(
                patientNeeds,
                medicalConditions,
-               patientProfil
+               patientProfil,
             );
             if (patientNeedsModifyByMedicalCondition.isFailure) return Result.fail<PatientNeeds>(String(patientNeedsModifyByMedicalCondition.err));
             const patientNeedsModifyByObjective = await this.applyObjectiveRecommendationToPatientNeeds(
                patientNeedsModifyByMedicalCondition.val,
                objectives,
-               patientProfil
+               patientProfil,
             );
             if (patientNeedsModifyByObjective.isFailure) return Result.fail<PatientNeeds>(String(patientNeedsModifyByObjective.err));
             return Result.ok<PatientNeeds>(patientNeedsModifyByObjective.val);
@@ -37,7 +37,7 @@ export class ApplyRecommendationToStandarddNeeds implements IApplyRecommendation
             const patientNeedsModifyByMedicalCondition = await this.applyMedicalConditionRecommendationToPatientNeeds(
                patientNeedsModifyByObjective.val,
                medicalConditions,
-               patientProfil
+               patientProfil,
             );
             if (patientNeedsModifyByMedicalCondition.isFailure) return Result.fail<PatientNeeds>(String(patientNeedsModifyByMedicalCondition.err));
             return Result.ok<PatientNeeds>(patientNeedsModifyByObjective.val);
@@ -49,23 +49,15 @@ export class ApplyRecommendationToStandarddNeeds implements IApplyRecommendation
    async applyMedicalConditionRecommendationToPatientNeeds(
       patientNeeds: PatientNeeds,
       medicalConditions: MedicalCondition[],
-      patientProfil: PatientProfil
+      patientProfil: PatientProfil,
    ): Promise<Result<PatientNeeds>> {
       try {
          const patientNeedsProps = patientNeeds.getProps();
          const medicalConditionRecommendations = medicalConditions.flatMap((condition) => condition.getRecommendations());
          const [energy, macronutrients, micronutrients] = await Promise.all([
             this.applyRecommendationToNutrientGroup(patientNeedsProps.energy, medicalConditionRecommendations, patientProfil),
-            this.applyRecommendationToNutrientGroup(
-               patientNeedsProps.macronutrients,
-               medicalConditionRecommendations,
-               patientProfil,
-            ),
-            this.applyRecommendationToNutrientGroup(
-               patientNeedsProps.micronutrients,
-               medicalConditionRecommendations,
-               patientProfil
-            ),
+            this.applyRecommendationToNutrientGroup(patientNeedsProps.macronutrients, medicalConditionRecommendations, patientProfil),
+            this.applyRecommendationToNutrientGroup(patientNeedsProps.micronutrients, medicalConditionRecommendations, patientProfil),
          ]);
 
          patientNeeds.setEnergy(energy);
@@ -77,7 +69,11 @@ export class ApplyRecommendationToStandarddNeeds implements IApplyRecommendation
          return Result.fail<PatientNeeds>(String(error));
       }
    }
-   async applyObjectiveRecommendationToPatientNeeds(patientNeeds: PatientNeeds, objectives: Objective[], patientProfil: PatientProfil): Promise<Result<PatientNeeds>> {
+   async applyObjectiveRecommendationToPatientNeeds(
+      patientNeeds: PatientNeeds,
+      objectives: Objective[],
+      patientProfil: PatientProfil,
+   ): Promise<Result<PatientNeeds>> {
       try {
          const patientNeedsProps = patientNeeds.getProps();
          const objectiveRecommendations = objectives.flatMap((objective) => objective.getRecommendation());

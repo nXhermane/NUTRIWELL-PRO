@@ -7,7 +7,7 @@ export interface NutritionalReferenceValueDto {
    source: NutritionalSourcePersistenceType;
    unit: string;
    values: NutritionalRefPersistence[];
-   systemVariableName:string;
+   systemVariableName: string;
    id: AggregateID;
    createdAt: string;
    updatedAt: string;

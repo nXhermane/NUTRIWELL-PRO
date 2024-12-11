@@ -3,7 +3,7 @@ import { PatientProfil } from "../../aggregates/PatientProfil";
 import { NutritionalReferenceValue } from "../../entities/NutritionalReferenceValue";
 import { NutritionFormular } from "../../entities/NutritionFormular";
 
-export type DataRoot = { [systemVariableName: string]: NutritionFormular | NutritionalReferenceValue | PatientProfil};
+export type DataRoot = { [systemVariableName: string]: NutritionFormular | NutritionalReferenceValue | PatientProfil };
 export interface IGenerateDataRootService {
    generate(patientProfil: PatientProfil): Promise<Result<DataRoot>>;
 }
