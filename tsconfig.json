@@ -5,13 +5,33 @@
     "emitDecoratorMetadata": true,
     "strict": true,
     "paths": {
-      "@/*": ["./*"],
-      "@shared": ["./core/shared"],
-      "@foodAndRecipe": ["./core/FoodsAndRecipesDatabase"],
-      "@patientManager/*": ["./core/PatientManager/*"],
-      "@nutritionistManager": ["./core/NutritionistManager"],
-      "@medicalRecordManager": ["./core/MedicalRecordManager"]
+      "@/*": [
+        "./*"
+      ],
+      "@shared": [
+        "./core/shared"
+      ],
+      "@foodAndRecipe": [
+        "./core/FoodsAndRecipesDatabase"
+      ],
+      "@patientManager/*": [
+        "./core/PatientManager/*"
+      ],
+      "@nutritionistManager": [
+        "./core/NutritionistManager"
+      ],
+      "@medicalRecordManager": [
+        "./core/MedicalRecordManager"
+      ],
+      "tailwind.config": [
+        "./tailwind.config.js"
+      ]
     }
   },
-  "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"]
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    ".expo/types/**/*.ts",
+    "expo-env.d.ts"
+  ]
 }
