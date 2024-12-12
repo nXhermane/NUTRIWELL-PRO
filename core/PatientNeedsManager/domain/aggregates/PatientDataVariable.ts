@@ -1,5 +1,6 @@
-import { AggregateID, AggregateRoot, EmptyStringError, ExceptionBase, InvalidReference, NotFoundException, Result } from "@/core/shared";
+import { AggregateID, AggregateRoot, CreateEntityProps, EmptyStringError, ExceptionBase, InvalidReference, NotFoundException, Result } from "@/core/shared";
 import { CreatePatientDataVariable } from "../types";
+import { StaticPatientVariableMappingTable } from "../constants/StaticPatientVariableMappingTable";
 
 /**
  * Représente un ensemble de variables dynamiques associées à un patient spécifique.
@@ -10,6 +11,14 @@ export interface IPatientDataVariable {
 }
 
 export class PatientDataVariable extends AggregateRoot<IPatientDataVariable> {
+   constructor(createProps: CreateEntityProps<IPatientDataVariable>) {  
+      if (!createProps.id) {// Verifier si ce n'est pas un nouveau patient qui veux initialiser ces variables
+         for (const [key, path] of Object.entries(StaticPatientVariableMappingTable)) {
+            createProps.props.variables[key] = path;
+         }
+      }
+      super(createProps)
+   }
    get patientProfilId(): AggregateID {
       return this.props.patientProfilId;
    }

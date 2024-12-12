@@ -1,5 +1,4 @@
 import { AggregateID } from "@shared";
-import { ICurrentGoal } from "./value-objects/CurrentGoal";
 import { IMedicalCondition } from "./entities/MedicalCondition";
 import { HealthMetrics } from "./value-objects/HealthMetrics";
 import { IHealthIndicator } from "../../shared/modules/NeedsRecommendations/value-object/HealthIndicator";

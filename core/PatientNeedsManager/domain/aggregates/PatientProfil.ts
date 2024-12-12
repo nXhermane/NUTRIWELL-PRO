@@ -2,6 +2,7 @@ import {
    AggregateID,
    AggregateRoot,
    BaseEntityProps,
+   DomainEvents,
    ExceptionBase,
    Gender,
    Guard,
@@ -21,6 +22,7 @@ import { MeasurementAddedtoPatientProfilEvent } from "../events/MeasurementAdded
 import { combinePath, invariablePath } from "../constants/VariablePathConstants";
 import { MeasurementDeletedFromPatientProfilEvent } from "../events/MeasurementDeletedFromPatientProfilEvent";
 import { IObjective, Objective } from "../entities/Objective";
+import { PatientProfilCreatedEvent } from "../events/PatientProfilCreatedEvent";
 
 export interface IPatientProfil {
    patientId: AggregateID;
@@ -146,7 +148,7 @@ export class PatientProfil extends AggregateRoot<IPatientProfil> {
       this.addDomainEvent(
          new MeasurementAddedtoPatientProfilEvent({
             patientProfilId: this.id,
-            measureName: healthMetrics.unpack().name,
+            measureName: healthMetrics.unpack().name.toString(),
             measurePath: combinePath(
                invariablePath.patientProfilPath,
                invariablePath.patientProfilAnthropometricMeasurePath(healthMetrics.unpack().code),
@@ -160,7 +162,7 @@ export class PatientProfil extends AggregateRoot<IPatientProfil> {
       this.addDomainEvent(
          new MeasurementAddedtoPatientProfilEvent({
             patientProfilId: this.id,
-            measureName: healthMetrics.unpack().name,
+            measureName: healthMetrics.unpack().name.toString(),
             measurePath: combinePath(
                invariablePath.patientProfilPath,
                invariablePath.patientProfilBodyCompositionMeasurePath(healthMetrics.unpack().code),
@@ -174,7 +176,7 @@ export class PatientProfil extends AggregateRoot<IPatientProfil> {
       this.addDomainEvent(
          new MeasurementAddedtoPatientProfilEvent({
             patientProfilId: this.id,
-            measureName: healthMetrics.unpack().name,
+            measureName: healthMetrics.unpack().name.toString(),
             measurePath: combinePath(
                invariablePath.patientProfilPath,
                invariablePath.patientProfilMedicalAnalysesMeasurePath(healthMetrics.unpack().code),
@@ -283,7 +285,7 @@ export class PatientProfil extends AggregateRoot<IPatientProfil> {
          this.addDomainEvent(
             new MeasurementDeletedFromPatientProfilEvent({
                patientProfilId: this.id,
-               measureName: measure.unpack().name,
+               measureName: measure.unpack().name.toString(),
             }),
          );
       }
@@ -296,7 +298,7 @@ export class PatientProfil extends AggregateRoot<IPatientProfil> {
          this.addDomainEvent(
             new MeasurementDeletedFromPatientProfilEvent({
                patientProfilId: this.id,
-               measureName: measure.unpack().name,
+               measureName: measure.unpack().name.toString(),
             }),
          );
       }
@@ -308,7 +310,7 @@ export class PatientProfil extends AggregateRoot<IPatientProfil> {
          this.addDomainEvent(
             new MeasurementDeletedFromPatientProfilEvent({
                patientProfilId: this.id,
-               measureName: measure.unpack().name,
+               measureName: measure.unpack().name.toString(),
             }),
          );
       }
@@ -361,6 +363,9 @@ export class PatientProfil extends AggregateRoot<IPatientProfil> {
                otherInformations: createPatientProfilProps.otherInformations,
             },
          });
+         patientProfil.addDomainEvent(new PatientProfilCreatedEvent({
+            patientProfil: patientProfil
+         }))
          return Result.ok<PatientProfil>(patientProfil);
       } catch (error) {
          return error instanceof ExceptionBase

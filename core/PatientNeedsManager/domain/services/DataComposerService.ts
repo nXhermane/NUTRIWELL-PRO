@@ -26,7 +26,7 @@ export class DataComposerService implements IDataComposerService {
       patientProfil: PatientProfil,
       additionalContext: { [key: string]: any } = {},
    ): Promise<ComposedObject> {
-      // TODO: getion du cache ,
+      // TODO: gestion du cache ,
       // * Maintenant j'utilise le FIFO , mais je pourrais utiliser un cache plus avancé le Least Recently Used (LRU) ou un TTL (Time to Live)
       if (!this.dataComposerCatch.has(patientProfil.id)) {
          if (this.dataComposerCatch.size >= this.maxCatchSize) {

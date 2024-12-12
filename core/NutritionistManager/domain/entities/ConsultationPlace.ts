@@ -1,9 +1,7 @@
 import {
    Entity,
    CreateEntityProps,
-   BaseEntityProps,
    Guard,
-   ArgumentInvalidException,
    Result,
    ExceptionBase,
    Address,

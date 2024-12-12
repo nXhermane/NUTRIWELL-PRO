@@ -4,15 +4,15 @@ import { Nutritionist } from "./../aggregates/Nutritionist";
 import bcrypt from "bcryptjs";
 import { Result, ENV, Email } from "@shared";
 
-import jwt from "jsonwebtoken";
+import jwt, { JwtPayload } from "jsonwebtoken";
 
 export class AuthNutritionistService implements IAuthNutritionistService {
    constructor(
       private repo: NutritionistRepository,
       private refreshTokenRepo: RefreshTokenRepository,
-   ) {}
+   ) { }
 
-   private async checkEmailExistence(email: Email): Promise<Result<boolean>> {
+   private async checkEmailNotExist(email: Email): Promise<Result<boolean>> {
       const emailExist = await Result.encapsulateAsync<Nutritionist>(async () => {
          return this.repo.getByEmail(email);
       });
@@ -31,7 +31,7 @@ export class AuthNutritionistService implements IAuthNutritionistService {
    async signUp(nutritionist: Nutritionist, password: string): Promise<Result<boolean>> {
       const { email, id } = nutritionist.getProps();
 
-      const emailCheck = await this.checkEmailExistence(email);
+      const emailCheck = await this.checkEmailNotExist(email);
       if (emailCheck.isFailure) return emailCheck;
 
       const salt = await bcrypt.genSalt(10);
@@ -51,7 +51,7 @@ export class AuthNutritionistService implements IAuthNutritionistService {
    async signUpWithGoogle(nutritionist: Nutritionist, googleIdToken: string): Promise<Result<boolean>> {
       const { email, id } = nutritionist.getProps();
 
-      const emailCheck = await this.checkEmailExistence(email);
+      const emailCheck = await this.checkEmailNotExist(email);
       if (emailCheck.isFailure) return emailCheck;
 
       // TODO: Validate googleIdToken with Google's API
@@ -103,19 +103,19 @@ export class AuthNutritionistService implements IAuthNutritionistService {
    async refreshAccessToken(refreshToken: string): Promise<Result<{ accessToken: string; refreshToken: string }>> {
       try {
          const payloadRefresh = jwt.verify(refreshToken, ENV.jwtSignKey);
-         const nutritionist = await this.repo.getById(payloadRefresh.unique_id);
+         const nutritionist = await this.repo.getById((payloadRefresh as JwtPayload).unique_id);
          const repoRefreshToken = await this.refreshTokenRepo.getById(nutritionist.id);
          if (refreshToken !== repoRefreshToken) return Result.fail<{ accessToken: string; refreshToken: string }>("the jwt is not valid");
          const tokens = this.generateToken(nutritionist);
          await this.refreshTokenRepo.save(nutritionist.id, tokens.refreshToken);
          return Result.ok<{ accessToken: string; refreshToken: string }>(tokens);
-      } catch (e) {
+      } catch (e: any) {
          return Result.fail<{ accessToken: string; refreshToken: string }>(`${e.constructor.name}`);
       }
    }
    async logout(refreshToken: string): Promise<void> {
       const payloadRefresh = jwt.verify(refreshToken, ENV.jwtSignKey);
-      const nutritionist = await this.repo.getById(payloadRefresh.unique_id);
+      const nutritionist = await this.repo.getById((payloadRefresh as JwtPayload).unique_id);
       await this.refreshTokenRepo.delete(nutritionist.id);
    }
    private generateToken(nutritionist: Nutritionist): { accessToken: string; refreshToken: string } {

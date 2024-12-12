@@ -1,6 +1,7 @@
 import { View, Text, Button } from "react-native";
 import React, { useState } from "react";
 import { GoogleSignin, GoogleSigninButton, statusCodes, isErrorWithCode, isSuccessResponse } from "@react-native-google-signin/google-signin";
+import  Constants  from "expo-constants";
 GoogleSignin.configure({
    webClientId: "739619233876-gaeghecmvnrebtq4gjeg5cme79p1gp23.apps.googleusercontent.com",
    offlineAccess: true,
@@ -14,7 +15,7 @@ const index2 = () => {
          const response = await GoogleSignin.signIn();
          if (isSuccessResponse(response)) {
             setUser(response.data as any);
-            console.log(response.data)
+            console.log(response.data);
          } else {
             // sign in was cancelled by user
          }
@@ -41,7 +42,9 @@ const index2 = () => {
    return (
       <View>
          <Text>Hello I'm the second page</Text>
+         <Text>{JSON.stringify(user, null, 2)}</Text>
          <Button title={"Sign IN "} onPress={signIn} />
+         <Text></Text>
       </View>
    );
 };

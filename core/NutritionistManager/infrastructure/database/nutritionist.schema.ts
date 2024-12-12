@@ -61,13 +61,8 @@ export const nutritionists = sqliteTable("nutritionists", {
    images: text("images", { mode: "json" }).$type<Images>(),
    consultationPlaceIds: text("consultationPlaceIds", { mode: "json" }).$type<(string | number)[]>(),
    serviceIds: text("serviceIds", { mode: "json" }).$type<(string | number)[]>(),
-   createdAt: text("createdAt")
-      .notNull()
-      .default(sql`CURRENT_TIMESTAMP`),
-   updatedAt: text("updatedAt")
-      .notNull()
-      .default(sql`CURRENT_TIMESTAMP`)
-      .$onUpdate(() => sql`CURRENT_TIMESTAMP`),
+   createdAt: text("createdAt").notNull(),
+   updatedAt: text("updatedAt").notNull()
 });
 
 export const refreshTokens = sqliteTable("refresh_tokens", {

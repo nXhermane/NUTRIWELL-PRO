@@ -60,15 +60,18 @@ export default function Index() {
    };
 
    const downloadAndExtractFile = async () => {
-      const zipUrl = "https://github.com/nXhermane/nutritionAppData-nutriwell/releases/download/database/databaseFiles.rar";
+      console.log("Download Process")
+      const zipUrl = "https://github.com/nXhermane/nutritionAppData-nutriwell/releases/download/database2/databaseFiles.zip";
       const fileUri = FileSystem.documentDirectory + "databaseFiles.rar";
       const downloadResumable = FileSystem.createDownloadResumable(zipUrl, fileUri, {}, showProgress);
       try {
-         const fileInfo = await FileSystem.getInfoAsync(fileUri);
+         const fileInfo = await FileSystem.getInfoAsync(fileUri); 
          if (!fileInfo.exists) {
             const res = await downloadResumable.downloadAsync();
             console.log("Finished downloading to ", res?.uri);
             const targetPath = FileSystem.documentDirectory + "databaseFiles";
+            const resUnzip =  await unzip(res?.uri as string, targetPath, "UTF-8")
+            console.log("unzip",resUnzip)
             unzip(res?.uri as string, targetPath, "UTF-8").then((path) => {
                console.log(`unzip completed at ${path}`);
                FileSystem.readAsStringAsync(targetPath)
@@ -81,6 +84,7 @@ export default function Index() {
             });
          } else {
             console.log("File existe");
+            
          }
       } catch (error) {
          // Extraire le fichier si nécessaire (utilise expo-zip ou une autre méthode si tu veux extraire le RAR)

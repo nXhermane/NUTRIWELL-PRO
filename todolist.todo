@@ -1,4 +1,0 @@
-TODO: je dois reecrire la classe NutritionlStandardNeedsCalculator 2024-12-11 
-afin d'y ajouter la prise en charge de valeur nutritionnelle deja calculer et de faciliter l'ecriture et l'interpretation des expressions nutritionnelles qui vont refleter les relations du domaine réel
-
-TODO : Implementer le factory de PatientNeedsModel et refactoriser les entites et object directement liés a l'ancienne structuration de PatientNeedsModel 

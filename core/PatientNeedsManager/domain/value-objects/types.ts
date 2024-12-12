@@ -20,3 +20,10 @@ export type CreateNutrientDescriptorProps = {
    unit: string;
    variables: VariableMappingTable;
 };
+
+export type CreateHealthMetricsProps = {
+   name: string
+   code: string;
+   unit: string;
+   value: number;
+}

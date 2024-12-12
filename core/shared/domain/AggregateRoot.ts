@@ -1,6 +1,6 @@
 import { Entity, CreateEntityProps } from "./Entity";
 import { DomainEvents, IDomainEvent } from "./events";
-export abstract class AggregateRoot<EntityProps> extends Entity<EntityProps> {
+export abstract class AggregateRoot<EntityProps extends {}> extends Entity<EntityProps> {
    private _domainEvents: IDomainEvent[] = [];
    public publishEvents() {
       console.log("Event publier par: ", this.constructor.name);

@@ -16,3 +16,5 @@ export * from "./NutrientUnit";
 export * from "./FormularName";
 export * from "./FormularUnit";
 export * from "./ProtocolName";
+export * from "./HealthMetricsName";
+export * from "./HealthMetricsUnit";

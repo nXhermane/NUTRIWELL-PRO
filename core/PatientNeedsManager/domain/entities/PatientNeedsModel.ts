@@ -9,12 +9,9 @@ import {
    Guard,
    MacronutrientStaticTagname,
    ModelType,
-   Result,
-   ExceptionBase,
 } from "@/core/shared";
 import { NutrientDescriptor } from "../value-objects/NutrientDescriptor";
 import { IPatientNeedsValidationRule, PatientNeedsValidationRule } from "../value-objects/PatientNeedsValidationRule";
-import { NutritionalVariable } from "../value-objects/NutritionalVariable";
 
 // TODO : Maintenant je vais laisser la parise ne charge de pathologies maintenant et reflechir par rapport a cela après quand le model serai pres .
 
@@ -64,6 +61,25 @@ export class PatientNeedsModel extends Entity<IPatientNeedsModel> {
       this.updation();
       energyMetrics.forEach((energyMetric) => (this.props.energyMetrics[energyMetric.tagname] = energyMetric));
    }
+   removeNutrientFromMacronutrients(...nutrientTagnames: string[]) {
+      nutrientTagnames.forEach(tagname => {
+         if (this.props.macronutrients[tagname]) delete this.props.macronutrients[tagname]
+      })
+      this.updation()
+   }
+   removeNutrientFromMicronutrients(...nutrientTagnames: string[]) {
+      nutrientTagnames.forEach(tagname => {
+         if (this.props.micronutrients[tagname]) delete this.props.micronutrients[tagname]
+      })
+      this.updation()
+   }
+   removeNutrientFromEnergyMetric(...nutrientTagnames: string[]) {
+      nutrientTagnames.forEach(tagname => {
+         if (this.props.energyMetrics[tagname]) delete this.props.energyMetrics[tagname]
+      })
+      this.updation()
+   }
+
    get isValidModel(): boolean {
       return this.props.isValidModel;
    }
