@@ -1,5 +1,5 @@
 import { AggregateID } from "@/core/shared";
-
+// TODO : avant de lancer l'application , tu dois essayer de voir si la methode de generation de path est toujour correcte 
 export const invariablePath = {
    patientProfilPath: "patientProfil",
    patientGender: "gender",

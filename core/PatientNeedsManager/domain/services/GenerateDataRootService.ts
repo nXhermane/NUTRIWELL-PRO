@@ -1,6 +1,6 @@
-import { AggregateID, Result } from "@/core/shared";
+import { Result } from "@/core/shared";
 import { DataRoot, IGenerateDataRootService } from "./interfaces/GenerateDataRoot";
-import { NutritionalReferenceValueRepository, NutritionFormularRepository, PatientProfilRepository } from "../../infrastructure";
+import { NutritionalReferenceValueRepository, NutritionFormularRepository } from "../../infrastructure";
 import { NutritionalReferenceValue } from "../entities/NutritionalReferenceValue";
 import { NutritionFormular } from "../entities/NutritionFormular";
 import { PatientProfil } from "../aggregates/PatientProfil";

@@ -1,10 +1,8 @@
 import { EvaluateMathExpression } from "@/core/shared";
 import { PatientProfilRepository } from "../../infrastructure";
 import { PatientNeedsModel } from "../entities/PatientNeedsModel";
-import { IDataComposerService } from "./interfaces/DataComposerService";
-import { INutritionalStandardNeedsCalculator } from "./interfaces/NutritionalStandardNeedsCalculator";
-import { IPatientNeedsModelValidationService } from "./interfaces/PatientNeedsModelValidationService";
 import { PatientNeedsModelValidationServiceErrors } from "./errors/PatientNeedsModelValidationServiceErrors";
+import { IDataComposerService, INutritionalStandardNeedsCalculator, IPatientNeedsModelValidationService } from "./interfaces";
 // TODO: je dois remplacer cette implementation plus tard pour prendre en charge les defaults params a la place de simuler un default patient Profile
 export class PatientNeedsModelValidationService implements IPatientNeedsModelValidationService {
    constructor(

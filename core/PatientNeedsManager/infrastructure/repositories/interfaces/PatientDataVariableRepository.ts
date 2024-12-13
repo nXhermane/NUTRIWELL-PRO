@@ -1,4 +1,4 @@
-import { PatientDataVariable } from "@/core/PatientNeedsManager/domain/aggregates/PatientDataVariable";
+import { PatientDataVariable } from "@/core/PatientNeedsManager/domain/entities/PatientDataVariable";
 import { AggregateID } from "@/core/shared";
 
 export interface PatientDataVariableRepository {

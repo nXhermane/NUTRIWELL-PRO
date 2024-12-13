@@ -1,1 +1,1 @@
-export * from "./AntiCorruptionLayer";
+export * from "../../NutritionReporting/application/AntiCorruptionLayer";

@@ -5,6 +5,7 @@ import { FoodAndRecipeApi, NutritionalValue } from "@/core/FoodsAndRecipesDataba
 import { MedicalRecordAPI } from "@/core/MedicalRecordManager/application/api";
 import { FoodDiaryDto } from "@/core/MedicalRecordManager/infrastructure";
 import { CreateIntakeDataProps } from "../../domain/types";
+;
 type IntakePrimaryData = {
    date: string;
    foodOrRecipeId: AggregateID;

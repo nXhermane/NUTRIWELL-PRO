@@ -1,15 +1,11 @@
 import { NutritionalReferenceValue } from "../entities/NutritionalReferenceValue";
 import { NutritionFormular } from "../entities/NutritionFormular";
 import { VariableMappingTable } from "../entities/types";
-import { ComposedObject, IDataComposerService } from "./interfaces/DataComposerService";
-import { INutritionFormularService } from "./interfaces/NutritionFormularService";
-import { INutritionalReferenceValueService } from "./interfaces/NutritionalReferenceValueService";
-import { DataRoot, IGenerateDataRootService } from "./interfaces/GenerateDataRoot";
 import { AggregateID, EvaluatePath } from "@/core/shared";
 import { PatientDataVariableRepository } from "../../infrastructure";
 import { DataComposerServiceError } from "./errors/DataComposerError";
 import { PatientProfil } from "../aggregates/PatientProfil";
-import { NutrientNeedsValue } from "@/core/shared";
+import { IDataComposerService, DataRoot, IGenerateDataRootService, INutritionalReferenceValueService, INutritionFormularService, ComposedObject } from "./interfaces";
 
 export class DataComposerService implements IDataComposerService {
    private dataComposerCatch: Map<AggregateID, { data: DataRoot; variables: Record<string, string> }> = new Map();

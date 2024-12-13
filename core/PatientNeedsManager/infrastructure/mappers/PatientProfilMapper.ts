@@ -14,9 +14,24 @@ export class PatientProfilMapper implements Mapper<PatientProfil, PatientProfilP
          patientId: entity.patientId as string,
          patientNeedsModelId: entity.patientNeedsModelId as string,
          physicalActivityLevel: entity.physicalActivityLevel,
-         anthropometricMeasure: Object.values(entity.anthropomethricMeasure),
-         bodyCompositionMeasure: Object.values(entity.bodyCompositionMeasure),
-         medicalAnalyses: Object.values(entity.medicalAnalysesMeasure),
+         anthropometricMeasure: Object.values(entity.anthropomethricMeasure).map(val => ({
+            name: val.name.toString(),
+            unit: val.unit.toString(),
+            code: val.code,
+            value: val.value
+         })),
+         bodyCompositionMeasure: Object.values(entity.bodyCompositionMeasure).map(val => ({
+            name: val.name.toString(),
+            unit: val.unit.toString(),
+            code: val.code,
+            value: val.value
+         })),
+         medicalAnalyses: Object.values(entity.medicalAnalysesMeasure).map(val => ({
+            name: val.name.toString(),
+            unit: val.unit.toString(),
+            code: val.code,
+            value: val.value
+         })),
          height: entity.height,
          age: entity.age,
          weight: entity.weight,

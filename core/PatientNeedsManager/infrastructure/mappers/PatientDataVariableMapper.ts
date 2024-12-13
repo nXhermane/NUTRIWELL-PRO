@@ -1,5 +1,5 @@
 import { Mapper } from "@/core/shared";
-import { PatientDataVariable } from "../../domain/aggregates/PatientDataVariable";
+import { PatientDataVariable } from "../../domain/entities/PatientDataVariable";
 import { PatientDataVariableDto } from "../dtos/PatientDataVariableDto";
 import { PatientDataVariablePersistence } from "../repositories";
 

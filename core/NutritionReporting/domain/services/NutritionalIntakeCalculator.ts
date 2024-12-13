@@ -1,7 +1,7 @@
 import { AggregateID, CDate, Result } from "@/core/shared";
 import { DailyIntake, INutritionalIntakeCalculator, OverPeriodIntake } from "./interfaces/NutritionalIntakeCalculator";
-import { IIntakeDataACL } from "../../application";
 import { Intake } from "../value-objects/Intake";
+import { IIntakeDataACL } from "../../application/AntiCorruptionLayer";
 
 export class NutritionalIntakeCalculator implements INutritionalIntakeCalculator {
    constructor(private intakeACL: IIntakeDataACL) {}

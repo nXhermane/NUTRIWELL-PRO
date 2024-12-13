@@ -1,11 +1,10 @@
-import { IDataComposerService } from "./interfaces/DataComposerService";
-import { INutritionalStandardNeedsCalculator } from "./interfaces/NutritionalStandardNeedsCalculator";
 import { EvaluateMathExpression } from "@/core/shared";
 import { NutrientNeedsValue, PatientNeeds } from "../entities/PatientNeeds";
 import { PatientProfil } from "../aggregates/PatientProfil";
 import { PatientNeedsModel } from "../entities/PatientNeedsModel";
 import { NutrientDescriptor } from "../value-objects/NutrientDescriptor";
 import { NutritionalStandardNeedsCalculatorError } from "./errors/NutritionalStandardNeedsCalculatorError";
+import { IDataComposerService, INutritionalStandardNeedsCalculator } from "./interfaces";
 export type NutrientModelGroup = { [nutrientTagname: string]: NutrientDescriptor };
 
 // TODO :

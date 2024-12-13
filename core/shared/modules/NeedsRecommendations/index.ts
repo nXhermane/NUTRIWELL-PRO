@@ -8,3 +8,6 @@ export * from "./value-object/HealthIndicator";
 export * from "./dtos/NeedsRecommendationDto";
 export * from "./factories/NeedsRecommendationFactory";
 export * from "./mappers/NeedsRecommendationMappers";
+export * from "./services/NeedsRecommendationPriorityManagerService"
+export * from "./services/interfaces/NeedsRecommendationPriorityManagerService"
+export * from "./RecommendationPriority"

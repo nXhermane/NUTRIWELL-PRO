@@ -1,18 +1,16 @@
-import { AggregateID, CDate, NeedsRecommendation, NutrientNeedsValue, Result } from "@/core/shared";
+import { CDate, INeedsRecommendationPriorityManagerService, NeedsRecommendation, NutrientNeedsValue, Result } from "@/core/shared";
 import { PatientProfil } from "../aggregates/PatientProfil";
 import { PatientNeeds } from "../entities/PatientNeeds";
-import { IApplyRecommendationToStandardNeeds } from "./interfaces/ApplyRecommendationToStandardNeeds";
 import { MedicalCondition } from "../entities/MedicalCondition";
 import { Objective } from "../entities/Objective";
-import { ComposedObject, IDataComposerService } from "./interfaces/DataComposerService";
 import { VariableMappingTable } from "../entities/types";
-import { INeedsRecommendationPriorityManagerService } from "@/core/shared/modules/NeedsRecommendations/services/interfaces/NeedsRecommendationPriorityManagerService";
+import { ComposedObject, IApplyRecommendationToStandardNeeds, IDataComposerService } from "./interfaces";
 
 export class ApplyRecommendationToStandarddNeeds implements IApplyRecommendationToStandardNeeds {
    constructor(
       private dataComposerService: IDataComposerService,
       private needsRecommendatonPriorityManager: INeedsRecommendationPriorityManagerService,
-   ) {}
+   ) { }
    async apply(patientNeeds: PatientNeeds, patientProfil: PatientProfil, applyMedicalConditionFirst: boolean = false): Promise<Result<PatientNeeds>> {
       try {
          const medicalConditions = patientProfil.getMedicalConditions();

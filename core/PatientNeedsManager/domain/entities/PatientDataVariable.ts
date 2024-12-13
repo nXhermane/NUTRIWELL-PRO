@@ -1,5 +1,5 @@
-import { AggregateID, AggregateRoot, CreateEntityProps, EmptyStringError, ExceptionBase, InvalidReference, NotFoundException, Result } from "@/core/shared";
-import { CreatePatientDataVariable } from "../types";
+import { AggregateID, CreateEntityProps, EmptyStringError, Entity, ExceptionBase, NotFoundException, Result } from "@/core/shared";
+import { CreatePatientDataVariableProps } from "../types";
 import { StaticPatientVariableMappingTable } from "../constants/StaticPatientVariableMappingTable";
 
 /**
@@ -10,7 +10,7 @@ export interface IPatientDataVariable {
    variables: Record<string, string>; // Clé-valeur pour le nom et le chemin de la variable.
 }
 
-export class PatientDataVariable extends AggregateRoot<IPatientDataVariable> {
+export class PatientDataVariable extends Entity<IPatientDataVariable> {
    constructor(createProps: CreateEntityProps<IPatientDataVariable>) {  
       if (!createProps.id) {// Verifier si ce n'est pas un nouveau patient qui veux initialiser ces variables
          for (const [key, path] of Object.entries(StaticPatientVariableMappingTable)) {
@@ -43,7 +43,7 @@ export class PatientDataVariable extends AggregateRoot<IPatientDataVariable> {
       // TODO: Je vais implementer la vrai validation du patient Profil Id dans la version suivante
       this._isValid = true;
    }
-   public static create(props: CreatePatientDataVariable): Result<PatientDataVariable> {
+   public static create(props: CreatePatientDataVariableProps): Result<PatientDataVariable> {
       try {
          const patientDataVariable = new PatientDataVariable({ props });
          return Result.ok<PatientDataVariable>(patientDataVariable);

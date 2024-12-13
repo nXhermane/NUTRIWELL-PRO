@@ -23,6 +23,9 @@
       "@medicalRecordManager": [
         "./core/MedicalRecordManager"
       ],
+      "@modules/*": [
+        "./core/shared/modules/*"
+      ],
       "tailwind.config": [
         "./tailwind.config.js"
       ]

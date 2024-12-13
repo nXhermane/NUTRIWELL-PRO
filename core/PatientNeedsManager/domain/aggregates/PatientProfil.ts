@@ -2,7 +2,6 @@ import {
    AggregateID,
    AggregateRoot,
    BaseEntityProps,
-   DomainEvents,
    ExceptionBase,
    Gender,
    Guard,

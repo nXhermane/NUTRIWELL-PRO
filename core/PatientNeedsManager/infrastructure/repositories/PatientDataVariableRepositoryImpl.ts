@@ -1,5 +1,5 @@
 import { AggregateID, DomainEvents, Mapper } from "@/core/shared";
-import { PatientDataVariable } from "../../domain/aggregates/PatientDataVariable";
+import { PatientDataVariable } from "../../domain/entities/PatientDataVariable";
 import { PatientDataVariableRepository } from "./interfaces/PatientDataVariableRepository";
 import { SQLiteDatabase } from "expo-sqlite";
 import { PatientDataVariablePersistence } from "./types";

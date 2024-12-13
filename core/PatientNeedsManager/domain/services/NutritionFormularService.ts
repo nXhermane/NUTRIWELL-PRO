@@ -1,9 +1,8 @@
-import { AggregateID, EvaluateMathExpression, Result } from "@/core/shared";
+import { EvaluateMathExpression, Result } from "@/core/shared";
 import { VariableObject } from "../entities/NutritionalReferenceValue";
 import { NutritionFormular, NutritionFormularResult } from "../entities/NutritionFormular";
-import { INutritionFormularService } from "./interfaces/NutritionFormularService";
+import { IDataComposerService, INutritionFormularService } from "./interfaces";
 import { IFormularExpression } from "../value-objects/FormularExpression";
-import { IDataComposerService } from "./interfaces/DataComposerService";
 import { PatientProfil } from "../aggregates/PatientProfil";
 
 export class NutritionFormularService implements INutritionFormularService {

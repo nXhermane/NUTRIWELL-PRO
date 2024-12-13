@@ -19,7 +19,7 @@ export interface CreatePatientProfilProps {
    medicalAnalyses: { [measureCode: string]: HealthMetrics };
    otherInformations: { [infoName: string]: any };
 }
-export type CreatePatientDataVariable = {
+export type CreatePatientDataVariableProps = {
    patientProfilId: AggregateID;
    variables: { [variableName: string]: string };
 };
@@ -28,16 +28,7 @@ export interface CreateMedicalConditionProps extends Omit<IMedicalCondition, "se
    healthIndicators: IHealthIndicator[];
 }
 
-export type CreateIntakeDataProps = {
-   date: string;
-   foodOrRecipeId: AggregateID;
-   isRecipe: boolean;
-   nutrients: {
-      value: number;
-      tagname: string;
-      unit: string;
-   }[];
-};
+
 export type CreateValidationRegularProps = {
    expression: string;
    nutrientInsolved: string[];

@@ -1,7 +1,7 @@
 import { EvaluateMathExpression, Result } from "@/core/shared";
 import { NutritionalReferenceValue, VariableObject, NutritionalRecommendedValue } from "../entities/NutritionalReferenceValue";
 import { NutritionalRef } from "../value-objects/NutritionalRef";
-import { INutritionalReferenceValueService } from "./interfaces/NutritionalReferenceValueService";
+import { INutritionalReferenceValueService } from "./interfaces";
 
 export class NutritionalReferenceValueService implements INutritionalReferenceValueService {
    getNutritionalRecommendedValue(

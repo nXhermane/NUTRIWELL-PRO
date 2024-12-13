@@ -1,0 +1,4 @@
+Pour la generation de rapport nutritionnel , nous avons deux possibilités de rapport 
+  1 - Le rapport basé sur les besoins nutritionnels qui consiste a comparé les intakes au PatientNeeds qui ont des valeurs de sortir unique(donc ici on prends en compte une intervalle de tolerance qui est +/- de 5%) et on peut verifier si les intakes respectent cette intervalle ,
+  2 - Le rapport basé sur les valeurs de references proposées par un protocol de reference( et souvent dans ces protocoles la , on a les apport suffisants et les apports minimuns)
+  ces deux manieres de generer les rapports sont destinées a des fins differents donc on peut avoir une modelisation un peu particuliere pour chacun d'eux 

@@ -1,20 +1,16 @@
 import {
    AggregateID,
    IHealthIndicator,
-   INeedsRecommendation,
    INutritionalSource,
    ITimeframe,
    NeedsRecommendationDto,
-   NeedsRecommendationMapper,
-   Time,
 } from "@/core/shared";
-import { CreateFormularExpression, CreateNutrientDescriptorProps } from "../../domain/value-objects/types";
+import { CreateFormularExpression, CreateHealthMetricsProps, CreateNutrientDescriptorProps } from "../../domain/value-objects/types";
 import { CreateValidationRegularProps } from "../../domain/types";
-import { IHealthMetrics } from "../../domain/value-objects/HealthMetrics";
 import { MedicalCondition } from "../../domain/entities/MedicalCondition";
 import { Objective } from "../../domain/entities/Objective";
 
-export type HealthMetricsPersistence = IHealthMetrics;
+export type HealthMetricsPersistence = CreateHealthMetricsProps;
 export type HealthIndicatorsPersistence = IHealthIndicator;
 export type FormularExpressionPersistence = CreateFormularExpression;
 export interface Timestamp {
