@@ -1,14 +1,4 @@
-import {
-   Entity,
-   CreateEntityProps,
-   Guard,
-   Result,
-   ExceptionBase,
-   Address,
-   IAddress,
-   EmptyStringError,
-   ObjectCreationError,
-} from "@shared";
+import { Entity, CreateEntityProps, Guard, Result, ExceptionBase, Address, IAddress, EmptyStringError, ObjectCreationError } from "@shared";
 import { CreateConsultationPlaceProps } from "./../types";
 export interface IConsultationPlace {
    name: string;

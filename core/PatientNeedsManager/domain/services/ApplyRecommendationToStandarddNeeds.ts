@@ -10,7 +10,7 @@ export class ApplyRecommendationToStandarddNeeds implements IApplyRecommendation
    constructor(
       private dataComposerService: IDataComposerService,
       private needsRecommendatonPriorityManager: INeedsRecommendationPriorityManagerService,
-   ) { }
+   ) {}
    async apply(patientNeeds: PatientNeeds, patientProfil: PatientProfil, applyMedicalConditionFirst: boolean = false): Promise<Result<PatientNeeds>> {
       try {
          const medicalConditions = patientProfil.getMedicalConditions();

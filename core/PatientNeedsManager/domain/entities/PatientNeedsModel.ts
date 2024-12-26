@@ -62,22 +62,22 @@ export class PatientNeedsModel extends Entity<IPatientNeedsModel> {
       energyMetrics.forEach((energyMetric) => (this.props.energyMetrics[energyMetric.tagname] = energyMetric));
    }
    removeNutrientFromMacronutrients(...nutrientTagnames: string[]) {
-      nutrientTagnames.forEach(tagname => {
-         if (this.props.macronutrients[tagname]) delete this.props.macronutrients[tagname]
-      })
-      this.updation()
+      nutrientTagnames.forEach((tagname) => {
+         if (this.props.macronutrients[tagname]) delete this.props.macronutrients[tagname];
+      });
+      this.updation();
    }
    removeNutrientFromMicronutrients(...nutrientTagnames: string[]) {
-      nutrientTagnames.forEach(tagname => {
-         if (this.props.micronutrients[tagname]) delete this.props.micronutrients[tagname]
-      })
-      this.updation()
+      nutrientTagnames.forEach((tagname) => {
+         if (this.props.micronutrients[tagname]) delete this.props.micronutrients[tagname];
+      });
+      this.updation();
    }
    removeNutrientFromEnergyMetric(...nutrientTagnames: string[]) {
-      nutrientTagnames.forEach(tagname => {
-         if (this.props.energyMetrics[tagname]) delete this.props.energyMetrics[tagname]
-      })
-      this.updation()
+      nutrientTagnames.forEach((tagname) => {
+         if (this.props.energyMetrics[tagname]) delete this.props.energyMetrics[tagname];
+      });
+      this.updation();
    }
 
    get isValidModel(): boolean {

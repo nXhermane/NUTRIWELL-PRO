@@ -128,4 +128,4 @@ export class MedicalRecordManager {
       return MedicalRecordManager.instance as IMedicalRecordManager;
    }
 }
-export * from "./domain"
+export * from "./domain";

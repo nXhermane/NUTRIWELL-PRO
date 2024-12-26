@@ -1,10 +1,4 @@
-import {
-   AggregateID,
-   IHealthIndicator,
-   INutritionalSource,
-   ITimeframe,
-   NeedsRecommendationDto,
-} from "@/core/shared";
+import { AggregateID, IHealthIndicator, INutritionalSource, ITimeframe, NeedsRecommendationDto } from "@/core/shared";
 import { CreateFormularExpression, CreateHealthMetricsProps, CreateNutrientDescriptorProps } from "../../domain/value-objects/types";
 import { CreateValidationRegularProps } from "../../domain/types";
 import { MedicalCondition } from "../../domain/entities/MedicalCondition";

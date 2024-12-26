@@ -1,2 +1,2 @@
-export * from "./PatientNeedsModelFactory"
-export * from "./interfaces/IPatientNeedsModelFactory"
+export * from "./PatientNeedsModelFactory";
+export * from "./interfaces/IPatientNeedsModelFactory";

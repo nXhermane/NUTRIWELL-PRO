@@ -28,7 +28,6 @@ export interface CreateMedicalConditionProps extends Omit<IMedicalCondition, "se
    healthIndicators: IHealthIndicator[];
 }
 
-
 export type CreateValidationRegularProps = {
    expression: string;
    nutrientInsolved: string[];

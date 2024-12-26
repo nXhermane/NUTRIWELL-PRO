@@ -362,9 +362,11 @@ export class PatientProfil extends AggregateRoot<IPatientProfil> {
                otherInformations: createPatientProfilProps.otherInformations,
             },
          });
-         patientProfil.addDomainEvent(new PatientProfilCreatedEvent({
-            patientProfil: patientProfil
-         }))
+         patientProfil.addDomainEvent(
+            new PatientProfilCreatedEvent({
+               patientProfil: patientProfil,
+            }),
+         );
          return Result.ok<PatientProfil>(patientProfil);
       } catch (error) {
          return error instanceof ExceptionBase

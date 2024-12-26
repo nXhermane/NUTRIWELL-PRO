@@ -62,7 +62,7 @@ export const nutritionists = sqliteTable("nutritionists", {
    consultationPlaceIds: text("consultationPlaceIds", { mode: "json" }).$type<(string | number)[]>(),
    serviceIds: text("serviceIds", { mode: "json" }).$type<(string | number)[]>(),
    createdAt: text("createdAt").notNull(),
-   updatedAt: text("updatedAt").notNull()
+   updatedAt: text("updatedAt").notNull(),
 });
 
 export const refreshTokens = sqliteTable("refresh_tokens", {

@@ -11,13 +11,14 @@ export interface IPatientDataVariable {
 }
 
 export class PatientDataVariable extends Entity<IPatientDataVariable> {
-   constructor(createProps: CreateEntityProps<IPatientDataVariable>) {  
-      if (!createProps.id) {// Verifier si ce n'est pas un nouveau patient qui veux initialiser ces variables
+   constructor(createProps: CreateEntityProps<IPatientDataVariable>) {
+      if (!createProps.id) {
+         // Verifier si ce n'est pas un nouveau patient qui veux initialiser ces variables
          for (const [key, path] of Object.entries(StaticPatientVariableMappingTable)) {
             createProps.props.variables[key] = path;
          }
       }
-      super(createProps)
+      super(createProps);
    }
    get patientProfilId(): AggregateID {
       return this.props.patientProfilId;
@@ -27,6 +28,12 @@ export class PatientDataVariable extends Entity<IPatientDataVariable> {
    }
    updateVariable(variableName: string, value: string): void {
       this.props.variables[variableName] = value;
+   }
+   addVariable(variables: { variableName: string; variablePath: string }[]) {
+      variables.forEach((variable) => {
+         this.props.variables[variable.variableName] = variable.variablePath;
+      });
+      this.validate();
    }
    getVariableByName(variableName: string): [variableName: string, variablePath: string] {
       const variable = this.props.variables[variableName];

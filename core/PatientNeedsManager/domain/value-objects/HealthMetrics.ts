@@ -17,15 +17,15 @@ export class HealthMetrics extends ValueObject<IHealthMetrics> {
 
    static create(props: CreateHealthMetricsProps): Result<HealthMetrics> {
       try {
-         const healthMetricsName = HealthMetricsName.create(props.name)
-         const healthMetricsUnit = HealthMetricsUnit.create(props.unit)
-         const combinedResult = Result.combine([healthMetricsName, healthMetricsUnit])
-         if (combinedResult.isFailure) return Result.fail<HealthMetrics>(combinedResult.err)
+         const healthMetricsName = HealthMetricsName.create(props.name);
+         const healthMetricsUnit = HealthMetricsUnit.create(props.unit);
+         const combinedResult = Result.combine([healthMetricsName, healthMetricsUnit]);
+         if (combinedResult.isFailure) return Result.fail<HealthMetrics>(combinedResult.err);
          const metric = new HealthMetrics({
             name: healthMetricsName.val,
             unit: healthMetricsUnit.val,
             code: props.code,
-            value: props.value
+            value: props.value,
          });
          return Result.ok<HealthMetrics>(metric);
       } catch (error) {

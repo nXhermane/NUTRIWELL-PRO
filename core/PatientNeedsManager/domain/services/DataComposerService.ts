@@ -5,7 +5,14 @@ import { AggregateID, EvaluatePath } from "@/core/shared";
 import { PatientDataVariableRepository } from "../../infrastructure";
 import { DataComposerServiceError } from "./errors/DataComposerError";
 import { PatientProfil } from "../aggregates/PatientProfil";
-import { IDataComposerService, DataRoot, IGenerateDataRootService, INutritionalReferenceValueService, INutritionFormularService, ComposedObject } from "./interfaces";
+import {
+   IDataComposerService,
+   DataRoot,
+   IGenerateDataRootService,
+   INutritionalReferenceValueService,
+   INutritionFormularService,
+   ComposedObject,
+} from "./interfaces";
 
 export class DataComposerService implements IDataComposerService {
    private dataComposerCatch: Map<AggregateID, { data: DataRoot; variables: Record<string, string> }> = new Map();

@@ -22,8 +22,8 @@ export type CreateNutrientDescriptorProps = {
 };
 
 export type CreateHealthMetricsProps = {
-   name: string
+   name: string;
    code: string;
    unit: string;
    value: number;
-}
+};

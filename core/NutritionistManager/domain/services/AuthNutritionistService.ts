@@ -10,7 +10,7 @@ export class AuthNutritionistService implements IAuthNutritionistService {
    constructor(
       private repo: NutritionistRepository,
       private refreshTokenRepo: RefreshTokenRepository,
-   ) { }
+   ) {}
 
    private async checkEmailNotExist(email: Email): Promise<Result<boolean>> {
       const emailExist = await Result.encapsulateAsync<Nutritionist>(async () => {

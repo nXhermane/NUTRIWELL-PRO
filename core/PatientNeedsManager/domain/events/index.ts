@@ -1,3 +1,3 @@
-export * from "./MeasurementAddedToPatientProfil"
-export * from "./MeasurementDeletedFromPatientProfilEvent"
-export * from "./PatientProfilCreatedEvent"
+export * from "./MeasurementAddedToPatientProfil";
+export * from "./MeasurementDeletedFromPatientProfilEvent";
+export * from "./PatientProfilCreatedEvent";

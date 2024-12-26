@@ -1,2 +1,2 @@
-export * from "./StaticPatientVariableMappingTable"
-export * from "./VariablePathConstants"
+export * from "./StaticPatientVariableMappingTable";
+export * from "./VariablePathConstants";

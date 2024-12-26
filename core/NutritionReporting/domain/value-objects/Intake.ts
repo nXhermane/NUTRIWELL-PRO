@@ -1,7 +1,6 @@
 import { AggregateID, CDate, ExceptionBase, Result, ValueObject } from "@shared";
 import { CreateIntakeDataProps } from "../types";
 
-
 export interface IIntake {
    foodOrRecipeId: AggregateID;
    isRecipe: boolean;
