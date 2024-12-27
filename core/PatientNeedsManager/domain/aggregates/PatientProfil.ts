@@ -29,7 +29,7 @@ export interface IPatientProfil {
    age: Age;
    height: Height;
    weight: Weight;
-   physicalActivityLevel: PhysicalActivityLevel;
+   physicalActivityLevel: PhysicalActivityLevel; // TODO: I can implement a value object for this later
    anthropomethricMeasure: { [measureCode: string]: HealthMetrics };
    bodyComposition: { [measureCode: string]: HealthMetrics };
    medicalAnalyses: { [measureCode: string]: HealthMetrics };
@@ -207,7 +207,7 @@ export class PatientProfil extends AggregateRoot<IPatientProfil> {
          this.props.medicalConditions[value.id] = value;
       });
    }
-   addOrdersInformationsToMedicalCondition(
+   addOtherInformationsToMedicalCondition(
       mediacalConditionId: AggregateID,
       otherInformationObject: { informationName: string; informationValue: any },
    ) {

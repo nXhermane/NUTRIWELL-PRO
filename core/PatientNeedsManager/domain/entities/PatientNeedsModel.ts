@@ -13,7 +13,7 @@ import {
 import { NutrientDescriptor } from "../value-objects/NutrientDescriptor";
 import { IPatientNeedsValidationRule, PatientNeedsValidationRule } from "../value-objects/PatientNeedsValidationRule";
 
-// TODO : Maintenant je vais laisser la parise ne charge de pathologies maintenant et reflechir par rapport a cela après quand le model serai pres .
+// TODO : Maintenant je vais laisser la prise en charge de pathologies maintenant et reflechir par rapport a cela après quand le model serai pres .
 
 // La creation de PatientNeedsModel sera fait dans le factory
 export interface IPatientNeedsModel {
