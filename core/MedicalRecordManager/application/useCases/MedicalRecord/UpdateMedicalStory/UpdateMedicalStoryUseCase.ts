@@ -2,7 +2,7 @@ import { UpdateMedicalStoryErrors } from "./UpdateMedicalStoryErrors";
 import { UpdateMedicalStoryRequest } from "./UpdateMedicalStoryRequest";
 import { UpdateMedicalStoryResponse } from "./UpdateMedicalStoryResponse";
 import { MedicalRecord, MedicalStory, type CreateMedicalStoryProps } from "./../../../../domain";
-import { MedicalRecordRepository, MedicalRecordRepositoryError, MedicalRecordDto, MedicalRecordPersistenceType } from "./../../../../infrastructure";
+import { MedicalRecordRepository } from "./../../../../infrastructure";
 import { UseCase, AggregateID, left, right, Result, AppError } from "@shared";
 
 export class UpdateMedicalStoryUseCase implements UseCase<UpdateMedicalStoryRequest, UpdateMedicalStoryResponse> {
@@ -18,9 +18,9 @@ export class UpdateMedicalStoryUseCase implements UseCase<UpdateMedicalStoryRequ
          return right(Result.ok<void>());
       } catch (e: any) {
          if (e instanceof UpdateMedicalStoryErrors.MedicalRecordNotFoundError)
-            return left(new UpdateMedicalStoryErrors.MedicalRecordNotFoundError(e.err.message));
+            return left(e)
          else if (e instanceof UpdateMedicalStoryErrors.MedicalRecordRepoError)
-            return left(new UpdateMedicalStoryErrors.MedicalRecordRepoError(e.err.message));
+            return left(e)
          else return left(new AppError.UnexpectedError(e));
       }
    }

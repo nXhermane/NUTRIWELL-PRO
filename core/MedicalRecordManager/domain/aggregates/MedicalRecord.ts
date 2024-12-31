@@ -11,7 +11,7 @@ import { IAnthropometricMeasurement, AnthropometricMeasurement } from "./../valu
 import { IBodyCompositionMeasurement, BodyCompositionMeasurement } from "./../value-objects/BodyCompositionMeasurement";
 import { IMedicalAnalysisResult, MedicalAnalysisResult } from "./../value-objects/MedicalAnalysisResult";
 import { CreateMedicalRecordProps } from "./../types";
-import { MeasurementAddedEvent, ObjectiveAddedEvent, ObjectiveRemovedEvent, objectiveUpdatedEvent, PatientMeasurementUpdatedEvent } from "../events";
+import { MeasurementAddedEvent, MeasurementRemovedEvent, ObjectiveAddedEvent, ObjectiveRemovedEvent, objectiveUpdatedEvent, PatientMeasurementUpdatedEvent } from "../events";
 export interface IMedicalRecord {
    foodDiaries: FoodDiary[];
    consultationInformation: ConsultationInformation;
@@ -52,9 +52,29 @@ export class MedicalRecord extends AggregateRoot<IMedicalRecord> {
          new MeasurementAddedEvent({
             patientId: this.patientId,
             medicalRecordId: this.id,
-            measurements,
+            anthropometricMeasures: measurements.filter((measurement) => measurement instanceof AnthropometricMeasurement),
+            bodyCompositionMeasures: measurements.filter((measurement) => measurement instanceof BodyCompositionMeasurement),
+            medicalAnalysisMeasures: measurements.filter((measurement) => measurement instanceof MedicalAnalysisResult),
          }),
       );
+   }
+   removeMeasurement(...measurements: (AnthropometricMeasurement|MedicalAnalysisResult | BodyCompositionMeasurement)[]){
+      measurements.forEach((measurement)=> {
+         switch(measurement.constructor) {
+            case AnthropometricMeasurement: this.props.measure.removeAnthropometricMeasurement(measurement);break;
+            case BodyCompositionMeasurement: this.props.measure.removeBodyCompositionMeasurement(measurement);break;
+            case MedicalAnalysisResult: this.props.measure.removeMedicalAnalysisResult(measurement);break;
+            default: throw new Error("This measurement is not supported.");
+         }
+      })
+      this.validate();
+      this.addDomainEvent(new MeasurementRemovedEvent({
+         patientId: this.patientId,
+         medicalRecordId: this.id,
+         anthropometricMeasures: measurements.filter((measurement) => measurement instanceof AnthropometricMeasurement),
+         bodyCompositionMeasures: measurements.filter((measurement) => measurement instanceof BodyCompositionMeasurement),
+         medicalAnalysisMeasures: measurements.filter((measurement) => measurement instanceof MedicalAnalysisResult),
+      }))
    }
    addFoodDiary(...foodDiares: FoodDiary[]) {
       for (const foodDiary of foodDiares) this.props.foodDiaries.push(foodDiary);
@@ -116,11 +136,9 @@ export class MedicalRecord extends AggregateRoot<IMedicalRecord> {
          new PatientMeasurementUpdatedEvent({
             patientId: this.patientId,
             medicalRecordId: this.id,
-            measurements: [
-               ...patientMeasurementProps.anthropometricMeasurements,
-               ...patientMeasurementProps.bodyCompositionMeasurements,
-               ...patientMeasurementProps.medicalAnalysisResults,
-            ],
+            anthropometricMeasures: patientMeasurementProps.anthropometricMeasurements,
+            bodyCompositionMeasures: patientMeasurementProps.bodyCompositionMeasurements,
+            medicalAnalysisMeasures: patientMeasurementProps.medicalAnalysisResults,
          }),
       );
    }

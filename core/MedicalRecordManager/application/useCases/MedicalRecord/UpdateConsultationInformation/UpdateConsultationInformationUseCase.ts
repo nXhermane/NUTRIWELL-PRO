@@ -4,10 +4,6 @@ import { UpdateConsultationInformationResponse } from "./UpdateConsultationInfor
 import { MedicalRecord, ConsultationInformation, type CreateConsultationInformationProps } from "./../../../../domain";
 import {
    MedicalRecordRepository,
-   MedicalRecordRepositoryError,
-   ConsultationInformationDto,
-   MedicalRecordDto,
-   MedicalRecordPersistenceType,
 } from "./../../../../infrastructure";
 import { UseCase, AggregateID, Result, left, right, AppError } from "@shared";
 
@@ -24,9 +20,9 @@ export class UpdateConsultationInformationUseCase implements UseCase<UpdateConsu
          return right(Result.ok<void>());
       } catch (e: any) {
          if (e instanceof UpdateConsultationInformationErrors.MedicalRecordNotFoundError)
-            return left(new UpdateConsultationInformationErrors.MedicalRecordNotFoundError(e.err.message));
+            return left(e)
          else if (e instanceof UpdateConsultationInformationErrors.MedicalRecordRepoError)
-            return left(new UpdateConsultationInformationErrors.MedicalRecordRepoError(e.err.message));
+            return left(e)
          else return left(new AppError.UnexpectedError(e));
       }
    }

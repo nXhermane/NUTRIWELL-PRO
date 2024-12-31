@@ -8,7 +8,7 @@ import {
    BodyCompositionMeasurement,
    MedicalAnalysisResult,
 } from "./../../../../domain";
-import { MedicalRecordRepository, MedicalRecordRepositoryError } from "./../../../../infrastructure";
+import { MedicalRecordRepository } from "./../../../../infrastructure";
 import { UseCase, AggregateID, Result, left, right, AppError } from "@shared";
 
 export class AddMeasurementUseCase implements UseCase<AddMeasurementRequest, AddMeasurementResponse> {
@@ -16,18 +16,18 @@ export class AddMeasurementUseCase implements UseCase<AddMeasurementRequest, Add
 
    async execute(request: AddMeasurementRequest): Promise<AddMeasurementResponse> {
       try {
-         const measurement = await this.createMeasurement(request);
+         const measurements = await this.createMeasurement(request);
          const medicalRecord = await this.getMedicalRecord(request.patientId);
-         this.addMeasurementToMedicalRecord(medicalRecord, measurement);
+         this.addMeasurementToMedicalRecord(medicalRecord, measurements);
          await this.saveMedicalRecord(medicalRecord);
          return right(Result.ok<void>());
       } catch (e: any) {
          if (e instanceof AddMeasurementErrors.MeasurementFactoryError) {
-            return left(new AddMeasurementErrors.MeasurementFactoryError(e.err.message));
+            return left(e)
          } else if (e instanceof AddMeasurementErrors.MedicalRecordNotFoundError) {
-            return left(new AddMeasurementErrors.MedicalRecordNotFoundError(e.err.message));
+            return left(e)
          } else if (e instanceof AddMeasurementErrors.MedicalRecordRepoError) {
-            return left(new AddMeasurementErrors.MedicalRecordRepoError(e.err.message));
+            return left(e)
          } else {
             return left(new AppError.UnexpectedError(e));
          }
@@ -36,10 +36,12 @@ export class AddMeasurementUseCase implements UseCase<AddMeasurementRequest, Add
 
    private async createMeasurement(
       request: AddMeasurementRequest,
-   ): Promise<AnthropometricMeasurement | BodyCompositionMeasurement | MedicalAnalysisResult> {
-      const measurement = await createMeasurementFactory(request.data);
-      if (measurement.isFailure) throw new AddMeasurementErrors.MeasurementFactoryError(measurement.err);
-      return measurement.val;
+   ): Promise<(AnthropometricMeasurement | BodyCompositionMeasurement | MedicalAnalysisResult)[]> {
+      const measurementResults =  await Promise.all(request.measurements.map(measurement=> createMeasurementFactory(measurement)))
+      const measurementCombinedResult = Result.combine(measurementResults)
+
+      if (measurementCombinedResult.isFailure) throw new AddMeasurementErrors.MeasurementFactoryError(measurementCombinedResult.err);
+      return measurementResults.map(measurementResult => measurementResult.val)
    }
 
    private async getMedicalRecord(medicalRecordOrPatientId: AggregateID): Promise<MedicalRecord> {
@@ -52,9 +54,9 @@ export class AddMeasurementUseCase implements UseCase<AddMeasurementRequest, Add
 
    private addMeasurementToMedicalRecord(
       medicalRecord: MedicalRecord,
-      measurement: AnthropometricMeasurement | BodyCompositionMeasurement | MedicalAnalysisResult,
+      measurements:( AnthropometricMeasurement | BodyCompositionMeasurement | MedicalAnalysisResult)[],
    ) {
-      medicalRecord.addMeasurement(measurement);
+      medicalRecord.addMeasurement(...measurements);
    }
 
    private async saveMedicalRecord(medicalRecord: MedicalRecord) {

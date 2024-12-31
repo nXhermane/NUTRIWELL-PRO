@@ -19,7 +19,7 @@ export class GetFoodStoryUseCase implements UseCase<GetFoodStoryRequest, GetFood
          return right(Result.ok<FoodStoryDto>(foodStory));
       } catch (e: any) {
          if (e instanceof GetFoodStoryErrors.MedicalRecordNotFoundError)
-            return left(new GetFoodStoryErrors.MedicalRecordNotFoundError(e.err.message));
+            return left(e)
          else return left(new AppError.UnexpectedError(e));
       }
    }

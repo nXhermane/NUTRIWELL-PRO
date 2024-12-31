@@ -1,6 +1,7 @@
+import { AggregateID } from "@/core/shared";
 import { CreateMeasurementProps } from "./../../../../domain";
-import { AggregateID } from "@shared";
-export type AddMeasurementRequest = {
+
+export type RemoveMeasurementRequest = {
    measurements: CreateMeasurementProps[];
    patientId: AggregateID;
 };

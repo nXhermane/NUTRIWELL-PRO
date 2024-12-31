@@ -19,7 +19,7 @@ export class GetPersonalAndSocialStoryUseCase implements UseCase<GetPersonalAndS
          return right(Result.ok<PersonalAndSocialStoryDto>(personalAndSocialStory));
       } catch (e: any) {
          if (e instanceof GetPersonalAndSocialStoryErrors.MedicalRecordNotFoundError)
-            return left(new GetPersonalAndSocialStoryErrors.MedicalRecordNotFoundError(e.err.message));
+            return left(e)
          else return left(new AppError.UnexpectedError(e));
       }
    }

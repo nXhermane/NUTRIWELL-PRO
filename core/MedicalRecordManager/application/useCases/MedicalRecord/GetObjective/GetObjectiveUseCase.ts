@@ -19,7 +19,7 @@ export class GetObjectiveUseCase implements UseCase<GetObjectiveRequest, GetObje
          return right(Result.ok<ObjectiveDto>(objective));
       } catch (e: any) {
          if (e instanceof GetObjectiveErrors.MedicalRecordNotFoundError)
-            return left(new GetObjectiveErrors.MedicalRecordNotFoundError(e.err.message));
+            return left(e)
          else return left(new AppError.UnexpectedError(e));
       }
    }

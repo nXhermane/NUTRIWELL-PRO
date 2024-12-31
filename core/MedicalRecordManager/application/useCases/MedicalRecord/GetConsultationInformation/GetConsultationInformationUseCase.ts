@@ -19,7 +19,7 @@ export class GetConsultationInformationUseCase implements UseCase<GetConsultatio
          return right(Result.ok<ConsultationInformationDto>(consultationInformation));
       } catch (e: any) {
          if (e instanceof GetConsultationInformationErrors.MedicalRecordNotFoundError)
-            return left(new GetConsultationInformationErrors.MedicalRecordNotFoundError(e.err.message));
+            return left(e)
          else return left(new AppError.UnexpectedError(e));
       }
    }

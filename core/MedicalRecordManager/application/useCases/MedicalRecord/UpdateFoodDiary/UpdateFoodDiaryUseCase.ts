@@ -8,9 +8,8 @@ import {
    type FoodItemProps,
    FoodDiaryMealEntry,
    FoodDiaryFoodItem,
-   IFoodDiaryFoodItem,
 } from "./../../../../domain";
-import { MedicalRecordRepository, MedicalRecordRepositoryError, MedicalRecordDto, MedicalRecordPersistenceType } from "./../../../../infrastructure";
+import { MedicalRecordRepository } from "./../../../../infrastructure";
 import {
    UseCase,
    AggregateID,
@@ -43,9 +42,9 @@ export class UpdateFoodDiaryUseCase implements UseCase<UpdateFoodDiaryRequest, U
          return right(Result.ok<void>());
       } catch (e: any) {
          if (e instanceof UpdateFoodDiaryErrors.MedicalRecordNotFoundError)
-            return left(new UpdateFoodDiaryErrors.MedicalRecordNotFoundError(e.err.message));
+            return left(e)
          else if (e instanceof UpdateFoodDiaryErrors.MedicalRecordRepoError)
-            return left(new UpdateFoodDiaryErrors.MedicalRecordRepoError(e.err.message));
+            return left(e)
          else return left(new AppError.UnexpectedError(e));
       }
    }

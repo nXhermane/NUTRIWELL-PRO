@@ -13,10 +13,6 @@ import {
 } from "./../../../../domain";
 import {
    MedicalRecordRepository,
-   MedicalRecordRepositoryError,
-   FoodStoryDto,
-   MedicalRecordDto,
-   MedicalRecordPersistenceType,
 } from "./../../../../infrastructure";
 import { UseCase, AggregateID, Time, Result, AppError, left, right } from "@shared";
 
@@ -33,9 +29,9 @@ export class UpdateFoodStoryUseCase implements UseCase<UpdateFoodStoryRequest, U
          return right(Result.ok<void>());
       } catch (e: any) {
          if (e instanceof UpdateFoodStoryErrors.MedicalRecordNotFoundError)
-            return left(new UpdateFoodStoryErrors.MedicalRecordNotFoundError(e.err.message));
+            return left(e)
          else if (e instanceof UpdateFoodStoryErrors.MedicalRecordRepoError)
-            return left(new UpdateFoodStoryErrors.MedicalRecordRepoError(e.err.message));
+            return left(e)
          else return left(new AppError.UnexpectedError(e));
       }
    }

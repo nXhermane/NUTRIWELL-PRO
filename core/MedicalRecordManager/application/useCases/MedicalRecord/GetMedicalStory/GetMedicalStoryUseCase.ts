@@ -19,7 +19,7 @@ export class GetMedicalStoryUseCase implements UseCase<GetMedicalStoryRequest, G
          return right(Result.ok<MedicalStoryDto>(medicalStory));
       } catch (e: any) {
          if (e instanceof GetMedicalStoryErrors.MedicalRecordNotFoundError)
-            return left(new GetMedicalStoryErrors.MedicalRecordNotFoundError(e.err.message));
+            return left(e)
          return left(new AppError.UnexpectedError(e));
       }
    }

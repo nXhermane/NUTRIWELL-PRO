@@ -14,6 +14,7 @@ import {
    GetMedicalStoryRequest,
    GetObjectiveRequest,
    GetPersonalAndSocialStoryRequest,
+   RemoveMeasurementRequest,
    UpdateConsultationInformationRequest,
    UpdateFoodDiaryRequest,
    UpdateFoodStoryRequest,
@@ -31,6 +32,7 @@ import {
 
 export interface IMedicalRecordService {
    addMeasurement(req: AddMeasurementRequest): Promise<AppServiceResponse<void> | Message>;
+   removeMeasurement(req: RemoveMeasurementRequest): Promise<AppServiceResponse<void> | Message>;
    createMedicalRecord(req: CreateMedicalRecordRequest): Promise<AppServiceResponse<void> | Message>;
    deleteMedicalRecord(req: DeleteMedicalRecordRequest): Promise<AppServiceResponse<boolean> | Message>;
    createEatingBehavior(req: CreateEatingBehaviorRequest): Promise<AppServiceResponse<EatingBehaviorDto> | Message>;

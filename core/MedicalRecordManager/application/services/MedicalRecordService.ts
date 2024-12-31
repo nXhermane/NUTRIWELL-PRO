@@ -45,12 +45,15 @@ import {
    UpdateFoodDiaryResponse,
    UpdateFoodStoryResponse,
    UpdateMedicalStoryResponse,
+   RemoveMeasurementRequest,
+   RemoveMeasurementResponse,
 } from "../useCases";
 import { IMedicalRecordService } from "./interfaces/MedicalRecordService";
 
 export class MedicalRecordService implements IMedicalRecordService {
    constructor(
       private addMeasurementUC: UseCase<AddMeasurementRequest, AddMeasurementResponse>,
+      private removeMeasurementUC: UseCase<RemoveMeasurementRequest,RemoveMeasurementResponse>,
       private createMedicalRecordUC: UseCase<CreateMedicalRecordRequest, CreateMedicalRecordResponse>,
       private deleteMedicalRecordUC: UseCase<DeleteMedicalRecordRequest, DeleteMedicalRecordResponse>,
       private createEatingBehaviorUC: UseCase<CreateEatingBehaviorRequest, CreateEatingBehaviorResponse>,
@@ -69,6 +72,11 @@ export class MedicalRecordService implements IMedicalRecordService {
       private updateFoodStoryUC: UseCase<UpdateFoodStoryRequest, UpdateFoodStoryResponse>,
       private updateMedicalStoryUC: UseCase<UpdateMedicalStoryRequest, UpdateMedicalStoryResponse>,
    ) {}
+   async removeMeasurement(req: RemoveMeasurementRequest): Promise<AppServiceResponse<void> | Message> {
+      const res = await this.removeMeasurementUC.execute(req);
+      if (res.isLeft()) return new Message("error", JSON.stringify(res.value.err));
+      return {} as AppServiceResponse<void>;
+   }
    async addMeasurement(req: AddMeasurementRequest): Promise<AppServiceResponse<void> | Message> {
       const res = await this.addMeasurementUC.execute(req);
       if (res.isLeft()) return new Message("error", JSON.stringify(res.value.err));

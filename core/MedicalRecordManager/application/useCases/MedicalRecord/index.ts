@@ -16,3 +16,4 @@ export * from "./UpdateConsultationInformation";
 export * from "./UpdateFoodDiary";
 export * from "./UpdateFoodStory";
 export * from "./UpdateMedicalStory";
+export * from "./RemoveMeasurement";

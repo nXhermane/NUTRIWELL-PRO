@@ -3,7 +3,7 @@ import { CreateMedicalRecordRequest } from "./CreateMedicalRecordRequest";
 import { CreateMedicalRecordResponse } from "./CreateMedicalRecordResponse";
 import { MedicalRecord } from "./../../../../domain";
 import { MedicalRecordRepository, MedicalRecordRepositoryError } from "./../../../../infrastructure";
-import { UseCase, AggregateID, Result, right, left, AppError } from "@shared";
+import { UseCase, Result, right, left, AppError } from "@shared";
 
 export class CreateMedicalRecordUseCase implements UseCase<CreateMedicalRecordRequest, CreateMedicalRecordResponse> {
    constructor(private medicalRecordRepo: MedicalRecordRepository) {}
@@ -11,6 +11,7 @@ export class CreateMedicalRecordUseCase implements UseCase<CreateMedicalRecordRe
       try {
          const medicalRecord = await MedicalRecord.create(request.patientId, request.data);
          if (medicalRecord.isFailure) return left(new CreateMedicalRecordErrors.CreateMedicalRecordFailed(medicalRecord.err));
+         await this.medicalRecordRepo.save(medicalRecord.val);
          return right(Result.ok<void>());
       } catch (e: any) {
          if (e instanceof MedicalRecordRepositoryError) return left(new CreateMedicalRecordErrors.MedicalRecordRepoError(e));

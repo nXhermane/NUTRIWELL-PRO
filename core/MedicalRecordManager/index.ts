@@ -34,6 +34,7 @@ import {
    GetMedicalStoryUseCase,
    GetObjectiveUseCase,
    GetPersonalAndSocialStoryUseCase,
+   RemoveMeasurementUseCase,
    UpdateConsultationInformationUseCase,
    UpdateFoodDiaryUseCase,
    UpdateFoodStoryUseCase,
@@ -82,6 +83,7 @@ export class MedicalRecordManager {
             objectiveRepo: objectiveRepo,
          });
          const addMeasureUC = new AddMeasurementUseCase(medicalRecordRepo);
+         const removeMeasureUC = new RemoveMeasurementUseCase(medicalRecordRepo);
          const createEatingBehaviorUC = new CreateEatingBehaviorUseCase(medicalRecordRepo);
          const createFoodDiaryUC = new CreateFoodDiaryUseCase(medicalRecordRepo, fileManager);
          const createMedicalRecordUC = new CreateMedicalRecordUseCase(medicalRecordRepo);
@@ -106,6 +108,7 @@ export class MedicalRecordManager {
 
          MedicalRecordManager.instance = new MedicalRecordService(
             addMeasureUC,
+            removeMeasureUC,
             createMedicalRecordUC,
             deleteMedicalRecordUC,
             createEatingBehaviorUC,

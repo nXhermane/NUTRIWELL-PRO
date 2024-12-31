@@ -2,7 +2,7 @@ import { CreateEatingBehaviorErrors } from "./CreateEatingBehaviorErrors";
 import { CreateEatingBehaviorRequest } from "./CreateEatingBehaviorRequest";
 import { CreateEatingBehaviorResponse } from "./CreateEatingBehaviorResponse";
 import { MedicalRecord, EatingBehavior } from "./../../../../domain";
-import { MedicalRecordRepository, MedicalRecordRepositoryError, EatingBehaviorDto } from "./../../../../infrastructure";
+import { MedicalRecordRepository, EatingBehaviorDto } from "./../../../../infrastructure";
 import { UseCase, AggregateID, Result, right, left, AppError } from "@shared";
 
 export class CreateEatingBehaviorUseCase implements UseCase<CreateEatingBehaviorRequest, CreateEatingBehaviorResponse> {
@@ -22,11 +22,11 @@ export class CreateEatingBehaviorUseCase implements UseCase<CreateEatingBehavior
          );
       } catch (e: any) {
          if (e instanceof CreateEatingBehaviorErrors.EatingBehaviorFactoryError) {
-            return left(new CreateEatingBehaviorErrors.EatingBehaviorFactoryError(e.err.message));
+            return left(e)
          } else if (e instanceof CreateEatingBehaviorErrors.MedicalRecordNotFoundError) {
-            return left(new CreateEatingBehaviorErrors.MedicalRecordNotFoundError(e.err.message));
+            return left(e)
          } else if (e instanceof CreateEatingBehaviorErrors.MedicalRecordRepoError) {
-            return left(new CreateEatingBehaviorErrors.MedicalRecordRepoError(e.err.message));
+            return left(e)
          } else {
             return left(new AppError.UnexpectedError(e));
          }

@@ -3,17 +3,17 @@ import { AnthropometricMeasurement } from "../value-objects/AnthropometricMeasur
 import { BodyCompositionMeasurement } from "../value-objects/BodyCompositionMeasurement";
 import { MedicalAnalysisResult } from "../value-objects/MedicalAnalysisResult";
 
-export interface IMeasurementAddedEventObject {
+export interface IMeasurementRemovedEventObject {
    medicalRecordId: AggregateID;
    patientId: AggregateID;
    anthropometricMeasures: AnthropometricMeasurement[],
    bodyCompositionMeasures: BodyCompositionMeasurement[],
    medicalAnalysisMeasures: MedicalAnalysisResult[]
 }
-export class MeasurementAddedEvent implements IDomainEvent {
+export class MeasurementRemovedEvent implements IDomainEvent {
    dateTimeOccurred: Date;
-   data: IMeasurementAddedEventObject;
-   constructor(measurementAddedEventObject: IMeasurementAddedEventObject) {
+   data: IMeasurementRemovedEventObject;
+   constructor(measurementAddedEventObject: IMeasurementRemovedEventObject) {
       this.data = measurementAddedEventObject;
       this.dateTimeOccurred = new Date();
    }

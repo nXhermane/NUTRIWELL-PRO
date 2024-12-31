@@ -6,7 +6,9 @@ import { MedicalAnalysisResult } from "../value-objects/MedicalAnalysisResult";
 export interface PatientMeasurementUpadatedEvenntObject {
    patientId: AggregateID;
    medicalRecordId: AggregateID;
-   measurements: (AnthropometricMeasurement | BodyCompositionMeasurement | MedicalAnalysisResult)[];
+   anthropometricMeasures:AnthropometricMeasurement[]
+   bodyCompositionMeasures:BodyCompositionMeasurement[]
+   medicalAnalysisMeasures:MedicalAnalysisResult[]
 }
 export class PatientMeasurementUpdatedEvent implements IDomainEvent {
    dateTimeOccurred: Date;

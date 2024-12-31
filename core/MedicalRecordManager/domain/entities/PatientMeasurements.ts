@@ -33,7 +33,24 @@ export class PatientMeasurements extends Entity<IPatientMeasurements> {
    get medicalAnalysisResults(): IMedicalAnalysisResult[] {
       return this.props.medicalAnalysisResults.map((medicAnalR: MedicalAnalysisResult) => medicAnalR.unpack());
    }
-
+   removeAnthropometricMeasurement(measurement: AnthropometricMeasurement) {
+      const index = this.props.anthropometricMeasurements.findIndex((measure) => measurement.equals(measure));
+      if (index === -1) throw new ArgumentInvalidException("Measurement not found");
+      this.props.anthropometricMeasurements.splice(index, 1);
+      this.validate();
+   }
+   removeBodyCompositionMeasurement(measurement: BodyCompositionMeasurement) {
+      const index = this.props.bodyCompositionMeasurements.findIndex((measure) => measurement.equals(measure));
+      if (index === -1) throw new ArgumentInvalidException("Measurement not found");
+      this.props.bodyCompositionMeasurements.splice(index, 1);
+      this.validate();
+   }
+   removeMedicalAnalysisResult(measurement: MedicalAnalysisResult){
+      const index = this.props.medicalAnalysisResults.findIndex((measure) => measurement.equals(measure));
+      if (index === -1) throw new ArgumentInvalidException("Measurement not found");
+      this.props.medicalAnalysisResults.splice(index, 1);
+      this.validate();
+   }
    getAnthropometricMesurements(measureType: AggregateID, last: boolean = false): IAnthropometricMeasurement[] | IAnthropometricMeasurement {
       const measures = this.props.anthropometricMeasurements.reduce(
          (filteredMeasures: IAnthropometricMeasurement[], anthM: AnthropometricMeasurement) => {

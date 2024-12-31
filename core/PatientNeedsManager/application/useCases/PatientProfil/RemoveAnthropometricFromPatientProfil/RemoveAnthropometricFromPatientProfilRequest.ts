@@ -1,6 +1,6 @@
-import { AggregateID } from "@/core/shared"
+import { AggregateID } from "@/core/shared";
 
-export type RemoveAnthropometricFromPatientProfilRequest ={
-    patientProfilIdOrPatientId: AggregateID;
-    anthropometricMeasureCode: string[]
-}
+export type RemoveAnthropometricFromPatientProfilRequest = {
+   patientProfilIdOrPatientId: AggregateID;
+   anthropometricMeasureCode: string[];
+};

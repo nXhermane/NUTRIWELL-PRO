@@ -2,7 +2,7 @@ import { CreateFoodDiaryErrors } from "./CreateFoodDiaryErrors";
 import { CreateFoodDiaryRequest } from "./CreateFoodDiaryRequest";
 import { CreateFoodDiaryResponse } from "./CreateFoodDiaryResponse";
 import { MedicalRecord, FoodDiary } from "./../../../../domain";
-import { MedicalRecordRepository, MedicalRecordRepositoryError } from "./../../../../infrastructure";
+import { MedicalRecordRepository } from "./../../../../infrastructure";
 import { Image, FileManager, UseCase, AggregateID, Result, left, right, AppError } from "@shared";
 
 export class CreateFoodDiaryUseCase implements UseCase<CreateFoodDiaryRequest, CreateFoodDiaryResponse> {
@@ -21,11 +21,11 @@ export class CreateFoodDiaryUseCase implements UseCase<CreateFoodDiaryRequest, C
          return right(Result.ok<AggregateID>(foodDiary.id));
       } catch (e: any) {
          if (e instanceof CreateFoodDiaryErrors.FoodDiaryFactoryError) {
-            return left(new CreateFoodDiaryErrors.FoodDiaryFactoryError(e.err.message));
+            return left(e)
          } else if (e instanceof CreateFoodDiaryErrors.MedicalRecordNotFoundError) {
-            return left(new CreateFoodDiaryErrors.MedicalRecordNotFoundError(e.err.message));
+            return left(e)
          } else if (e instanceof CreateFoodDiaryErrors.MedicalRecordRepoError) {
-            return left(new CreateFoodDiaryErrors.MedicalRecordRepoError(e.err.message));
+            return left(e)
          } else {
             return left(new AppError.UnexpectedError(e));
          }
