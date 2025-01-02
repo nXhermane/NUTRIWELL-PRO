@@ -18,8 +18,7 @@ export class GetPersonalAndSocialStoryUseCase implements UseCase<GetPersonalAndS
          const personalAndSocialStory = this.getPersonalAndSocialStoryStoryToMedicalRecord(medicalRecord);
          return right(Result.ok<PersonalAndSocialStoryDto>(personalAndSocialStory));
       } catch (e: any) {
-         if (e instanceof GetPersonalAndSocialStoryErrors.MedicalRecordNotFoundError)
-            return left(e)
+         if (e instanceof GetPersonalAndSocialStoryErrors.MedicalRecordNotFoundError) return left(e);
          else return left(new AppError.UnexpectedError(e));
       }
    }

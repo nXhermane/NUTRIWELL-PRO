@@ -1,14 +1,7 @@
 import { UpdateFoodDiaryErrors } from "./UpdateFoodDiaryErrors";
 import { UpdateFoodDiaryRequest } from "./UpdateFoodDiaryRequest";
 import { UpdateFoodDiaryResponse } from "./UpdateFoodDiaryResponse";
-import {
-   MedicalRecord,
-   FoodDiary,
-   type CreateFoodDiaryProps,
-   type FoodItemProps,
-   FoodDiaryMealEntry,
-   FoodDiaryFoodItem,
-} from "./../../../../domain";
+import { MedicalRecord, FoodDiary, type CreateFoodDiaryProps, type FoodItemProps, FoodDiaryMealEntry, FoodDiaryFoodItem } from "./../../../../domain";
 import { MedicalRecordRepository } from "./../../../../infrastructure";
 import {
    UseCase,
@@ -41,10 +34,8 @@ export class UpdateFoodDiaryUseCase implements UseCase<UpdateFoodDiaryRequest, U
          await this.saveMedicalRecord(medicalRecord);
          return right(Result.ok<void>());
       } catch (e: any) {
-         if (e instanceof UpdateFoodDiaryErrors.MedicalRecordNotFoundError)
-            return left(e)
-         else if (e instanceof UpdateFoodDiaryErrors.MedicalRecordRepoError)
-            return left(e)
+         if (e instanceof UpdateFoodDiaryErrors.MedicalRecordNotFoundError) return left(e);
+         else if (e instanceof UpdateFoodDiaryErrors.MedicalRecordRepoError) return left(e);
          else return left(new AppError.UnexpectedError(e));
       }
    }

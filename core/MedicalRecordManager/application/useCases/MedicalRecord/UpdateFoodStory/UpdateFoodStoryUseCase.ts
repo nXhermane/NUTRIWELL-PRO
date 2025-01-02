@@ -11,9 +11,7 @@ import {
    IAversion,
    WaterConsumptionRange,
 } from "./../../../../domain";
-import {
-   MedicalRecordRepository,
-} from "./../../../../infrastructure";
+import { MedicalRecordRepository } from "./../../../../infrastructure";
 import { UseCase, AggregateID, Time, Result, AppError, left, right } from "@shared";
 
 export class UpdateFoodStoryUseCase implements UseCase<UpdateFoodStoryRequest, UpdateFoodStoryResponse> {
@@ -28,10 +26,8 @@ export class UpdateFoodStoryUseCase implements UseCase<UpdateFoodStoryRequest, U
          await this.saveMedicalRecord(medicalRecord);
          return right(Result.ok<void>());
       } catch (e: any) {
-         if (e instanceof UpdateFoodStoryErrors.MedicalRecordNotFoundError)
-            return left(e)
-         else if (e instanceof UpdateFoodStoryErrors.MedicalRecordRepoError)
-            return left(e)
+         if (e instanceof UpdateFoodStoryErrors.MedicalRecordNotFoundError) return left(e);
+         else if (e instanceof UpdateFoodStoryErrors.MedicalRecordRepoError) return left(e);
          else return left(new AppError.UnexpectedError(e));
       }
    }

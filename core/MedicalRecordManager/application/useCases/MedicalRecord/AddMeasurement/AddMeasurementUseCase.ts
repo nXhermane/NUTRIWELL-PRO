@@ -23,11 +23,11 @@ export class AddMeasurementUseCase implements UseCase<AddMeasurementRequest, Add
          return right(Result.ok<void>());
       } catch (e: any) {
          if (e instanceof AddMeasurementErrors.MeasurementFactoryError) {
-            return left(e)
+            return left(e);
          } else if (e instanceof AddMeasurementErrors.MedicalRecordNotFoundError) {
-            return left(e)
+            return left(e);
          } else if (e instanceof AddMeasurementErrors.MedicalRecordRepoError) {
-            return left(e)
+            return left(e);
          } else {
             return left(new AppError.UnexpectedError(e));
          }
@@ -37,11 +37,11 @@ export class AddMeasurementUseCase implements UseCase<AddMeasurementRequest, Add
    private async createMeasurement(
       request: AddMeasurementRequest,
    ): Promise<(AnthropometricMeasurement | BodyCompositionMeasurement | MedicalAnalysisResult)[]> {
-      const measurementResults =  await Promise.all(request.measurements.map(measurement=> createMeasurementFactory(measurement)))
-      const measurementCombinedResult = Result.combine(measurementResults)
+      const measurementResults = await Promise.all(request.measurements.map((measurement) => createMeasurementFactory(measurement)));
+      const measurementCombinedResult = Result.combine(measurementResults);
 
       if (measurementCombinedResult.isFailure) throw new AddMeasurementErrors.MeasurementFactoryError(measurementCombinedResult.err);
-      return measurementResults.map(measurementResult => measurementResult.val)
+      return measurementResults.map((measurementResult) => measurementResult.val);
    }
 
    private async getMedicalRecord(medicalRecordOrPatientId: AggregateID): Promise<MedicalRecord> {
@@ -54,7 +54,7 @@ export class AddMeasurementUseCase implements UseCase<AddMeasurementRequest, Add
 
    private addMeasurementToMedicalRecord(
       medicalRecord: MedicalRecord,
-      measurements:( AnthropometricMeasurement | BodyCompositionMeasurement | MedicalAnalysisResult)[],
+      measurements: (AnthropometricMeasurement | BodyCompositionMeasurement | MedicalAnalysisResult)[],
    ) {
       medicalRecord.addMeasurement(...measurements);
    }

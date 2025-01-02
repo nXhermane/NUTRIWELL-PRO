@@ -19,7 +19,7 @@ export class GetAllFoodDiaryUseCase implements UseCase<GetAllFoodDiaryRequest, G
          return right(Result.ok<FoodDiaryDto[]>(foodDiaries));
       } catch (e: any) {
          if (e instanceof GetAllFoodDiaryErrors.MedicalRecordNotFoundError) {
-            return left(e)
+            return left(e);
          } else {
             return left(new AppError.UnexpectedError(e));
          }

@@ -53,7 +53,7 @@ import { IMedicalRecordService } from "./interfaces/MedicalRecordService";
 export class MedicalRecordService implements IMedicalRecordService {
    constructor(
       private addMeasurementUC: UseCase<AddMeasurementRequest, AddMeasurementResponse>,
-      private removeMeasurementUC: UseCase<RemoveMeasurementRequest,RemoveMeasurementResponse>,
+      private removeMeasurementUC: UseCase<RemoveMeasurementRequest, RemoveMeasurementResponse>,
       private createMedicalRecordUC: UseCase<CreateMedicalRecordRequest, CreateMedicalRecordResponse>,
       private deleteMedicalRecordUC: UseCase<DeleteMedicalRecordRequest, DeleteMedicalRecordResponse>,
       private createEatingBehaviorUC: UseCase<CreateEatingBehaviorRequest, CreateEatingBehaviorResponse>,

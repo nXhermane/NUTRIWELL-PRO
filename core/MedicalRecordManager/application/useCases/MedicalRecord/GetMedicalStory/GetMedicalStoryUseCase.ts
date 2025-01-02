@@ -18,8 +18,7 @@ export class GetMedicalStoryUseCase implements UseCase<GetMedicalStoryRequest, G
          const medicalStory = this.getMedicalStoryStoryToMedicalRecord(medicalRecord);
          return right(Result.ok<MedicalStoryDto>(medicalStory));
       } catch (e: any) {
-         if (e instanceof GetMedicalStoryErrors.MedicalRecordNotFoundError)
-            return left(e)
+         if (e instanceof GetMedicalStoryErrors.MedicalRecordNotFoundError) return left(e);
          return left(new AppError.UnexpectedError(e));
       }
    }

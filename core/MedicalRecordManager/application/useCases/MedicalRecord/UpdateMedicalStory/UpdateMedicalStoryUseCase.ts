@@ -17,10 +17,8 @@ export class UpdateMedicalStoryUseCase implements UseCase<UpdateMedicalStoryRequ
          await this.saveMedicalRecord(medicalRecord);
          return right(Result.ok<void>());
       } catch (e: any) {
-         if (e instanceof UpdateMedicalStoryErrors.MedicalRecordNotFoundError)
-            return left(e)
-         else if (e instanceof UpdateMedicalStoryErrors.MedicalRecordRepoError)
-            return left(e)
+         if (e instanceof UpdateMedicalStoryErrors.MedicalRecordNotFoundError) return left(e);
+         else if (e instanceof UpdateMedicalStoryErrors.MedicalRecordRepoError) return left(e);
          else return left(new AppError.UnexpectedError(e));
       }
    }

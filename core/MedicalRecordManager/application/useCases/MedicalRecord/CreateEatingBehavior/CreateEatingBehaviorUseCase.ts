@@ -22,11 +22,11 @@ export class CreateEatingBehaviorUseCase implements UseCase<CreateEatingBehavior
          );
       } catch (e: any) {
          if (e instanceof CreateEatingBehaviorErrors.EatingBehaviorFactoryError) {
-            return left(e)
+            return left(e);
          } else if (e instanceof CreateEatingBehaviorErrors.MedicalRecordNotFoundError) {
-            return left(e)
+            return left(e);
          } else if (e instanceof CreateEatingBehaviorErrors.MedicalRecordRepoError) {
-            return left(e)
+            return left(e);
          } else {
             return left(new AppError.UnexpectedError(e));
          }

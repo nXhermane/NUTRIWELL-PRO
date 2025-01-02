@@ -18,8 +18,7 @@ export class GetAllObjectiveUseCase implements UseCase<GetAllObjectiveRequest, G
          const objectives = this.getAllObjectiveToMedicalRecord(medicalRecord);
          return right(Result.ok<ObjectiveDto[]>(objectives));
       } catch (e: any) {
-         if (e instanceof GetAllObjectiveErrors.MedicalRecordNotFoundError)
-            return left(e)
+         if (e instanceof GetAllObjectiveErrors.MedicalRecordNotFoundError) return left(e);
          else return left(new AppError.UnexpectedError(e));
       }
    }

@@ -18,8 +18,7 @@ export class GetConsultationInformationUseCase implements UseCase<GetConsultatio
          const consultationInformation = this.getConsultationInformationToMedicalRecord(medicalRecord);
          return right(Result.ok<ConsultationInformationDto>(consultationInformation));
       } catch (e: any) {
-         if (e instanceof GetConsultationInformationErrors.MedicalRecordNotFoundError)
-            return left(e)
+         if (e instanceof GetConsultationInformationErrors.MedicalRecordNotFoundError) return left(e);
          else return left(new AppError.UnexpectedError(e));
       }
    }

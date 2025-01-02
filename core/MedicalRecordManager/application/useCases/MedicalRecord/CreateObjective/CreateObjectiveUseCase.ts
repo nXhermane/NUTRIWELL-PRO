@@ -17,11 +17,11 @@ export class CreateObjectiveUseCase implements UseCase<CreateObjectiveRequest, C
          return right(Result.ok<AggregateID>(objective.id));
       } catch (e: any) {
          if (e instanceof CreateObjectiveErrors.ObjectiveFactoryError) {
-            return left(e)
+            return left(e);
          } else if (e instanceof CreateObjectiveErrors.MedicalRecordNotFoundError) {
-            return  left(e)
+            return left(e);
          } else if (e instanceof CreateObjectiveErrors.MedicalRecordRepoError) {
-            return left(e)
+            return left(e);
          } else {
             return left(new AppError.UnexpectedError(e));
          }

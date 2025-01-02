@@ -21,11 +21,11 @@ export class CreateFoodDiaryUseCase implements UseCase<CreateFoodDiaryRequest, C
          return right(Result.ok<AggregateID>(foodDiary.id));
       } catch (e: any) {
          if (e instanceof CreateFoodDiaryErrors.FoodDiaryFactoryError) {
-            return left(e)
+            return left(e);
          } else if (e instanceof CreateFoodDiaryErrors.MedicalRecordNotFoundError) {
-            return left(e)
+            return left(e);
          } else if (e instanceof CreateFoodDiaryErrors.MedicalRecordRepoError) {
-            return left(e)
+            return left(e);
          } else {
             return left(new AppError.UnexpectedError(e));
          }

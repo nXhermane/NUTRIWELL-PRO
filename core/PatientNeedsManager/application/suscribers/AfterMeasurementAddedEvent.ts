@@ -24,8 +24,5 @@ export class AfterMeasurementAddedEvent implements IHandler<MeasurementAddedEven
    setupSubscriptions(): void {
       DomainEvents.register(this.onMeasurementAddedEvent.bind(this), MeasurementAddedEvent.name);
    }
-   onMeasurementAddedEvent(event: MeasurementAddedEvent): void {
-
-
-   }
+   onMeasurementAddedEvent(event: MeasurementAddedEvent): void {}
 }

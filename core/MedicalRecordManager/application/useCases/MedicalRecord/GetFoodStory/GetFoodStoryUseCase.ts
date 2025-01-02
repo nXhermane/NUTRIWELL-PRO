@@ -18,8 +18,7 @@ export class GetFoodStoryUseCase implements UseCase<GetFoodStoryRequest, GetFood
          const foodStory = this.getFoodStoryToMedicalRecord(medicalRecord);
          return right(Result.ok<FoodStoryDto>(foodStory));
       } catch (e: any) {
-         if (e instanceof GetFoodStoryErrors.MedicalRecordNotFoundError)
-            return left(e)
+         if (e instanceof GetFoodStoryErrors.MedicalRecordNotFoundError) return left(e);
          else return left(new AppError.UnexpectedError(e));
       }
    }

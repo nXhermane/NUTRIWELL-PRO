@@ -18,8 +18,7 @@ export class GetObjectiveUseCase implements UseCase<GetObjectiveRequest, GetObje
          const objective = this.getObjectiveToMedicalRecord(medicalRecord, request.objectiveId);
          return right(Result.ok<ObjectiveDto>(objective));
       } catch (e: any) {
-         if (e instanceof GetObjectiveErrors.MedicalRecordNotFoundError)
-            return left(e)
+         if (e instanceof GetObjectiveErrors.MedicalRecordNotFoundError) return left(e);
          else return left(new AppError.UnexpectedError(e));
       }
    }

@@ -2,9 +2,7 @@ import { UpdateConsultationInformationErrors } from "./UpdateConsultationInforma
 import { UpdateConsultationInformationRequest } from "./UpdateConsultationInformationRequest";
 import { UpdateConsultationInformationResponse } from "./UpdateConsultationInformationResponse";
 import { MedicalRecord, ConsultationInformation, type CreateConsultationInformationProps } from "./../../../../domain";
-import {
-   MedicalRecordRepository,
-} from "./../../../../infrastructure";
+import { MedicalRecordRepository } from "./../../../../infrastructure";
 import { UseCase, AggregateID, Result, left, right, AppError } from "@shared";
 
 export class UpdateConsultationInformationUseCase implements UseCase<UpdateConsultationInformationRequest, UpdateConsultationInformationResponse> {
@@ -19,10 +17,8 @@ export class UpdateConsultationInformationUseCase implements UseCase<UpdateConsu
          await this.saveMedicalRecord(medicalRecord);
          return right(Result.ok<void>());
       } catch (e: any) {
-         if (e instanceof UpdateConsultationInformationErrors.MedicalRecordNotFoundError)
-            return left(e)
-         else if (e instanceof UpdateConsultationInformationErrors.MedicalRecordRepoError)
-            return left(e)
+         if (e instanceof UpdateConsultationInformationErrors.MedicalRecordNotFoundError) return left(e);
+         else if (e instanceof UpdateConsultationInformationErrors.MedicalRecordRepoError) return left(e);
          else return left(new AppError.UnexpectedError(e));
       }
    }

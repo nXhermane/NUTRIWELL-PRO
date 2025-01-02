@@ -45,7 +45,7 @@ export class PatientMeasurements extends Entity<IPatientMeasurements> {
       this.props.bodyCompositionMeasurements.splice(index, 1);
       this.validate();
    }
-   removeMedicalAnalysisResult(measurement: MedicalAnalysisResult){
+   removeMedicalAnalysisResult(measurement: MedicalAnalysisResult) {
       const index = this.props.medicalAnalysisResults.findIndex((measure) => measurement.equals(measure));
       if (index === -1) throw new ArgumentInvalidException("Measurement not found");
       this.props.medicalAnalysisResults.splice(index, 1);
