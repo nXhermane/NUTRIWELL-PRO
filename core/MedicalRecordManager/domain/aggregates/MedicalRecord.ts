@@ -59,9 +59,7 @@ export class MedicalRecord extends AggregateRoot<IMedicalRecord> {
          new MeasurementAddedEvent({
             patientId: this.patientId,
             medicalRecordId: this.id,
-            anthropometricMeasures: measurements.filter((measurement) => measurement instanceof AnthropometricMeasurement),
-            bodyCompositionMeasures: measurements.filter((measurement) => measurement instanceof BodyCompositionMeasurement),
-            medicalAnalysisMeasures: measurements.filter((measurement) => measurement instanceof MedicalAnalysisResult),
+            measurements: measurements,
          }),
       );
    }
@@ -86,9 +84,7 @@ export class MedicalRecord extends AggregateRoot<IMedicalRecord> {
          new MeasurementRemovedEvent({
             patientId: this.patientId,
             medicalRecordId: this.id,
-            anthropometricMeasures: measurements.filter((measurement) => measurement instanceof AnthropometricMeasurement),
-            bodyCompositionMeasures: measurements.filter((measurement) => measurement instanceof BodyCompositionMeasurement),
-            medicalAnalysisMeasures: measurements.filter((measurement) => measurement instanceof MedicalAnalysisResult),
+            measurements: measurements,
          }),
       );
    }
@@ -152,9 +148,11 @@ export class MedicalRecord extends AggregateRoot<IMedicalRecord> {
          new PatientMeasurementUpdatedEvent({
             patientId: this.patientId,
             medicalRecordId: this.id,
-            anthropometricMeasures: patientMeasurementProps.anthropometricMeasurements,
-            bodyCompositionMeasures: patientMeasurementProps.bodyCompositionMeasurements,
-            medicalAnalysisMeasures: patientMeasurementProps.medicalAnalysisResults,
+            measurements: [
+               ...patientMeasurementProps.anthropometricMeasurements,
+               ...patientMeasurementProps.bodyCompositionMeasurements,
+               ...patientMeasurementProps.medicalAnalysisResults,
+            ],
          }),
       );
    }

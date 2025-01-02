@@ -6,9 +6,7 @@ import { MedicalAnalysisResult } from "../value-objects/MedicalAnalysisResult";
 export interface IMeasurementRemovedEventObject {
    medicalRecordId: AggregateID;
    patientId: AggregateID;
-   anthropometricMeasures: AnthropometricMeasurement[];
-   bodyCompositionMeasures: BodyCompositionMeasurement[];
-   medicalAnalysisMeasures: MedicalAnalysisResult[];
+   measurements: (AnthropometricMeasurement | BodyCompositionMeasurement | MedicalAnalysisResult)[];
 }
 export class MeasurementRemovedEvent implements IDomainEvent {
    dateTimeOccurred: Date;
