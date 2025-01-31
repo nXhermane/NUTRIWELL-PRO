@@ -1,67 +1,68 @@
 {
-   "expo": {
-      "name": "nutriwell-pro",
-      "slug": "nutriwell-pro",
-      "version": "1.0.0",
-      "orientation": "portrait",
-      "icon": "./assets/images/icon.png",
-      "scheme": "nutriwellpro",
-      "userInterfaceStyle": "automatic",
-      "newArchEnabled": true,
-      "ios": {
-         "supportsTablet": true,
-         "bundleIdentifier": "com.nxhermano.nutriwellpro"
+  "expo": {
+    "name": "nutriwell-pro",
+    "slug": "nutriwell-pro",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "scheme": "nutriwellpro",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.nxhermano.nutriwellpro"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
       },
-      "android": {
-         "adaptiveIcon": {
-            "foregroundImage": "./assets/images/adaptive-icon.png",
-            "backgroundColor": "#ffffff"
-         },
-         "package": "com.nxhermano.nutriwellpro"
-      },
-      "web": {
-         "bundler": "metro",
-         "output": "static",
-         "favicon": "./assets/images/favicon.png"
-      },
-      "plugins": [
-         "expo-router",
-         "@react-native-google-signin/google-signin",
-         [
-            "expo-splash-screen",
-            {
-               "image": "./assets/images/splash-icon.png",
-               "imageWidth": 200,
-               "resizeMode": "contain",
-               "backgroundColor": "#ffffff"
-            }
-         ],
-         "expo-asset",
-         "expo-sqlite",
-         [
-            "expo-camera",
-            {
-               "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera",
-               "microphonePermission": "Allow $(PRODUCT_NAME) to access your microphone",
-               "recordAudioAndroid": true
-            }
-         ]
+      "package": "com.nxhermano.nutriwellpro"
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "static",
+      "favicon": "./assets/images/favicon.png"
+    },
+    "plugins": [
+      "expo-router",
+      "@react-native-google-signin/google-signin",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/images/splash-icon.png",
+          "imageWidth": 200,
+          "resizeMode": "contain",
+          "backgroundColor": "#ffffff"
+        }
       ],
-      "experiments": {
-         "typedRoutes": true
+      "expo-asset",
+      "expo-sqlite",
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera",
+          "microphonePermission": "Allow $(PRODUCT_NAME) to access your microphone",
+          "recordAudioAndroid": true
+        }
+      ],
+      "expo-font"
+    ],
+    "experiments": {
+      "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
       },
-      "extra": {
-         "router": {
-            "origin": false
-         },
-         "eas": {
-            "projectId": "ee2250d0-5240-4f6e-a433-a004f37de9bf"
-         },
-         "const": {
-            "neededFilesURL": "https://github.com/nXhermane/nutritionAppData-nutriwell/releases/download/database/databaseFiles.rar",
-            "googleAndroidClientId": "739619233876-7ifuo0et9r11m4fpq4818so50rhu5s6p.apps.googleusercontent.com",
-            "googleWebClientId": "739619233876-gaeghecmvnrebtq4gjeg5cme79p1gp23.apps.googleusercontent.com"
-         }
+      "eas": {
+        "projectId": "ee2250d0-5240-4f6e-a433-a004f37de9bf"
+      },
+      "const": {
+        "neededFilesURL": "https://github.com/nXhermane/nutritionAppData-nutriwell/releases/download/database/databaseFiles.rar",
+        "googleAndroidClientId": "739619233876-7ifuo0et9r11m4fpq4818so50rhu5s6p.apps.googleusercontent.com",
+        "googleWebClientId": "739619233876-gaeghecmvnrebtq4gjeg5cme79p1gp23.apps.googleusercontent.com"
       }
-   }
+    }
+  }
 }
