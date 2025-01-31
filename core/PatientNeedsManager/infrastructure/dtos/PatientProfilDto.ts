@@ -1,5 +1,5 @@
 import { AggregateID } from "@/core/shared";
-import { HealthMetricsPersistence } from "../repositories";
+import { HealthMetricPersistence } from "../repositories";
 
 export interface PatientProfilDto {
    id: AggregateID;
@@ -10,9 +10,7 @@ export interface PatientProfilDto {
    height: number;
    weight: number;
    physicalActivityLevel: "Sedentary" | "Lightly Active" | "Moderately Active" | "Very Active" | "Extremely Active";
-   anthropometricMeasure: HealthMetricsPersistence[];
-   bodyCompositionMeasure: HealthMetricsPersistence[];
-   medicalAnalyses: HealthMetricsPersistence[];
+   healthMetrics: HealthMetricPersistence[];
    medicalConditionIds: AggregateID[];
    objectiveIds: AggregateID[];
    otherInformations: Record<string, any>;

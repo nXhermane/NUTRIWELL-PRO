@@ -9,7 +9,6 @@ import {
    MedicalConditionSeverity,
    NeedsRecommendation,
    Result,
-   ValueObject,
 } from "@shared";
 import { CreateMedicalConditionProps } from "../types";
 /**

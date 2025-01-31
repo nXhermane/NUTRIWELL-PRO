@@ -3,7 +3,7 @@ import { DomainEvent, DomainEventMessage } from "domain-eventrix";
 
 export interface MeasurementAddedtoPatientProfilEventObject {
    patientProfilId: AggregateID;
-   measureName: string;
+   measureCode: string;
    measurePath: string;
 }
 @DomainEventMessage("Measurement Added to Patient Profil",true)

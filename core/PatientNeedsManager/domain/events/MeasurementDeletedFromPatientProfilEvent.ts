@@ -3,7 +3,7 @@ import { DomainEvent, DomainEventMessage } from "domain-eventrix";
 
 export interface MeasurementDeletedFromPatientProfilEventObject {
    patientProfilId: AggregateID;
-   measureName: string;
+   measureCode: string;
 }
 
 @DomainEventMessage("Measurement Deleted From Patient Profil",true)

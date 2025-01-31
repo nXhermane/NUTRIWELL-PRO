@@ -35,7 +35,7 @@ export interface IStandardRecommendationsManager {
 export class StandardRecommendationsManager {
    private static instance: IStandardRecommendationsManager | null;
    static async getIntance(): Promise<IStandardRecommendationsManager> {
-      if (StandardRecommendationsManager.instance === null) {
+      if (!StandardRecommendationsManager.instance) {
          // Database instance
          const expo = (await db).db;
          // Mappers
@@ -86,6 +86,6 @@ export class StandardRecommendationsManager {
             standardObjective: standardObjectiveService,
          };
       }
-      return StandardRecommendationsManager.instance as IStandardRecommendationsManager;
+      return StandardRecommendationsManager.instance;
    }
 }

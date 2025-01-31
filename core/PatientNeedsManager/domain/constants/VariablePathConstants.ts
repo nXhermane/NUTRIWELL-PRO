@@ -14,6 +14,7 @@ export const invariablePath = {
    patientWeight: "weight",
    patientPhysicalActivityLevel: "physicalActivityLevel",
    patientMedicalConditionNames: "medicalConditionNames",
+   patientProfilHealthMetricsPath: (measureCode:string) => combinePath("healthMetrics",measureCode,"value"),
    patientProfilAnthropometricMeasurePath: (measureCode: string) => combinePath("anthropomethricMeasure", measureCode, "value"),
    patientProfilBodyCompositionMeasurePath: (measureCode: string) => combinePath("bodyComposition", measureCode, "value"),
    patientProfilMedicalAnalysesMeasurePath: (measureCode: string) => combinePath("medicalAnalyses", measureCode, "value"),

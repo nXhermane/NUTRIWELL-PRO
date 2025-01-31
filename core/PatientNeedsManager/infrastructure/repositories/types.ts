@@ -1,10 +1,10 @@
 import { AggregateID, IHealthIndicator, INutritionalSource, ITimeframe, NeedsRecommendationDto } from "@/core/shared";
-import { CreateFormularExpression, CreateHealthMetricsProps, CreateNutrientDescriptorProps } from "../../domain/value-objects/types";
+import { CreateFormularExpression, CreateHealthMetricProps, CreateNutrientDescriptorProps } from "../../domain/value-objects/types";
 import { CreateValidationRegularProps } from "../../domain/types";
 import { MedicalCondition } from "../../domain/entities/MedicalCondition";
 import { Objective } from "../../domain/entities/Objective";
 
-export type HealthMetricsPersistence = CreateHealthMetricsProps;
+export type HealthMetricPersistence = CreateHealthMetricProps;
 export type HealthIndicatorsPersistence = IHealthIndicator;
 export type FormularExpressionPersistence = CreateFormularExpression;
 export interface Timestamp {
@@ -55,9 +55,7 @@ export interface PatientProfilPersistence extends Timestamp {
    height: number;
    weight: number;
    physicalActivityLevel: "Sedentary" | "Lightly Active" | "Moderately Active" | "Very Active" | "Extremely Active";
-   anthropometricMeasure: HealthMetricsPersistence[];
-   bodyCompositionMeasure: HealthMetricsPersistence[];
-   medicalAnalyses: HealthMetricsPersistence[];
+   healthMetrics: HealthMetricPersistence[]
    medicalConditionIds: AggregateID[];
    objectiveIds: AggregateID[];
    otherInformations: Record<string, any>;

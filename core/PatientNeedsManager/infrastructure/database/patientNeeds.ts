@@ -1,12 +1,12 @@
-import { sql } from "drizzle-orm";
 import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 import {
    FormularExpressionPersistence,
    HealthIndicatorsPersistence,
+   HealthMetricPersistence,
    NutrientDescriptorPersistence,
    PatientNeedsValidationRulePersistence,
 } from "../repositories";
-import { AggregateID, ITimeframe, NeedsRecommendationDto, PhysicalActivityLevel } from "@/core/shared";
+import { AggregateID, ITimeframe, NeedsRecommendationDto } from "@/core/shared";
 
 export type NutrientModelGroup = NutrientDescriptorPersistence[];
 export type NutritionalRef = {
@@ -115,9 +115,7 @@ export const patientProfils = sqliteTable("patient_profils", {
    physicalActivityLevel: text("physical_activity_level", {
       enum: ["Sedentary", "Lightly Active", "Moderately Active", "Very Active", "Extremely Active"],
    }),
-   anthropometricMeasure: text("anthropometric_measure", { mode: "json" }).$type<HealthIndicatorsPersistence[]>(),
-   bodyCompositionMeasure: text("body_composition_measure", { mode: "json" }).$type<HealthIndicatorsPersistence[]>(),
-   medicalAnalyse: text("medical_analyses", { mode: "json" }).$type<HealthIndicatorsPersistence[]>(),
+   healthMetrics: text("health_metrics",{mode: "json"}).$type<HealthMetricPersistence[]>(),
    medicalConditionIds: text("medical_condition_id", { mode: "json" }).$type<AggregateID[]>(),
    objectiveIds: text("objective_ids", { mode: "json" }).$type<AggregateID[]>(),
    otherInformation: text("other_information", { mode: "json" }).$type<{ [key: string]: any }>(),

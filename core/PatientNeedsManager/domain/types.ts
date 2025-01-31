@@ -1,8 +1,8 @@
 import { AggregateID } from "@shared";
 import { IMedicalCondition } from "./entities/MedicalCondition";
-import { HealthMetrics } from "./value-objects/HealthMetrics";
 import { IHealthIndicator } from "../../shared/modules/NeedsRecommendations/value-object/HealthIndicator";
 import { CreateObjectiveProps, VariableMappingTable } from "./entities/types";
+import { CreateHealthMetricProps } from "./value-objects/types";
 
 export interface CreatePatientProfilProps {
    patientId: AggregateID;
@@ -14,9 +14,7 @@ export interface CreatePatientProfilProps {
    physicalActivityLevel: "Sedentary" | "Lightly Active" | "Moderately Active" | "Very Active" | "Extremely Active";
    objective: CreateObjectiveProps[];
    medicalCondition: CreateMedicalConditionProps[];
-   anthropomethricMeasure: { [measureCode: string]: HealthMetrics };
-   bodyComposition: { [measureCode: string]: HealthMetrics };
-   medicalAnalyses: { [measureCode: string]: HealthMetrics };
+   healthMetrics: CreateHealthMetricProps[];
    otherInformations: { [infoName: string]: any };
 }
 export type CreatePatientDataVariableProps = {

@@ -16,7 +16,7 @@ import { Weight } from "../value-objects/Weight";
 import { IMedicalCondition, MedicalCondition } from "./../entities/MedicalCondition";
 import { CreateMedicalConditionProps, CreatePatientProfilProps } from "../types";
 import { PatientApi } from "@patientManager/application/api";
-import { HealthMetrics, IHealthMetrics } from "../value-objects/HealthMetrics";
+import { HealthMetric, IHealthMetric} from "../value-objects/HealthMetric";
 import { MeasurementAddedtoPatientProfilEvent } from "../events/MeasurementAddedToPatientProfil";
 import { combinePath, invariablePath } from "../constants/VariablePathConstants";
 import { MeasurementDeletedFromPatientProfilEvent } from "../events/MeasurementDeletedFromPatientProfilEvent";
@@ -30,11 +30,9 @@ export interface IPatientProfil {
    height: Height;
    weight: Weight;
    physicalActivityLevel: PhysicalActivityLevel; // TODO: I can implement a value object for this later
-   anthropomethricMeasure: { [measureCode: string]: HealthMetrics };
-   bodyComposition: { [measureCode: string]: HealthMetrics };
-   medicalAnalyses: { [measureCode: string]: HealthMetrics };
+   healthMetrics: {[measureCode:string]: HealthMetric}
    medicalConditions: { [medicalConditionId: AggregateID]: MedicalCondition };
-   objectives: Record<AggregateID, Objective>;
+   objectives: {[objectiveId: AggregateID]: Objective}
    patientNeedsModelId: AggregateID;
    otherInformations: { [infoName: string]: any };
 }
@@ -108,18 +106,8 @@ export class PatientProfil extends AggregateRoot<IPatientProfil> {
       this.props.physicalActivityLevel = physicalActivityLevel as PhysicalActivityLevel;
    }
 
-   get anthropomethricMeasure(): { [measureCode: string]: IHealthMetrics } {
-      const anthropometricMeasure: { [measureCode: string]: IHealthMetrics } = {};
-      for (const [key, measurement] of Object.entries(this.props.anthropomethricMeasure)) {
-         anthropometricMeasure[key as string] = measurement.unpack();
-      }
-      return anthropometricMeasure;
-   }
-   get bodyCompositionMeasure(): { [measureCode: string]: IHealthMetrics } {
-      return Object.fromEntries(Object.values(this.props.bodyComposition).map((measurement) => [measurement.unpack().code, measurement.unpack()]));
-   }
-   get medicalAnalysesMeasure(): { [measureCode: string]: IHealthMetrics } {
-      return Object.fromEntries(Object.values(this.props.medicalAnalyses).map((measurement) => [measurement.unpack().code, measurement.unpack()]));
+   get healthMetrics(): {[measureCode: string]: IHealthMetric} {
+      return Object.fromEntries(Object.values(this.props.healthMetrics).map(healthMetric=> ([healthMetric.unpack().code,healthMetric.unpack()])))
    }
    get medicalCondition(): { [medicalRecordId: AggregateID]: IMedicalCondition & BaseEntityProps } {
       return Object.fromEntries(Object.values(this.props.medicalConditions).map((value: MedicalCondition) => [value.id, value.getProps()]));
@@ -141,67 +129,19 @@ export class PatientProfil extends AggregateRoot<IPatientProfil> {
    getMedicalConditions(): MedicalCondition[] {
       return Object.values(this.props.medicalConditions);
    }
-   addAnthropometricMeasure(healthMetrics: HealthMetrics) {
-      this.props.anthropomethricMeasure[healthMetrics.unpack().code] = healthMetrics;
-      this.validate();
-      this.addDomainEvent(
-         new MeasurementAddedtoPatientProfilEvent({
-            patientProfilId: this.id,
-            measureName: healthMetrics.unpack().name.toString(),
-            measurePath: combinePath(
-               invariablePath.patientProfilPath,
-               invariablePath.patientProfilAnthropometricMeasurePath(healthMetrics.unpack().code),
-            ),
-         }),
-      );
+   addHeathMetric(healthMetric: HealthMetric) {
+      const measureCode = healthMetric.unpack().code.toString()
+      this.props.healthMetrics[measureCode] = healthMetric
+      this.validate()
+      this.addDomainEvent(new MeasurementAddedtoPatientProfilEvent({
+         patientProfilId: this.id,
+         measureCode,
+         measurePath: combinePath(invariablePath.patientProfilPath,invariablePath.patientProfilHealthMetricsPath(measureCode))
+      }))
    }
-   addBodyCompositionMeasure(healthMetrics: HealthMetrics) {
-      this.props.bodyComposition[healthMetrics.unpack().code] = healthMetrics;
-      this.validate();
-      this.addDomainEvent(
-         new MeasurementAddedtoPatientProfilEvent({
-            patientProfilId: this.id,
-            measureName: healthMetrics.unpack().name.toString(),
-            measurePath: combinePath(
-               invariablePath.patientProfilPath,
-               invariablePath.patientProfilBodyCompositionMeasurePath(healthMetrics.unpack().code),
-            ),
-         }),
-      );
+   getHealthMetric(measureCode: string) : IHealthMetric {
+      return this.props.healthMetrics[measureCode]?.unpack()
    }
-   addMedicalAnalysesMeasure(healthMetrics: HealthMetrics) {
-      this.props.medicalAnalyses[healthMetrics.unpack().code] = healthMetrics;
-      this.validate();
-      this.addDomainEvent(
-         new MeasurementAddedtoPatientProfilEvent({
-            patientProfilId: this.id,
-            measureName: healthMetrics.unpack().name.toString(),
-            measurePath: combinePath(
-               invariablePath.patientProfilPath,
-               invariablePath.patientProfilMedicalAnalysesMeasurePath(healthMetrics.unpack().code),
-            ),
-         }),
-      );
-   }
-   getAnthropometricMeasure(measureCode: string): IHealthMetrics {
-      return this.props.anthropomethricMeasure[measureCode]?.unpack();
-   }
-   getBodyCompositionMeasure(measureCode: string): IHealthMetrics {
-      return this.props.bodyComposition[measureCode]?.unpack();
-   }
-   getMedicalAnalysesMeasure(measureCode: string): IHealthMetrics {
-      return this.props.medicalAnalyses[measureCode]?.unpack();
-   }
-   getAnthropometricMeasureValue(measureCode: string): number | undefined {
-      return this.props.anthropomethricMeasure[measureCode]?.unpack().value;
-   }
-   getBodyCompositionMeasureValue(measureCode: string): number | undefined {
-      return this.props.bodyComposition[measureCode]?.unpack().value;
-   }
-   getMedicalAnalysesMeasureValue(measureCode: string): number | undefined {
-      return this.props.medicalAnalyses[measureCode]?.unpack().value;
-   }
-
    addMedicalCondition(...medicalConditions: MedicalCondition[]) {
       medicalConditions.forEach((value: MedicalCondition) => {
          this.props.medicalConditions[value.id] = value;
@@ -221,7 +161,7 @@ export class PatientProfil extends AggregateRoot<IPatientProfil> {
       this.addDomainEvent(
          new MeasurementAddedtoPatientProfilEvent({
             patientProfilId: this.id,
-            measureName: otherInformationObject.informationName,
+            measureCode: otherInformationObject.informationName,
             measurePath: combinePath(
                invariablePath.patientProfilPath,
                invariablePath.medicalConditonPath(mediacalConditionId),
@@ -236,7 +176,7 @@ export class PatientProfil extends AggregateRoot<IPatientProfil> {
       this.addDomainEvent(
          new MeasurementAddedtoPatientProfilEvent({
             patientProfilId: this.id,
-            measureName: informationName,
+            measureCode: informationName,
             measurePath: combinePath(invariablePath.patientProfilPath, invariablePath.patientProfilOtherInformationsPath(informationName)),
          }),
       );
@@ -276,44 +216,18 @@ export class PatientProfil extends AggregateRoot<IPatientProfil> {
          delete this.props.medicalConditions[medicalconditionId];
       }
    }
-   removeAnthropometricMeasure(measureCode: string) {
-      if (this.props.anthropomethricMeasure[measureCode]) {
-         const measure = this.props.anthropomethricMeasure[measureCode];
-         delete this.props.anthropomethricMeasure[measureCode];
-         this.validate();
-         this.addDomainEvent(
-            new MeasurementDeletedFromPatientProfilEvent({
-               patientProfilId: this.id,
-               measureName: measure.unpack().name.toString(),
-            }),
-         );
+   removeHealthMetric(measureCode: string) {
+      if(this.props.healthMetrics[measureCode]) {
+         const measure = this.props.healthMetrics[measureCode]
+        delete this.props.healthMetrics[measureCode]
+        this.validate()
+        this.addDomainEvent(new MeasurementDeletedFromPatientProfilEvent({
+         patientProfilId: this.id,
+         measureCode: measureCode
+        }))
       }
    }
-   removeBodyCompositionMeasure(measureCode: string) {
-      if (this.props.bodyComposition[measureCode]) {
-         const measure = this.props.bodyComposition[measureCode];
-         delete this.props.bodyComposition[measureCode];
-         this.validate();
-         this.addDomainEvent(
-            new MeasurementDeletedFromPatientProfilEvent({
-               patientProfilId: this.id,
-               measureName: measure.unpack().name.toString(),
-            }),
-         );
-      }
-   }
-   removeMedicalAnalysesMeasure(measureCode: string) {
-      if (this.props.medicalAnalyses[measureCode]) {
-         const measure = this.props.medicalAnalyses[measureCode];
-         delete this.props.medicalAnalyses[measureCode];
-         this.addDomainEvent(
-            new MeasurementDeletedFromPatientProfilEvent({
-               patientProfilId: this.id,
-               measureName: measure.unpack().name.toString(),
-            }),
-         );
-      }
-   }
+  
    removeOtherInformationOnPatientProfil(informationName: string) {
       if (this.props.otherInformations[informationName]) {
          delete this.props.otherInformations[informationName];
@@ -321,7 +235,7 @@ export class PatientProfil extends AggregateRoot<IPatientProfil> {
          this.addDomainEvent(
             new MeasurementDeletedFromPatientProfilEvent({
                patientProfilId: this.id,
-               measureName: informationName,
+               measureCode: informationName,
             }),
          );
       }
@@ -340,7 +254,8 @@ export class PatientProfil extends AggregateRoot<IPatientProfil> {
          const medicalConditionResult = createPatientProfilProps.medicalCondition?.map((medicalCondition: CreateMedicalConditionProps) =>
             MedicalCondition.create(medicalCondition),
          );
-         const validateResult = Result.combine([ageResult, genderResult, heightResult, weightResult, ...objectiveResult, ...medicalConditionResult]);
+         const healthMetricsResult = createPatientProfilProps.healthMetrics.map(healthMetricProps => HealthMetric.create(healthMetricProps))
+         const validateResult = Result.combine([ageResult, genderResult, heightResult, weightResult, ...objectiveResult, ...medicalConditionResult,...healthMetricsResult]);
          if (validateResult.isFailure) return Result.fail<PatientProfil>(`[Erreur]: ${(validateResult.err as any)?.toJSON() || validateResult.err}`);
 
          const patientProfil = new PatientProfil({
@@ -356,9 +271,7 @@ export class PatientProfil extends AggregateRoot<IPatientProfil> {
                medicalConditions: Object.fromEntries(
                   medicalConditionResult.map((medicalCondResult: Result<MedicalCondition>) => [medicalCondResult.val.id, medicalCondResult.val]),
                ),
-               anthropomethricMeasure: createPatientProfilProps.anthropomethricMeasure,
-               bodyComposition: createPatientProfilProps.bodyComposition,
-               medicalAnalyses: createPatientProfilProps.medicalAnalyses,
+               healthMetrics:Object.fromEntries(healthMetricsResult.map(healthMetricResult=> ([healthMetricResult.val.unpack().code.toString(),healthMetricResult.val]))),
                otherInformations: createPatientProfilProps.otherInformations,
             },
          });
