@@ -1,17 +1,11 @@
-import { AggregateID, HealthIndicator, IDomainEvent } from "@/core/shared";
+import { AggregateID, HealthIndicator } from "@/core/shared";
+import { DomainEvent, DomainEventMessage } from "domain-eventrix";
 
 export interface IMedicalConditionHealthIndicatorRemovedObject {
    medicalConditionId: AggregateID;
    healthIndicator: HealthIndicator;
 }
-export class MedicalConditionHealthIndicatorRemovedEvent implements IDomainEvent {
-   dateTimeOccurred: Date;
-   data: IMedicalConditionHealthIndicatorRemovedObject;
-   constructor(data: IMedicalConditionHealthIndicatorRemovedObject) {
-      this.data = data;
-      this.dateTimeOccurred = new Date();
-   }
-   getAggregateId(): AggregateID {
-      return this.data.medicalConditionId;
-   }
+@DomainEventMessage("Health indicator Removed From Medical Condition: PatientProfil",true)
+export class MedicalConditionHealthIndicatorRemovedEvent extends DomainEvent<IMedicalConditionHealthIndicatorRemovedObject> {
+   
 }

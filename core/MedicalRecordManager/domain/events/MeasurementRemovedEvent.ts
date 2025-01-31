@@ -1,22 +1,15 @@
-import { AggregateID, IDomainEvent } from "@/core/shared";
+import { AggregateID } from "@/core/shared";
 import { AnthropometricMeasurement } from "../value-objects/AnthropometricMeasurement";
 import { BodyCompositionMeasurement } from "../value-objects/BodyCompositionMeasurement";
 import { MedicalAnalysisResult } from "../value-objects/MedicalAnalysisResult";
+import { DomainEvent, DomainEventMessage } from "domain-eventrix";
 
 export interface IMeasurementRemovedEventObject {
    medicalRecordId: AggregateID;
    patientId: AggregateID;
    measurements: (AnthropometricMeasurement | BodyCompositionMeasurement | MedicalAnalysisResult)[];
 }
-export class MeasurementRemovedEvent implements IDomainEvent {
-   dateTimeOccurred: Date;
-   data: IMeasurementRemovedEventObject;
-   constructor(measurementAddedEventObject: IMeasurementRemovedEventObject) {
-      this.data = measurementAddedEventObject;
-      this.dateTimeOccurred = new Date();
-   }
+@DomainEventMessage("Measurement Removed from Medical Record",true)
+export class MeasurementRemovedEvent extends DomainEvent<IMeasurementRemovedEventObject> {
 
-   getAggregateId(): AggregateID {
-      return this.data.medicalRecordId;
-   }
 }

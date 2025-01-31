@@ -9,7 +9,7 @@ import {
    PatientMeasurementRepository,
    PersonalAndSocialStoryRepository,
 } from "./interfaces";
-import { AggregateID, DomainEvents, Mapper } from "@shared";
+import { AggregateDomainEvent, AggregateID, Mapper } from "@shared";
 import { MedicalRecord } from "./../../domain";
 import { drizzle } from "drizzle-orm/expo-sqlite";
 import { eq, or } from "drizzle-orm";
@@ -63,7 +63,7 @@ export class MedicalRecordRepositoryImpl implements MedicalRecordRepository {
                   .where(eq(medicalRecords.id, persistenceMedicalRecord.id as string));
             }
          });
-         DomainEvents.dispatchEventsForAggregate(medicalRecord.id);
+       AggregateDomainEvent.get().dispatchEventsForMarkedAggregate(medicalRecord.id)
       } catch (e: any) {
          throw new MedicalRecordRepositoryError("Erreur lors de la sauvegarde du dossier medicale (MedicalRecord)", e as Error, {});
       }
@@ -116,7 +116,7 @@ export class MedicalRecordRepositoryImpl implements MedicalRecordRepository {
             await Promise.all(foodDiaryIds.map((foodDiaryId) => this.repositories.foodDiaryRepo.delete(foodDiaryId, tx)));
             await tx.delete(medicalRecords).where(eq(medicalRecords.id, medicalRecordId as string));
          });
-         DomainEvents.dispatchEventsForAggregate(medicalRecordId);
+     AggregateDomainEvent.get().dispatchEventsForMarkedAggregate(medicalRecordId)    
       } catch (error: any) {
          throw new MedicalRecordRepositoryError("Erreur lors de la suppression du MedicalRecord", error as Error, {});
       }

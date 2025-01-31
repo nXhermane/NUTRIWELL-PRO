@@ -1,6 +1,6 @@
 import { consultationInformations } from "./../database/medicalRecord.schema";
 import { ConsultationInformationRepository } from "./interfaces";
-import { AggregateID, Result, Mapper, Paginated } from "@shared";
+import { AggregateID, Mapper } from "@shared";
 import { ConsultationInformation } from "./../../domain";
 import { drizzle } from "drizzle-orm/expo-sqlite";
 import { eq } from "drizzle-orm";

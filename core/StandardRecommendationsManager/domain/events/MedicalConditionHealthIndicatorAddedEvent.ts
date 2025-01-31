@@ -1,17 +1,11 @@
-import { AggregateID, HealthIndicator, IDomainEvent } from "@/core/shared";
+import { AggregateID, HealthIndicator } from "@/core/shared";
+import { DomainEvent, DomainEventMessage } from "domain-eventrix";
 
 export interface IMedicalConditionHealthIndicatorAddedObject {
    medicalConditionId: AggregateID;
    healthIndicators: HealthIndicator[];
 }
-export class MedicalConditionHealthIndicatorAddedEvent implements IDomainEvent {
-   dateTimeOccurred: Date;
-   data: IMedicalConditionHealthIndicatorAddedObject;
-   constructor(data: IMedicalConditionHealthIndicatorAddedObject) {
-      this.data = data;
-      this.dateTimeOccurred = new Date();
-   }
-   getAggregateId(): AggregateID {
-      return this.data.medicalConditionId;
-   }
+@DomainEventMessage("Health Indicator added to Medical Condition: PatientProfil",true)
+export class MedicalConditionHealthIndicatorAddedEvent extends DomainEvent<IMedicalConditionHealthIndicatorAddedObject> {
+ 
 }

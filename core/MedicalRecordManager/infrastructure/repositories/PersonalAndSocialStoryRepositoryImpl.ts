@@ -1,6 +1,6 @@
 import { personalAndSocialStories } from "./../database/medicalRecord.schema";
 import { PersonalAndSocialStoryRepository } from "./interfaces";
-import { AggregateID, Result, Mapper, Paginated } from "@shared";
+import { AggregateID, Mapper } from "@shared";
 import { PersonalAndSocialStory } from "./../../domain";
 import { drizzle } from "drizzle-orm/expo-sqlite";
 import { eq } from "drizzle-orm";

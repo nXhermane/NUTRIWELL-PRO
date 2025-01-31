@@ -1,14 +1,10 @@
-import { AggregateID, IDomainEvent } from "@shared";
 import { Objective } from "../entities/Objective";
+import { DomainEvent, DomainEventMessage } from "domain-eventrix";
 
-export class ObjectiveAddedEvent implements IDomainEvent {
-   dateTimeOccurred: Date;
-   data: { objective: Objective };
-   constructor(objective: Objective) {
-      this.dateTimeOccurred = new Date();
-      this.data = { objective };
-   }
-   getAggregateId(): AggregateID {
-      return this.data.objective.id;
-   }
+export interface ObjectiveAddedEventData {
+   objective: Objective
+}
+@DomainEventMessage("Patient Goal Added to Medical Record",true)
+export class ObjectiveAddedEvent extends DomainEvent<ObjectiveAddedEventData> {
+  
 }

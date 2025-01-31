@@ -16,7 +16,7 @@ import {
    MeasurementRemovedEvent,
    ObjectiveAddedEvent,
    ObjectiveRemovedEvent,
-   objectiveUpdatedEvent,
+   ObjectiveUpdatedEvent,
    PatientMeasurementUpdatedEvent,
 } from "../events";
 export interface IMedicalRecord {
@@ -94,7 +94,7 @@ export class MedicalRecord extends AggregateRoot<IMedicalRecord> {
    addObjective(...objectives: Objective[]) {
       for (const objective of objectives) {
          this.props.objectives.push(objective);
-         this.addDomainEvent(new ObjectiveAddedEvent(objective));
+         this.addDomainEvent(new ObjectiveAddedEvent({objective}));
       }
    }
    addEatingBehavior(...eatingBehaviors: EatingBehavior[]) {
@@ -173,7 +173,7 @@ export class MedicalRecord extends AggregateRoot<IMedicalRecord> {
          const indexOfObjective = this.props.objectives.findIndex((obj: Objective) => obj.equals(objective));
          if (indexOfObjective !== -1) {
             this.props.objectives[indexOfObjective] = objective;
-            this.addDomainEvent(new objectiveUpdatedEvent(objective));
+            this.addDomainEvent(new ObjectiveUpdatedEvent({objective}));
          }
       });
    }
@@ -209,7 +209,7 @@ export class MedicalRecord extends AggregateRoot<IMedicalRecord> {
       const index = this.props.objectives.findIndex((obj) => obj.id === objectiveId);
       if (index !== -1) {
          this.props.objectives.splice(index, 1);
-         this.addDomainEvent(new ObjectiveRemovedEvent(objectiveId));
+         this.addDomainEvent(new ObjectiveRemovedEvent({objectiveId}));
       }
    }
    validate(): void {

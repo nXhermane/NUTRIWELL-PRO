@@ -135,7 +135,7 @@ export class Patient extends AggregateRoot<IPatient> {
                images,
             },
          });
-         newPatient.addDomainEvent(new PatientCreatedEvent(newPatient.id));
+         newPatient.addDomainEvent(new PatientCreatedEvent({patientId: newPatient.id}));
          return Result.ok<Patient>(newPatient);
       } catch (e: any) {
          return e instanceof ExceptionBase
@@ -146,7 +146,7 @@ export class Patient extends AggregateRoot<IPatient> {
    public delete(): void {
       if (!this.isDeleted) {
          super.delete();
-         this.addDomainEvent(new PatientDeletedEvent(this.id));
+         this.addDomainEvent(new PatientDeletedEvent({patientId: this.id}));
       }
    }
 }

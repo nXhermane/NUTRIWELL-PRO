@@ -1,13 +1,10 @@
-import { IDomainEvent, AggregateID } from "@shared";
+import { AggregateID } from "@shared";
+import { DomainEvent, DomainEventMessage } from "domain-eventrix";
 
-export class PatientDeletedEvent implements IDomainEvent {
-   public dateTimeOccurred: Date;
-   public data: any;
-   constructor(patientId: AggregateID) {
-      this.dateTimeOccurred = new Date();
-      this.data = { patientId };
-   }
-   getAggregateId(): AggregateID {
-      return this.data.patientId;
-   }
+export interface PatientDeletedEventData {
+   patientId: AggregateID
+}
+@DomainEventMessage("Patient Deleted Event",true)
+export class PatientDeletedEvent extends DomainEvent<PatientDeletedEventData>  {
+   
 }

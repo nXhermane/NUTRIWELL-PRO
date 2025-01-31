@@ -1,18 +1,12 @@
-import { AggregateID, IDomainEvent } from "@/core/shared";
+import { AggregateID } from "@/core/shared";
+import { DomainEvent, DomainEventMessage } from "domain-eventrix";
 
 export interface MeasurementDeletedFromPatientProfilEventObject {
    patientProfilId: AggregateID;
    measureName: string;
 }
 
-export class MeasurementDeletedFromPatientProfilEvent implements IDomainEvent {
-   dateTimeOccurred: Date;
-   data: MeasurementDeletedFromPatientProfilEventObject;
-   constructor(measurementDeletedFromPatientProfilObject: MeasurementDeletedFromPatientProfilEventObject) {
-      this.data = measurementDeletedFromPatientProfilObject;
-      this.dateTimeOccurred = new Date();
-   }
-   getAggregateId(): AggregateID {
-      return this.data.patientProfilId;
-   }
+@DomainEventMessage("Measurement Deleted From Patient Profil",true)
+export class MeasurementDeletedFromPatientProfilEvent extends DomainEvent<MeasurementDeletedFromPatientProfilEventObject> {
+
 }

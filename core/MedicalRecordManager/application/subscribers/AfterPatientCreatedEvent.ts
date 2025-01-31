@@ -1,26 +1,23 @@
-import { PatientCreatedEvent } from "@/core/PatientManager";
+import { PatientCreatedEvent, PatientCreatedEventData } from "@/core/PatientManager";
 import { CreateMedicalRecordRequest, CreateMedicalRecordResponse } from "./../useCases";
-import { IHandler, UseCase, DomainEvents } from "@shared";
+import { UseCase } from "@shared";
+import { DomainEventHandler, EventHandler } from "domain-eventrix";
 
-export class AfterPatientCreatedEvent implements IHandler<PatientCreatedEvent> {
+@DomainEventHandler(PatientCreatedEvent,{
+   message: "After Patient Created, Create a MedicalRecord",
+   isVisibleOnUI: true
+})
+export class AfterPatientCreatedEvent extends EventHandler<PatientCreatedEventData, PatientCreatedEvent> {
    constructor(private createMedicalRecordUC: UseCase<CreateMedicalRecordRequest, CreateMedicalRecordResponse>) {
-      this.setupSubscriptions();
+      super();
    }
-   setupSubscriptions(): void {
-      DomainEvents.register(this.onPatientCreatedEvent.bind(this), PatientCreatedEvent.name);
+   async execute(event: PatientCreatedEvent): Promise<void> {
+     await  this.onPatientCreatedEvent(event)
    }
-   onPatientCreatedEvent(event: PatientCreatedEvent): void {
-      (
-         this.createMedicalRecordUC.execute({
-            data: {},
-            patientId: event.getAggregateId(),
-         }) as Promise<CreateMedicalRecordResponse>
-      )
-         .then(() => {
-            console.log("MedicalRecordId Created For Patient", event.getAggregateId());
-         })
-         .catch(() => {
-            console.log("Error To create MedicalRecord for Patient", event.getAggregateId());
-         });
+   private async onPatientCreatedEvent(event: PatientCreatedEvent): Promise<void> {
+      await this.createMedicalRecordUC.execute({
+         data: {},
+         patientId: event.data.patientId,
+      })
    }
 }

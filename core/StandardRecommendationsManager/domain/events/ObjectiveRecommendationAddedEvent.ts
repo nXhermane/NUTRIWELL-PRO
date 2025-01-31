@@ -1,18 +1,11 @@
-import { AggregateID, IDomainEvent, NeedsRecommendation } from "@/core/shared";
+import { AggregateID, NeedsRecommendation } from "@/core/shared";
+import { DomainEvent, DomainEventMessage } from "domain-eventrix";
 
 export interface ObjectiveRecommendationAddedEventObject {
    objectiveId: AggregateID;
    recommendations: NeedsRecommendation[];
 }
+@DomainEventMessage("Recommendation added to patient Goal: PatientProfil",true)
+export class ObjectiveRecommendationAddedEvent extends DomainEvent<ObjectiveRecommendationAddedEventObject> {
 
-export class ObjectiveRecommendationAddedEvent implements IDomainEvent {
-   dateTimeOccurred: Date;
-   data: ObjectiveRecommendationAddedEventObject;
-   constructor(eventObject: ObjectiveRecommendationAddedEventObject) {
-      this.dateTimeOccurred = new Date();
-      this.data = eventObject;
-   }
-   getAggregateId(): AggregateID {
-      return this.data.objectiveId;
-   }
 }

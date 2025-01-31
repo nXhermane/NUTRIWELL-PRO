@@ -1,9 +1,9 @@
 import { nutritionists } from "./../database/nutritionist.schema";
 import { NutritionistRepository, ConsultationPlaceRepository, ServiceRepository } from "./interfaces";
 import { AggregateID, Mapper, Email } from "@shared";
-import { Nutritionist, Service, ConsultationPlace } from "./../../domain";
+import { Nutritionist } from "./../../domain";
 import { drizzle } from "drizzle-orm/expo-sqlite";
-import { eq, or } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 import { SQLiteDatabase } from "expo-sqlite";
 import { NutritionistPersistenceType, NutritionistRecordPersistenceType } from "./types";
 import { NutritionistDto } from "./../dtos";

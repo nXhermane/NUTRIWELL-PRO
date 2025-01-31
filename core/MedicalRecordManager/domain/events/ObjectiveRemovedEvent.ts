@@ -1,13 +1,10 @@
-import { AggregateID, IDomainEvent } from "@shared";
+import { AggregateID } from "@shared";
+import { DomainEvent, DomainEventMessage } from "domain-eventrix";
 
-export class ObjectiveRemovedEvent implements IDomainEvent {
-   dateTimeOccurred: Date;
-   data: { objectiveId: AggregateID };
-   constructor(objectiveId: AggregateID) {
-      this.dateTimeOccurred = new Date();
-      this.data = { objectiveId };
-   }
-   getAggregateId(): AggregateID {
-      return this.data.objectiveId;
-   }
+export interface ObjectiveRemovedEventData {
+   objectiveId: AggregateID
+}
+@DomainEventMessage("Patient Goal Removed From Medical Record",true)
+export class ObjectiveRemovedEvent extends DomainEvent<ObjectiveRemovedEventData> {
+
 }

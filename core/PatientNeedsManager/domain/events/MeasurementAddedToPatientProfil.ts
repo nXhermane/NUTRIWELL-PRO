@@ -1,18 +1,12 @@
-import { AggregateID, IDomainEvent } from "@/core/shared";
+import { AggregateID } from "@/core/shared";
+import { DomainEvent, DomainEventMessage } from "domain-eventrix";
 
 export interface MeasurementAddedtoPatientProfilEventObject {
    patientProfilId: AggregateID;
    measureName: string;
    measurePath: string;
 }
-export class MeasurementAddedtoPatientProfilEvent implements IDomainEvent {
-   dateTimeOccurred: Date;
-   data: MeasurementAddedtoPatientProfilEventObject;
-   constructor(measurementEventObject: MeasurementAddedtoPatientProfilEventObject) {
-      this.data = measurementEventObject;
-      this.dateTimeOccurred = new Date();
-   }
-   getAggregateId(): AggregateID {
-      return this.data.patientProfilId;
-   }
+@DomainEventMessage("Measurement Added to Patient Profil",true)
+export class MeasurementAddedtoPatientProfilEvent extends DomainEvent<MeasurementAddedtoPatientProfilEventObject> {
+   
 }

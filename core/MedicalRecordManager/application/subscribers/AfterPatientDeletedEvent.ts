@@ -1,25 +1,22 @@
-import { PatientDeletedEvent } from "@/core/PatientManager";
+import { PatientDeletedEvent, PatientDeletedEventData } from "@/core/PatientManager";
 import { DeleteMedicalRecordRequest, DeleteMedicalRecordResponse } from "./../useCases";
-import { IHandler, UseCase, DomainEvents } from "@shared";
+import { UseCase } from "@shared";
+import { DomainEventHandler, EventHandler } from "domain-eventrix";
 
-export class AfterPatientDeletedEvent implements IHandler<PatientDeletedEvent> {
+@DomainEventHandler(PatientDeletedEvent,{
+   message: "After Patient Deleted , delete her MedicalRecord",
+   isVisibleOnUI: true
+})
+export class AfterPatientDeletedEvent extends EventHandler<PatientDeletedEventData, PatientDeletedEvent> {
    constructor(private deleteMedicalRecordUC: UseCase<DeleteMedicalRecordRequest, DeleteMedicalRecordResponse>) {
-      this.setupSubscriptions();
+      super();
    }
-   setupSubscriptions(): void {
-      DomainEvents.register(this.onPatientDeletedEvent.bind(this), PatientDeletedEvent.name);
+   async execute(event: PatientDeletedEvent): Promise<void> {
+      await this.onPatientDeletedEvent(event);
    }
-   onPatientDeletedEvent(event: PatientDeletedEvent): void {
-      (
-         this.deleteMedicalRecordUC.execute({
-            patientId: event.getAggregateId(),
-         }) as Promise<DeleteMedicalRecordResponse>
-      )
-         .then(() => {
-            console.log("MedicalRecordId  delete of  Patient", event.getAggregateId());
-         })
-         .catch(() => {
-            console.log("Error To delete MedicalRecord of Patient", event.getAggregateId());
-         });
+   private async onPatientDeletedEvent(event: PatientDeletedEvent): Promise<void> {
+      await this.deleteMedicalRecordUC.execute({
+         patientId: event.data.patientId,
+      });
    }
 }

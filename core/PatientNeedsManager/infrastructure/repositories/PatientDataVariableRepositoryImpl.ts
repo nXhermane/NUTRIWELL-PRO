@@ -1,4 +1,4 @@
-import { AggregateID, DomainEvents, Mapper } from "@/core/shared";
+import { AggregateDomainEvent, AggregateID, Mapper } from "@/core/shared";
 import { PatientDataVariable } from "../../domain/entities/PatientDataVariable";
 import { PatientDataVariableRepository } from "./interfaces/PatientDataVariableRepository";
 import { SQLiteDatabase } from "expo-sqlite";
@@ -27,7 +27,7 @@ export class PatientDataVariableRepositoryImpl implements PatientDataVariableRep
                .update(patientDataVariables)
                .set(patientDataVariablePersistence)
                .where(eq(patientDataVariables.id, patientDataVariablePersistence.id));
-         DomainEvents.dispatchEventsForAggregate(patientDataVariable.id);
+         AggregateDomainEvent.get().dispatchEventsForMarkedAggregate(patientDataVariable.id);
       } catch (error) {
          throw new PatientDataVariableRepositoryError("Erreur lors du sauvegarde de patientDataVariable", error as Error, { patientDataVariable });
       }
@@ -65,6 +65,7 @@ export class PatientDataVariableRepositoryImpl implements PatientDataVariableRep
                   eq(patientDataVariables.patientProfilId, patientDataVariableOrPatientProfilId as string),
                ),
             );
+            AggregateDomainEvent.get().dispatchEventsForMarkedAggregate(patientDataVariableOrPatientProfilId)
       } catch (error) {
          throw new PatientDataVariableRepositoryError("Erreur lors de la suppression du patient Data Variables.", error as Error, {
             patientDataVariableOrPatientProfilId,

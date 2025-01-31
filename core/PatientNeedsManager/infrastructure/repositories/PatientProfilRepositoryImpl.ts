@@ -1,4 +1,4 @@
-import { AggregateID, DomainEvents, Mapper } from "@/core/shared";
+import { AggregateDomainEvent, AggregateID, Mapper } from "@/core/shared";
 import { PatientProfil } from "../../domain/aggregates/PatientProfil";
 import { PatientProfilRepository } from "./interfaces/PatientProfilRepository";
 import { SQLiteDatabase } from "expo-sqlite";
@@ -46,7 +46,7 @@ export class PatientProfilRepositoryImpl implements PatientProfilRepository {
             if (!exist) await tx.insert(patientProfils).values(patientProfilPersistence);
             else await tx.update(patientProfils).set(patientProfilPersistence).where(eq(patientProfils.id, patientProfilPersistence.id));
          });
-         DomainEvents.dispatchEventsForAggregate(patientProfil.id);
+        AggregateDomainEvent.get().dispatchEventsForMarkedAggregate(patientProfil.id) 
       } catch (error) {
          throw new PatientProfilRepositoryError("Erreur lors du sauvegarde du patientProfil.", error as Error, { patientProfil });
       }
@@ -64,7 +64,7 @@ export class PatientProfilRepositoryImpl implements PatientProfilRepository {
             await Promise.all(patientProfil.medicalConditionIds!.map((id) => this.medicalConditionRepo.delete(id, tx)));
             await tx.delete(patientProfils).where(eq(patientProfils.id, patientProfil.id as string));
          });
-         DomainEvents.dispatchEventsForAggregate(patientProfil.id);
+         AggregateDomainEvent.get().dispatchEventsForMarkedAggregate(patientProfilOrPatientId)
       } catch (error) {
          throw new PatientProfilRepositoryError("Erreur lors de la suppression de patientProfil", error as Error, { patientProfilOrPatientId });
       }

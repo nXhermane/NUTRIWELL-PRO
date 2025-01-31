@@ -1,5 +1,5 @@
-import { MeasurementAddedEvent } from "@/core/MedicalRecordManager/domain/events";
-import { DomainEvents, ExceptionBase, IHandler, Message, NutritionData, PatientMeasurementCategory, UseCase } from "@/core/shared";
+import { IMeasurementAddedEventObject, MeasurementAddedEvent } from "@/core/MedicalRecordManager/domain/events";
+import { Message, NutritionData, PatientMeasurementCategory, UseCase } from "@/core/shared";
 import {
    AddAnthropometricMeasureToPatientProfilRequest,
    AddAnthropometricMeasureToPatientProfilResponse,
@@ -12,20 +12,25 @@ import {
    AddMedicalAnalyseToPatientProfilRequest,
    AddMedicalAnalyseToPatientProfilResponse,
 } from "../useCases/PatientProfil/AddMedicalAnalyseToPatientProfil";
+import { DomainEventHandler, EventHandler } from "domain-eventrix";
 // TODO: Je dois REvoir l'implementation et l'execution des handlers souscripts pour mes domains events
-// TODO: Refactoriser ce handler , il n'est pas au top le code peut fonctionner 
-export class AfterMeasurementAddedEvent implements IHandler<MeasurementAddedEvent> {
+// TODO: Refactoriser ce handler , il n'est pas au top le code peut fonctionner
+@DomainEventHandler(MeasurementAddedEvent, {
+   message: "Measurement Added , do something",
+   isVisibleOnUI: true,
+})
+export class AfterMeasurementAddedEvent extends EventHandler<IMeasurementAddedEventObject, MeasurementAddedEvent> {
    constructor(
       private addAnthropometricMeasureUC: UseCase<AddAnthropometricMeasureToPatientProfilRequest, AddAnthropometricMeasureToPatientProfilResponse>,
       private addBodycompositionMeasureUC: UseCase<AddBodyCompositionToPatientProfilRequest, AddBodyCompositionToPatientProfilResponse>,
       private addMedicalAnalysisResultUC: UseCase<AddMedicalAnalyseToPatientProfilRequest, AddMedicalAnalyseToPatientProfilResponse>,
    ) {
-      this.setupSubscriptions();
+      super();
    }
-   setupSubscriptions(): void {
-      DomainEvents.register(this.onMeasurementAddedEvent.bind(this), MeasurementAddedEvent.name);
+   async execute(event: MeasurementAddedEvent): Promise<void> {
+      await this.onMeasurementAddedEvent(event);
    }
-   onMeasurementAddedEvent(event: MeasurementAddedEvent): void {
+   private async onMeasurementAddedEvent(event: MeasurementAddedEvent): Promise<void> {
       const anthropometricCreationProps = [];
       const bodyCompositionCreationProps = [];
       const medicalAnalyseCreationProps = [];
@@ -50,7 +55,7 @@ export class AfterMeasurementAddedEvent implements IHandler<MeasurementAddedEven
                         }) as Promise<AddAnthropometricMeasureToPatientProfilResponse>
                      )
                         .then(() => {})
-                        .catch((e) => console.error("Error"))
+                        .catch((e) => console.error("Error"));
                      break;
                   case PatientMeasurementCategory.BodyComposition:
                      (

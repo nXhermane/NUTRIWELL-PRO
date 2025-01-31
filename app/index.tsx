@@ -5,10 +5,10 @@ import * as FileSystem from "expo-file-system";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as AuthSessionn from "expo-auth-session";
-import { useEffect, useState } from "react";
-import Constants from "expo-constants";
+import { useContext, useEffect, useState } from "react";
 import { unzip } from "react-native-zip-archive";
 import { useNavigation } from "expo-router";
+import { EventContext, useEventBus } from "domain-eventrix/react";
 
 async function readCacheDirectory(data: any) {
    const entries = await FileSystem.readDirectoryAsync(FileSystem.documentDirectory + "databaseFiles");
@@ -17,6 +17,8 @@ async function readCacheDirectory(data: any) {
 
 WebBrowser.maybeCompleteAuthSession();
 export default function Index() {
+  const context = useContext(EventContext)
+     console.log(context)
    const navigation = useNavigation();
    const [userInfo, setUserInfo] = useState(null);
    const [progression, setProgression] = useState<number>(0);

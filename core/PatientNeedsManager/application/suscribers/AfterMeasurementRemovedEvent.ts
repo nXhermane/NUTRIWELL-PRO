@@ -1,12 +1,18 @@
-import { MeasurementRemovedEvent } from "@/core/MedicalRecordManager/domain/events";
-import { DomainEvents, IHandler } from "@/core/shared";
+import { IMeasurementRemovedEventObject, MeasurementRemovedEvent } from "@/core/MedicalRecordManager/domain/events";
+import { DomainEventHandler, EventHandler } from "domain-eventrix";
 // TODO: Implement the handler logic here to handle the MeasurementRemovedEvent. For example, save the measurement data to patientProfil or perform any necessary calculations .
-export class AfterMeasurementRemovedEvent implements IHandler<MeasurementRemovedEvent> {
+@DomainEventHandler(MeasurementRemovedEvent, {
+   message: "After Measurement Removed , do something",
+   isVisibleOnUI: true,
+})
+export class AfterMeasurementRemovedEvent extends EventHandler<IMeasurementRemovedEventObject, MeasurementRemovedEvent> {
    constructor() {
-      this.setupSubscriptions();
+      super();
    }
-   setupSubscriptions(): void {
-      DomainEvents.register(this.onMeasurementRemovedEvent.bind(this), MeasurementRemovedEvent.name);
+
+   async execute(event: MeasurementRemovedEvent): Promise<void> {
+      await this.onMeasurementRemovedEvent(event);
    }
-   onMeasurementRemovedEvent(event: MeasurementRemovedEvent): void {}
+
+   private async onMeasurementRemovedEvent(event: MeasurementRemovedEvent): Promise<void> {}
 }

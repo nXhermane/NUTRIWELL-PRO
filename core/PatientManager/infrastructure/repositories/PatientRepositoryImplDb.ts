@@ -1,13 +1,14 @@
 import { patients } from "./../database/patient.schema";
 import { PatientRepository } from "./interfaces/PatientRepository";
 import { Patient } from "./../../domain";
-import { AggregateID, Result, Mapper, Paginated, DomainEvents } from "@shared";
+import { AggregateID, Mapper, Paginated, AggregateDomainEvent } from "@shared";
 import { PatientDto } from "./../dtos/PatientDto";
 import { drizzle } from "drizzle-orm/expo-sqlite";
 import { eq } from "drizzle-orm";
 import { SQLiteDatabase } from "expo-sqlite";
 import { PatientPersistenceType } from "./types";
 import { PatientRepositoryError, PatientRepositoryNotFoundException } from "./errors/PatientRepositoryError";
+
 export class PatientRepositoryImplDb implements PatientRepository {
    private db;
    constructor(
@@ -22,7 +23,7 @@ export class PatientRepositoryImplDb implements PatientRepository {
          const exist = await this.checkIfExist(persistencePatient.id);
          if (!exist) await this.db.insert(patients).values(persistencePatient);
          else await this.db.update(patients).set(persistencePatient).where(eq(patients.id, persistencePatient.id));
-         DomainEvents.dispatchEventsForAggregate(patient.id);
+         AggregateDomainEvent.get().dispatchEventsForMarkedAggregate(patient.id);
       } catch (e: any) {
          throw new PatientRepositoryError("Erreur lors de la sauvegarde du patient", e as Error, {});
       }
@@ -56,7 +57,7 @@ export class PatientRepositoryImplDb implements PatientRepository {
    async delete(patientId: AggregateID): Promise<void> {
       try {
          await this.db.delete(patients).where(eq(patients.id, patientId as string));
-         DomainEvents.dispatchEventsForAggregate(patientId);
+         AggregateDomainEvent.get().dispatchEventsForMarkedAggregate(patientId);
       } catch (error: any) {
          throw new PatientRepositoryError("Erreur lors de la suppression du patient", error as Error, {});
       }

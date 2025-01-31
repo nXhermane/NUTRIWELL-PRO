@@ -1,6 +1,6 @@
 import { foodStories } from "./../database/medicalRecord.schema";
 import { FoodStoryRepository } from "./interfaces";
-import { AggregateID, Result, Mapper, Paginated, DateManager } from "@shared";
+import { AggregateID, Mapper } from "@shared";
 import { FoodStory } from "./../../domain";
 import { drizzle } from "drizzle-orm/expo-sqlite";
 import { eq } from "drizzle-orm";
