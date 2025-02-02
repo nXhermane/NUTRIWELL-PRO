@@ -1,4 +1,6 @@
-import { ArgumentOutOfRangeException, CDate, Result } from "@shared";
+import { Result } from "@/core/shared/core";
+import { ArgumentOutOfRangeException } from "@/core/shared/exceptions";
+import { CDate } from "@/core/shared/domain";
 import { INeedsRecommendation, NeedsRecommendation } from "../value-object/NeedsRecommendation";
 import { NeedsRecommendationByFormular } from "../value-object/NeedsRecommendationByFormular";
 import { NeedsRecommendationByExclusion } from "../value-object/NeedsRecommendationByExclusion";

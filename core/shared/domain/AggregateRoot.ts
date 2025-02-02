@@ -1,5 +1,5 @@
 import { Aggregate } from "domain-eventrix/ddd";
-import { Entity, AggregateID } from "./Entity";
+import { Entity, AggregateID, CreateEntityProps } from "./Entity";
 import { DomainEvent } from "domain-eventrix";
 import { AggregateDomainEvent } from "./events/AggregateDomainEvent";
 

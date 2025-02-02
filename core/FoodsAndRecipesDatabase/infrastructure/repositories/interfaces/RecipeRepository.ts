@@ -1,4 +1,6 @@
-import { Recipe, IMealsType, IMealsCategory } from "./../../../domain";
+import { Recipe } from "./../../../domain/aggregates/Recipe";
+import { IMealsCategory } from "./../../../domain/value-objects/MealsCategory";
+import { IMealsType } from "./../../../domain/value-objects/MealsType";
 import { AggregateID } from "@shared";
 export interface RecipeRepository {
    save(recipe: Recipe): Promise<void>;

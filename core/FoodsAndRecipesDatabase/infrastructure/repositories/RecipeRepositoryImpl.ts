@@ -1,7 +1,10 @@
 import { SQLiteDatabase } from "expo-sqlite";
 import { RecipeRepository } from "./interfaces/RecipeRepository";
 import { AggregateID, IQuantity, Mapper, Paginated } from "@shared";
-import { IMealsCategory, IMealsType, IPreparationStep, Recipe } from "../../domain";
+import { Recipe } from "../../domain/aggregates/Recipe";
+import { IPreparationStep } from "./../../domain/value-objects/PreparationStep";
+import { IMealsType } from "./../../domain/value-objects/MealsType";
+import { IMealsCategory } from "./../../domain/value-objects/MealsCategory";
 import { IngredientType, RecipePersistenceType } from "./types";
 import { RecipeDto } from "../dtos";
 import { drizzle } from "drizzle-orm/expo-sqlite";

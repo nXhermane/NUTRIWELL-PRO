@@ -1,5 +1,5 @@
 import { AggregateID } from "@shared";
-import { Nutrient } from "./../../../domain";
+import { Nutrient } from "./../../../domain/entities/Nutrient";
 
 export interface NutrientRepository {
    save(nutrient: Nutrient, trx?: any): Promise<void>;

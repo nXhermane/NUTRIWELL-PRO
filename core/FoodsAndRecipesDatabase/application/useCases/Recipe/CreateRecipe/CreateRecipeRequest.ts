@@ -1,6 +1,7 @@
 import { IngredientDto, PreparationStepDto, QuantityDto } from "./../../../..//infrastructure";
 import { AggregateID } from "./../../../../../shared";
-import { IMealsCategory, IMealsType } from "./../../../../domain";
+import { IMealsCategory } from "./../../../../domain/value-objects/MealsCategory";
+import { IMealsType } from "./../../../../domain/value-objects/MealsType";
 export type CreateRecipeRequest = {
    quantity: QuantityDto;
    type: AggregateID | Omit<IMealsType, "typeId">;

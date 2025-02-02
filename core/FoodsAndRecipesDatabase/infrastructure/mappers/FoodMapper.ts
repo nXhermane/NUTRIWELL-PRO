@@ -1,5 +1,6 @@
 import { Mapper } from "@shared";
-import { Food, FoodQuantity } from "./../../domain";
+import { Food } from "./../../domain/aggregates/Food";
+import { FoodQuantity } from "../../domain/value-objects/Quantity";
 import { FoodNamePersistenceType, FoodPersistenceType, NutrientAmountPersitenceType } from "./../repositories/types";
 import { INutrientAmount, NutrientAmount } from "../../domain/value-objects/NutrientAmount";
 import { FoodDto } from "../dtos";
@@ -25,8 +26,9 @@ export class FoodMapper implements Mapper<Food, FoodNamePersistenceType, FoodDto
    }
    toDomain(record: FoodPersistenceType): Food {
       const { foodGroup, foodNutrients, ...otherRecordProps } = record;
+      // TODO: Verifier plus tard afin de faire appel a une constante globale . Mais la valeur par defaut des foods de la base de donnees est 100g
       const foodQuantity = new FoodQuantity({
-         value: 0,
+         value: 100,
          unit: "g",
       });
       const foodNutrientAmounts = foodNutrients.map(

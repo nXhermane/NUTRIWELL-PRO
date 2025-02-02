@@ -5,18 +5,20 @@ import {
    RecipeRepositoryNotFoundException,
    RecipeRepositoryError,
    FoodRepositoryError,
-   FoodDto,
-   RecipeDto,
-   FoodMapper,
-   RecipeMapper,
-   NutrientDto,
-   NutrientMapper,
    NutrientRepository,
-} from "./../../infrastructure";
+} from "./../../infrastructure/repositories";
+import { FoodDto, RecipeDto, NutrientDto } from "./../../infrastructure/dtos";
+import { FoodMapper } from "./../../infrastructure/mappers/FoodMapper";
+import { NutrientMapper } from "./../../infrastructure/mappers/NutrientMapper";
+import { RecipeMapper } from "./../../infrastructure/mappers/RecipeMapper";
 import { IFoodRecipeServiceDataProvider } from "./interfaces/FoodRecipeServiceDataProvider";
 import { FoodRecipeServiceDataProviderError } from "./errors/FoodRecipeServiceDataProviderError";
 import { AggregateID, IQuantity, Result, UseCase } from "@shared";
-import { Food, IMealsType, INutrientAmount, INutritionCalculatorService, Nutrient, Recipe } from "./../../domain";
+import { Food } from "./../../domain/aggregates/Food";
+import { Recipe } from "./../../domain/aggregates/Recipe";
+import { Nutrient } from "./../../domain/entities/Nutrient";
+import { IMealsType } from "./../../domain/value-objects/MealsType";
+import { INutrientAmount } from "./../../domain/value-objects/NutrientAmount";
 import { GetRecipeNutritionnalValueRequest, GetRecipeNutritionnalValueResponse, NutritionalValue } from "../useCases";
 export type RecipeNutritionalValue = {
    recipeId: AggregateID;

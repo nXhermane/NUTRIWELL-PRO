@@ -1,13 +1,19 @@
 import { SearchFoodResponse } from "./SearchFoodResponse";
 import { SearchFoodRequest } from "./SearchFoodRequest";
 import { UseCase, Mapper, AppError, left, right, Result, SearchEngineResult, ISearchEngine } from "@shared";
-import { FoodDto, FoodNamePersistenceType, FoodRepository, FoodRepositoryError, FoodRepositoryNotFoundException } from "./../../../../infrastructure";
-import { Food } from "./../../../../domain";
+import {
+   FoodNamePersistenceType,
+   FoodRepository,
+   FoodRepositoryError,
+   FoodRepositoryNotFoundException,
+} from "./../../../../infrastructure/repositories";
+import { FoodDto } from "./../../../../infrastructure/dtos";
+import { Food } from "./../../../../domain/aggregates/Food";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
+// TODO: cette classe est a revoir puisque , la facon dont je l'avais prevue , il semble que les donnes sont plus nombreurx pour le storkage
 export class SearchFoodUseCase implements UseCase<SearchFoodRequest, SearchFoodResponse> {
    private readonly searchItemStoreKey = "foodSearchEngine";
-   private activeTime = 4 * 60 * 1000;
+   private activeTime = 1000;
    private timeOutId: ReturnType<typeof setTimeout> | null = null;
    private isReset: boolean = false;
    private _defaultLimit = 500;
@@ -16,13 +22,12 @@ export class SearchFoodUseCase implements UseCase<SearchFoodRequest, SearchFoodR
       private mapper: Mapper<Food, FoodNamePersistenceType, FoodDto>,
       private searchEngine: ISearchEngine<FoodDto>,
    ) {
-      this.initSearchEngine();
    }
 
    async execute(request: SearchFoodRequest): Promise<SearchFoodResponse> {
       try {
          this.clearTimer();
-         if (this.isReset) {
+         if (!this.isReset) {
             await this.initSearchEngine();
          }
          const results = this.searchEngine.search(request.searchValue);
@@ -63,10 +68,13 @@ export class SearchFoodUseCase implements UseCase<SearchFoodRequest, SearchFoodR
    private async storeSearchEngineDataAndReset() {
       try {
          if (this.isReset) return;
+         console.log("Storkage des donnes")
          await AsyncStorage.setItem(this.searchItemStoreKey, this.searchEngine.toJSON());
          this.searchEngine.reset();
          this.isReset = true;
+         console.log("strokage reussi")
       } catch (e) {
+         console.log(e)
          console.log(`Erreur lors du storckage des donnees du search engine ${this.constructor.name}.${this.storeSearchEngineDataAndReset.name}`);
       }
    }

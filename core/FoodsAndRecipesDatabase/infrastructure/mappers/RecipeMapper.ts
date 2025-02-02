@@ -1,6 +1,10 @@
 import { Mapper } from "@shared";
-import { Recipe, MealsType, MealsCategory, Ingredient, IIngredient, FoodQuantity, PreparationStep } from "./../../domain";
-
+import { Recipe } from "./../../domain/aggregates/Recipe";
+import { MealsCategory } from "./../../domain/value-objects/MealsCategory";
+import { IIngredient, Ingredient } from "./../../domain/value-objects/Ingredient";
+import { MealsType } from "./../../domain/value-objects/MealsType";
+import { FoodQuantity } from "./../../domain/value-objects/Quantity";
+import { PreparationStep } from "./../../domain/value-objects/PreparationStep";
 import { RecipeDto } from "./../dtos";
 import { IngredientType, PreparationStepType, RecipePersistenceRecordType, RecipePersistenceType } from "../repositories";
 export class RecipeMapper implements Mapper<Recipe, RecipePersistenceType, RecipeDto> {

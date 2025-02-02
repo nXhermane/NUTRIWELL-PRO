@@ -1,5 +1,5 @@
 import { Mapper } from "@shared";
-import { FoodGroup } from "../../domain";
+import { FoodGroup } from "../../domain/entities/FoodGroup";
 import { FoodGroupDto } from "../dtos";
 import { FoodGroupPersistenceType } from "../repositories";
 export class FoodGroupMapper implements Mapper<FoodGroup, FoodGroupPersistenceType, FoodGroupDto> {
@@ -19,6 +19,7 @@ export class FoodGroupMapper implements Mapper<FoodGroup, FoodGroupPersistenceTy
       return new FoodGroup({
          id: record.groupId,
          updatedAt: record.updatedAt,
+         createdAt: record.createdAt,
          props: {
             foodGroupCode: record.groupCode,
             foodGroupName: record.groupName,

@@ -1,7 +1,10 @@
 import { View, Text, Button } from "react-native";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { GoogleSignin, GoogleSigninButton, statusCodes, isErrorWithCode, isSuccessResponse } from "@react-native-google-signin/google-signin";
-import  Constants  from "expo-constants";
+import Constants from "expo-constants";
+import { FoodAndRecipe } from "@/core/FoodsAndRecipesDatabase";
+import { AppServiceResponse, Message } from "@/core/shared";
+import { FoodDto } from "@/core/FoodsAndRecipesDatabase/infrastructure";
 GoogleSignin.configure({
    webClientId: "739619233876-gaeghecmvnrebtq4gjeg5cme79p1gp23.apps.googleusercontent.com",
    offlineAccess: true,
@@ -9,6 +12,7 @@ GoogleSignin.configure({
 
 const index2 = () => {
    const [user, setUser] = useState(null);
+   const [foodResult, setFoodResult] = useState<AppServiceResponse<FoodDto[]> | Message | null>(null);
    const signIn = async () => {
       try {
          await GoogleSignin.hasPlayServices();
@@ -39,12 +43,25 @@ const index2 = () => {
          }
       }
    };
+
+   const dddModule = useCallback(async () => {
+      const foodInstance = await FoodAndRecipe.getInstance();
+      console.log("Instance Recuprer avec sucess");
+      const result = await foodInstance.food.getAllFood({paginated: {
+         page: 1, 
+         pageSize: 1
+      }});
+      const searchResult = await foodInstance.food.search({searchValue: "hui"})
+      setFoodResult(result);
+   }, []);
+
    return (
       <View>
          <Text>Hello I'm the second page</Text>
          <Text>{JSON.stringify(user, null, 2)}</Text>
          <Button title={"Sign IN "} onPress={signIn} />
-         <Text></Text>
+         <Button title={"Test Food and Recipe"} onPress={dddModule} />
+         <Text>{JSON.stringify(foodResult,null,2)}</Text>
       </View>
    );
 };

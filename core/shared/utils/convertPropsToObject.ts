@@ -1,6 +1,6 @@
 import { Entity } from "./../domain/Entity";
 //import {ValueObject} from './../domain/ValueObject'
-function isEntity(value_object: any, obj: unknown): obj is Entity<unknown> {
+function isEntity(value_object: any, obj: unknown): obj is Entity<{}> {
    /**
     * 'instanceof Entity' causes error here for some reason.
     * Probably creates some circular dependency. This is a workaround
@@ -9,7 +9,7 @@ function isEntity(value_object: any, obj: unknown): obj is Entity<unknown> {
    return (
       Object.prototype.hasOwnProperty.call(obj, "toObject") &&
       Object.prototype.hasOwnProperty.call(obj, "id") &&
-      value_object.isValueObject((obj as Entity<unknown>).id)
+      value_object.isValueObject((obj as Entity<{}>).id)
    );
 }
 

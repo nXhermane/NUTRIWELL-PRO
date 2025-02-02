@@ -35,7 +35,7 @@ export class Guard {
             return { succeeded: true, message: `One of the values of the table ${argumentName} is empty or undfined or null` };
          }
       }
-      if ((value as string).trim() === "") {
+      if (typeof value === "string" && value.trim() === "") {
          return { succeeded: true, message: `The string ${argumentName} is empty.` };
       }
 

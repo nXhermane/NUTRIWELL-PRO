@@ -8,6 +8,7 @@ import {
    AUTHORIZATION_ERROR,
    CREATION_FAILED,
    INVALID_RESULT,
+   INVALID_DDD_OBJECT,
 } from "./exception.code";
 import { ExceptionBase } from "./exception.base";
 
@@ -139,4 +140,12 @@ export class InvalidResultError extends ExceptionBase {
       super(msg);
    }
    readonly code = INVALID_RESULT;
+}
+
+export class InvalidObject extends ExceptionBase {
+   static readonly message = "The object is not valid. For ex. Invalid Entity when .isValid() return false";
+   constructor(msg = InvalidObject.message) {
+      super(msg);
+   }
+   readonly code = INVALID_DDD_OBJECT;
 }

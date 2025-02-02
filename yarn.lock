@@ -2748,14 +2748,6 @@
     invariant "^2.2.4"
     nullthrows "^1.1.1"
 
-"@react-navigation/bottom-tabs@^7.0.0":
-  version "7.0.7"
-  resolved "https://registry.yarnpkg.com/@react-navigation/bottom-tabs/-/bottom-tabs-7.0.7.tgz#457b7975ab12203c6c4b4324f3da7c878b102399"
-  integrity sha512-ZosKpDjalic/MiOu0kRJe9s0aGzDJcTR6wCWdJ0Ncnd3FXu3V55jS0502HjFCbaVXRItww4r3O0e5nc0Nq86NA==
-  dependencies:
-    "@react-navigation/elements" "^2.1.1"
-    color "^4.2.3"
-
 "@react-navigation/bottom-tabs@^7.2.0":
   version "7.2.0"
   resolved "https://registry.yarnpkg.com/@react-navigation/bottom-tabs/-/bottom-tabs-7.2.0.tgz#5b336b823226647a263b4fe743655462796b6aaf"
@@ -2763,19 +2755,6 @@
   dependencies:
     "@react-navigation/elements" "^2.2.5"
     color "^4.2.3"
-
-"@react-navigation/core@^7.0.4":
-  version "7.0.4"
-  resolved "https://registry.yarnpkg.com/@react-navigation/core/-/core-7.0.4.tgz#f295538888bcd693c4981c69fbabb98c13e6a611"
-  integrity sha512-Olz6Y1Kf7SslTMcir4j3oo9GlFAZBUo5DAks/CsMAQHFJN+BYDQJTX5H8kEfPoKThIbKOLZozVMLQlC866u9HA==
-  dependencies:
-    "@react-navigation/routers" "^7.0.0"
-    escape-string-regexp "^4.0.0"
-    nanoid "3.3.7"
-    query-string "^7.1.3"
-    react-is "^18.2.0"
-    use-latest-callback "^0.2.1"
-    use-sync-external-store "^1.2.2"
 
 "@react-navigation/core@^7.3.1":
   version "7.3.1"
@@ -2789,13 +2768,6 @@
     react-is "^18.2.0"
     use-latest-callback "^0.2.1"
     use-sync-external-store "^1.2.2"
-
-"@react-navigation/elements@^2.1.1":
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/@react-navigation/elements/-/elements-2.1.1.tgz#8e752e402ae0706c092b9c46fb3c062cd36c9971"
-  integrity sha512-5ENc4tFpSpSDECaIq0j4+TT8BDjF6Wc3qvLrWxsY+UCG8veFY+SunDQG5HmHZ91CFXXsj7zBUQ8Q14b1J7tOIA==
-  dependencies:
-    color "^4.2.3"
 
 "@react-navigation/elements@^2.2.5":
   version "2.2.5"
@@ -2812,17 +2784,6 @@
     "@react-navigation/elements" "^2.2.5"
     warn-once "^0.1.1"
 
-"@react-navigation/native@^7.0.0":
-  version "7.0.4"
-  resolved "https://registry.yarnpkg.com/@react-navigation/native/-/native-7.0.4.tgz#42cfd7acb6cf8263e1f309a9c2a494e3f434cf95"
-  integrity sha512-0K9AqV+qWjAzcielVClMltFr5e8bYppxM9f7GmG6R8+yUv9l60k/VEQFH5eKIyyld7u2PkWCLRKE3ghlUjMt/w==
-  dependencies:
-    "@react-navigation/core" "^7.0.4"
-    escape-string-regexp "^4.0.0"
-    fast-deep-equal "^3.1.3"
-    nanoid "3.3.7"
-    use-latest-callback "^0.2.1"
-
 "@react-navigation/native@^7.0.14":
   version "7.0.14"
   resolved "https://registry.yarnpkg.com/@react-navigation/native/-/native-7.0.14.tgz#b3ee2879038dcf0523d26516af88d3adc549ce5e"
@@ -2833,13 +2794,6 @@
     fast-deep-equal "^3.1.3"
     nanoid "3.3.8"
     use-latest-callback "^0.2.1"
-
-"@react-navigation/routers@^7.0.0":
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/@react-navigation/routers/-/routers-7.0.0.tgz#fb55a4d70a14e16b630c386fd09ba43664cc7409"
-  integrity sha512-b2ehNmgAfDziTd0EERm0C9JI9JH1kdRS4SNBWbKQOVPv23WG+5ExovwWet26sGtMabLJ5lxSE8Z2/fByfggjNQ==
-  dependencies:
-    nanoid "3.3.7"
 
 "@react-navigation/routers@^7.1.2":
   version "7.1.2"
@@ -8126,15 +8080,15 @@ mz@^2.7.0:
     object-assign "^4.0.1"
     thenify-all "^1.0.0"
 
-nanoid@3.3.7, nanoid@^3.3.7:
-  version "3.3.7"
-  resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.3.7.tgz#d0c301a691bc8d54efa0a2226ccf3fe2fd656bd8"
-  integrity sha512-eSRppjcPIatRIMC1U6UngP8XFcz8MQWGQdt1MTBQ7NaAmvXDfvNxbvWV3x2y6CdEUciCSsDHDQZbhYaB8QEo2g==
-
 nanoid@3.3.8:
   version "3.3.8"
   resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.3.8.tgz#b1be3030bee36aaff18bacb375e5cce521684baf"
   integrity sha512-WNLf5Sd8oZxOm+TzppcYk8gVOgP+l58xNy58D0nbUnOxOWRWvlcCV4kUF7ltmI6PsrLl/BgKEyS4mqsGChFN0w==
+
+nanoid@^3.3.7:
+  version "3.3.7"
+  resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.3.7.tgz#d0c301a691bc8d54efa0a2226ccf3fe2fd656bd8"
+  integrity sha512-eSRppjcPIatRIMC1U6UngP8XFcz8MQWGQdt1MTBQ7NaAmvXDfvNxbvWV3x2y6CdEUciCSsDHDQZbhYaB8QEo2g==
 
 nanoid@^5.0.9:
   version "5.0.9"
@@ -9836,10 +9790,10 @@ slugify@^1.3.4, slugify@^1.6.6:
   resolved "https://registry.yarnpkg.com/slugify/-/slugify-1.6.6.tgz#2d4ac0eacb47add6af9e04d3be79319cbcc7924b"
   integrity sha512-h+z7HKHYXj6wJU+AnS/+IH8Uh9fdcX1Lrhg1/VMdf9PwoBQXFcXiAdsy2tSK0P6gKwJLXp02r90ahUCqHk9rrw==
 
-smart-path-resolver@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/smart-path-resolver/-/smart-path-resolver-1.0.1.tgz#b940110e1b0e28afd13f62d7322abd5c9b1e6ed5"
-  integrity sha512-0OFNpoxXBFjykKOEWgZ8za4fzHXfh5AYIG8lmd2HmiF88eH1Pj17EVC23hz/XW1YVinteQdBdsSSWkWMGsbtFQ==
+smart-path-resolver@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/smart-path-resolver/-/smart-path-resolver-1.0.2.tgz#dba314b0b8c0343d6e3d48607d889121d247ec34"
+  integrity sha512-6uYHQjuDYX/DwcQVCSKqVopJAb90fmtCu/4eGm9hj8SS0sxQu16nJX/vmzyEKQeEeGYYmRUlFygVSVOrFCItEA==
 
 smartcal@^1.0.1:
   version "1.0.1"

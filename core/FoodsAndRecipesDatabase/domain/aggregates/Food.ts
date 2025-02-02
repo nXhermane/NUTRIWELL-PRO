@@ -19,6 +19,7 @@ import {
    Result,
    ExceptionBase,
    IQuantity,
+   InvalidObject,
 } from "@shared";
 import { CreateFoodProps } from "../types";
 import { INutrientAmount, NutrientAmount } from "../value-objects/NutrientAmount";
@@ -112,8 +113,8 @@ export class Food extends AggregateRoot<IFood> {
       if (Guard.isEmpty(this.props.foodOrigin).succeeded) {
          throw new EmptyStringError(INVALID_FOOD_ORIGIN_ERROR);
       }
-      this.props.foodGroup.validate();
-
+      if(!this.props.foodGroup.isValid()) throw new InvalidObject("Le Food Group n'est pas valide.")
+   
       // TODO: je dois reactiver cela plus tart quand les données seront prestes
       // if (this.props.foodNutrients.length < 5) {
       //             throw new Error(MINIMUM_NUTRIENTS_ERROR);

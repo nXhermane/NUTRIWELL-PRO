@@ -2,8 +2,9 @@ import { GetRecipeByIdErrors } from "./GetRecipeByIdErrors";
 import { GetRecipeByIdResponse } from "./GetRecipeByIdResponse";
 import { GetRecipeByIdRequest } from "./GetRecipeByIdRequest";
 import { UseCase, Mapper, AppError, Result, left, right } from "@shared";
-import { RecipeRepository, RecipeRepositoryNotFoundException, RecipePersistenceType, RecipeDto } from "./../../../../infrastructure";
-import { Recipe } from "./../../../../domain";
+import { RecipeRepository, RecipeRepositoryNotFoundException, RecipePersistenceType } from "./../../../../infrastructure/repositories";
+import { RecipeDto } from "./../../../../infrastructure/dtos";
+import { Recipe } from "./../../../../domain/aggregates/Recipe";
 
 export class GetRecipeByIdUseCase implements UseCase<GetRecipeByIdRequest, GetRecipeByIdResponse> {
    constructor(

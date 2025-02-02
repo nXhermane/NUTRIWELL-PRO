@@ -2,8 +2,9 @@ import { GetFoodByIdErrors } from "./GetFoodByIdErrors";
 import { GetFoodByIdResponse } from "./GetFoodByIdResponse";
 import { GetFoodByIdRequest } from "./GetFoodByIdRequest";
 import { UseCase, Mapper, Result, AppError, left, right } from "@shared";
-import { FoodDto, FoodNamePersistenceType, FoodRepository, FoodRepositoryNotFoundException } from "./../../../../infrastructure";
-import { Food } from "./../../../../domain";
+import { FoodNamePersistenceType, FoodRepository, FoodRepositoryNotFoundException } from "./../../../../infrastructure/repositories";
+import { FoodDto } from "./../../../../infrastructure/dtos";
+import { Food } from "./../../../../domain/aggregates/Food";
 
 export class GetFoodByIdUseCase implements UseCase<GetFoodByIdRequest, GetFoodByIdResponse> {
    constructor(

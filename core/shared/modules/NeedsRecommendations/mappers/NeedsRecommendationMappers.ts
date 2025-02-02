@@ -1,5 +1,5 @@
-import { Mapper, NeedsRecommendation, NeedsRecommendationDto } from "@shared";
-
+import {  NeedsRecommendationDto } from "./../dtos/NeedsRecommendationDto";
+import { NeedsRecommendation } from "../value-object/NeedsRecommendation";
 export class NeedsRecommendationMapper {
    static toDto(recommendation: NeedsRecommendation): NeedsRecommendationDto {
       const props = recommendation.unpack();

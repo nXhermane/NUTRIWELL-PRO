@@ -5,7 +5,7 @@ import { AggregateID, Mapper, Paginated } from "@shared";
 import { drizzle } from "drizzle-orm/expo-sqlite";
 import { and, eq } from "drizzle-orm";
 import { SQLiteDatabase } from "expo-sqlite";
-import { Food } from "../../domain";
+import { Food } from "../../domain/aggregates/Food";
 import { FoodNamePersistenceType, NutrientAmountPersitenceType } from "./types";
 import { FoodDto } from "../dtos";
 import { FoodGroupRepository } from "./interfaces/FoodGroupRepository";
@@ -89,7 +89,7 @@ export class FoodRepositoryImpl implements FoodRepository {
          });
       }
    }
-   async getAllFood(foodOrigin?: string, paginated?: Paginated): Promise<Food[]> {
+   async getAllFood(foodOrigin?: string, paginated?: Paginated): Promise<Food[]> {  
       try {
          const query = this.db.select().from(schemas.foodNames);
          if (foodOrigin) query.where(eq(schemas.foodNames.foodOrigin, foodOrigin));

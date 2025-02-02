@@ -1,7 +1,7 @@
 import { SQLiteDatabase } from "expo-sqlite";
 import { NutrientRepository } from "./interfaces/NutrientRepository";
 import { AggregateID, Mapper } from "@shared";
-import { Nutrient } from "../../domain";
+import { Nutrient } from "../../domain/entities/Nutrient";
 import { NutrientPersistenceType } from "./types";
 import { NutrientDto } from "../dtos";
 import { drizzle } from "drizzle-orm/expo-sqlite";

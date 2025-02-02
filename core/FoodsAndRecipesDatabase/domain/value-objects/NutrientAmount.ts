@@ -7,9 +7,8 @@ export interface INutrientAmount {
 }
 
 export class NutrientAmount extends ValueObject<INutrientAmount> {
-   [x: string]: any;
    protected validate(props: INutrientAmount): void {
-      if (!Guard.isEmpty(props.nutrientId).succeeded) throw new EmptyStringError("The nutrientId cant not be empty or null");
+      if (Guard.isEmpty(props.nutrientId).succeeded) throw new EmptyStringError("The nutrientId cant not be empty or null");
       if (Guard.isNegative(props.value).succeeded) throw new NegativeValueError("The nutrient Value can't be negative");
    }
    static create(props: INutrientAmount): Result<NutrientAmount> {

@@ -1,7 +1,6 @@
-import { nutritionFormulars } from "@/core/PatientNeedsManager/infrastructure/database/patientNeeds";
 import { INeedsRecommendation, NeedsRecommendation, NeedsRecommendationContext, NutrientNeedsValue } from "./NeedsRecommendation";
-import { Guard } from "@/core/shared/core";
-import { InvalidArgumentFormatError } from "@/core/shared/exceptions";
+import { Guard } from "./../../../core";
+import { InvalidArgumentFormatError } from "./../../../exceptions";
 
 export interface INeedsRecommendationByInterval {
    min: number | null;

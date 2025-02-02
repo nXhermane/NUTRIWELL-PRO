@@ -1,9 +1,13 @@
 import { CreateRecipeErrors } from "./CreateRecipeErrors";
 import { CreateRecipeRequest } from "./CreateRecipeRequest";
 import { CreateRecipeResponse } from "./CreateRecipeResponse";
-import { MealsType, IMealsType, MealsCategory, IMealsCategory, Recipe, CreateRecipeProps } from "./../../../../domain";
+import { Recipe } from "./../../../../domain/aggregates/Recipe";
+import { MealsType, IMealsType } from "./../../../../domain/value-objects/MealsType";
+import { MealsCategory, IMealsCategory } from "./../../../../domain/value-objects/MealsCategory";
+import { CreateRecipeProps } from "./../../../../domain/types";
 import { UseCase, Result, left, right, AppError, AggregateID, Guard } from "@shared";
-import { RecipeRepository, RecipeRepositoryError } from "./../../../../infrastructure";
+import { RecipeRepository, RecipeRepositoryError } from "./../../../../infrastructure/repositories";
+
 export class CreateRecipeUseCase implements UseCase<CreateRecipeRequest, CreateRecipeResponse> {
    constructor(private repo: RecipeRepository) {}
 

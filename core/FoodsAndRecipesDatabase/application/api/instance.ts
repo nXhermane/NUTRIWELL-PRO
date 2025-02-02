@@ -1,19 +1,14 @@
 import { SQLiteDatabase } from "expo-sqlite";
 import { IFoodRecipeServiceDataProvider } from "./interfaces/FoodRecipeServiceDataProvider";
 import { db } from "../../infrastructure/database/db.config";
-import {
-   FoodGroupMapper,
-   FoodGroupRepositoryImpl,
-   FoodMapper,
-   FoodRepositoryImpl,
-   NutrientMapper,
-   NutrientRepositoryImpl,
-   RecipeMapper,
-   RecipeRepositoryImpl,
-} from "../../infrastructure";
+import { FoodGroupRepositoryImpl, FoodRepositoryImpl, NutrientRepositoryImpl, RecipeRepositoryImpl } from "../../infrastructure/repositories";
+import { FoodGroupMapper } from "./../../infrastructure/mappers/FoodGroupMapper";
+import { FoodMapper } from "./../../infrastructure/mappers/FoodMapper";
+import { NutrientMapper } from "./../../infrastructure/mappers/NutrientMapper";
+import { RecipeMapper } from "./../../infrastructure/mappers/RecipeMapper";
 import { FoodRecipeServiceDataProvider } from "./FoodRecipeServiceDataProvider";
 import { GetRecipeNutritionnalValueUseCase } from "../useCases";
-import { NutritionCalculatorService } from "../../domain";
+import { NutritionCalculatorService } from "../../domain/services/NutritionCalculatorService";
 
 export class FoodAndRecipeApi {
    private static instance: IFoodRecipeServiceDataProvider | null = null;

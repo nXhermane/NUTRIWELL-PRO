@@ -12,9 +12,7 @@ import {
    GetAllRecipeUseCase,
    GetRecipeByIdUseCase,
    GetRecipeNutritionnalValueUseCase,
-   FoodRecipeServiceDataProvider,
    IFoodRecipeServiceDataProvider,
-   FoodRecipeServiceDataProviderError,
    FoodAndRecipeApi,
 } from "./application";
 import { NutritionCalculatorService } from "./domain";

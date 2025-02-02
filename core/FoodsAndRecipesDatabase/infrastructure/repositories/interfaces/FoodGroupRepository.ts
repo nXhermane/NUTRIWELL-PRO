@@ -1,5 +1,5 @@
 import { AggregateID } from "@/core/shared";
-import { FoodGroup } from "./../../../domain";
+import { FoodGroup } from "./../../../domain/entities/FoodGroup";
 
 export interface FoodGroupRepository {
    save(foodgroup: FoodGroup, trx?: any): Promise<void>;

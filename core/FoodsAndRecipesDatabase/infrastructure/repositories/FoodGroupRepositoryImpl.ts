@@ -1,7 +1,7 @@
 import { SQLiteDatabase } from "expo-sqlite";
 import { FoodGroupRepository } from "./interfaces/FoodGroupRepository";
 import { AggregateID, Mapper } from "@shared";
-import { FoodGroup } from "../../domain";
+import { FoodGroup } from "../../domain/entities/FoodGroup";
 import { FoodGroupPersistenceType } from "./types";
 import { FoodGroupDto } from "../dtos";
 import { drizzle } from "drizzle-orm/expo-sqlite";
@@ -32,7 +32,7 @@ export class FoodGroupRepositoryImpl implements FoodGroupRepository {
       }
    }
    async getById(foodGroupId: AggregateID): Promise<FoodGroup> {
-      try {
+      try {     
          const foodGroup = await this.db
             .select()
             .from(foodGroups)

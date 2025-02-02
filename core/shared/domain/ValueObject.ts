@@ -43,10 +43,12 @@ export abstract class ValueObject<T> {
       if (this.isDomainPrimitive(this.props)) {
          return this.props.value;
       }
-
-      const propsCopy = convertPropsToObject(ValueObject, this.props);
-
-      return Object.freeze(propsCopy);
+      //TODO: Verifier le role vrai de convertPropsToObject 
+      //FIX: fixer le bug de la structureClone qui declenche une erreur
+//       console.log("Unpack Called")
+//       const propsCopy = convertPropsToObject(ValueObject, this.props);
+//   console.log("props Cop",propsCopy)
+      return Object.freeze(this.props) as T
    }
 
    private checkIfEmpty(props: ValueObjectProps<T>): void {
@@ -56,7 +58,7 @@ export abstract class ValueObject<T> {
    }
 
    private isDomainPrimitive(obj: unknown): obj is DomainPrimitive<T & (Primitives | Date)> {
-      if (Object.prototype.hasOwnProperty.call(obj, "value")) {
+      if (Object.prototype.hasOwnProperty.call(obj, "_value")) {
          return true;
       }
       return false;

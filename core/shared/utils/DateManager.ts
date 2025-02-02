@@ -11,26 +11,26 @@ export class DateManager {
       return new Date();
    }
    public static formatDate(date: Date): string {
-      return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+      return date.getFullYear() + "-" + this.fixDateNumberToString(date.getMonth() + 1) + "-" + this.fixDateNumberToString(date.getDate());
    }
    public static dateToTimestamps(date: Date): string {
       const year = date.getUTCFullYear();
-      const month = DateManager.fixDateNumberToString(date.getUTCMonth() + 1);
-      const day = DateManager.fixDateNumberToString(date.getUTCDate());
-      const hours = DateManager.fixDateNumberToString(date.getUTCHours());
-      const minutes = DateManager.fixDateNumberToString(date.getUTCMinutes());
-      const seconds = DateManager.fixDateNumberToString(date.getUTCSeconds());
+      const month = this.fixDateNumberToString(date.getUTCMonth() + 1);
+      const day = this.fixDateNumberToString(date.getUTCDate());
+      const hours = this.fixDateNumberToString(date.getUTCHours());
+      const minutes = this.fixDateNumberToString(date.getUTCMinutes());
+      const seconds = this.fixDateNumberToString(date.getUTCSeconds());
 
       const timestampFormmat = year + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds;
       return timestampFormmat;
    }
    public static dateToDateTimeString(date: Date): string {
       const year = date.getFullYear();
-      const month = DateManager.fixDateNumberToString(date.getMonth() + 1);
-      const day = DateManager.fixDateNumberToString(date.getDate());
-      const hours = DateManager.fixDateNumberToString(date.getHours());
-      const minutes = DateManager.fixDateNumberToString(date.getMinutes());
-      const seconds = DateManager.fixDateNumberToString(date.getSeconds());
+      const month = this.fixDateNumberToString(date.getMonth() + 1);
+      const day = this.fixDateNumberToString(date.getDate());
+      const hours = this.fixDateNumberToString(date.getHours());
+      const minutes = this.fixDateNumberToString(date.getMinutes());
+      const seconds = this.fixDateNumberToString(date.getSeconds());
 
       const datetimeFormmat = year + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds;
       return datetimeFormmat;

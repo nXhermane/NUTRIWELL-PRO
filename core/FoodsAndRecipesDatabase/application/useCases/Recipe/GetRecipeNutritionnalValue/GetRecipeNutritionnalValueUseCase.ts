@@ -2,8 +2,9 @@ import { GetRecipeNutritionnalValueErrors } from "./GetRecipeNutritionnalValueEr
 import { GetRecipeNutritionnalValueRequest } from "./GetRecipeNutritionnalValueRequest";
 import { GetRecipeNutritionnalValueResponse, NutritionalValue } from "./GetRecipeNutritionnalValueResponse";
 import { UseCase, AppError, Result, left, right, AggregateID, IQuantity } from "@shared";
-import { NutrientRepository, RecipeRepository, RecipeRepositoryNotFoundException } from "./../../../../infrastructure";
-import { INutrientAmount, INutritionCalculatorService } from "./../../../../domain";
+import { NutrientRepository, RecipeRepository, RecipeRepositoryNotFoundException } from "./../../../../infrastructure/repositories";
+import { INutritionCalculatorService } from "./../../../../domain/services/interfaces/INutritionCalculatorService";
+import { INutrientAmount } from "./../../../../domain/value-objects/NutrientAmount";
 
 export class GetRecipeNutritionnalValueUseCase implements UseCase<GetRecipeNutritionnalValueRequest, GetRecipeNutritionnalValueResponse> {
    constructor(

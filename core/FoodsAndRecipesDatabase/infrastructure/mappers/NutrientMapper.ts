@@ -1,5 +1,5 @@
 import { Mapper } from "@shared";
-import { Nutrient } from "../../domain";
+import { Nutrient } from "../../domain/entities/Nutrient";
 import { NutrientPersistenceType } from "../repositories";
 import { NutrientDto } from "../dtos";
 

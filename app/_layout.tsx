@@ -1,10 +1,11 @@
 import { Stack } from "expo-router";
 import "./../eventrix.config";
 import { EventProvider } from "domain-eventrix/react";
+import { SharedEnhancedEventBus } from "domain-eventrix";
 
 export default function RootLayout() {
    return (
-      <EventProvider>
+      <EventProvider eventBusKey={"SharedEnhancedEventBus"}>
          <Stack
             screenOptions={{
                headerStyle: {

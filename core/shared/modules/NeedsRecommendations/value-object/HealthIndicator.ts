@@ -1,4 +1,6 @@
-import { EmptyStringError, ExceptionBase, Guard, NegativeValueError, Result, ValueObject } from "@/core/shared";
+import { ValueObject } from "@/core/shared/domain";
+import { ExceptionBase, EmptyStringError, NegativeValueError } from "@/core/shared/exceptions";
+import { Result, Guard } from "@/core/shared/core";
 
 // Cette class n'est qu'une ébauche de ce qu'on veut reelement faire avec l'ajout des healthdicator donc
 // TODO : Remodelise this value object to satisfy the original idea

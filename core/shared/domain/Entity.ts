@@ -27,7 +27,6 @@ export abstract class Entity<EntityProps extends { [key: string]: any }> {
    constructor({ createdAt, updatedAt, id, props }: CreateEntityProps<EntityProps>) {
       this._id = new EntityUniqueID(id);
       this.validateProps(props);
-
       this._createdAt = CDate.create(createdAt).val;
       this._updatedAt = CDate.create(updatedAt).val;
       this.props = this.createProxy(props);
@@ -121,7 +120,8 @@ export abstract class Entity<EntityProps extends { [key: string]: any }> {
 
    private validateProps(props: EntityProps): void {
       const MAX_PROPS = 50;
-
+      const validationProps = {...props}
+      const validationresult = Guard.isEmpty(props.foodGroupCode)
       if (Guard.isEmpty(props).succeeded) {
          throw new Error("Entity props should not be empty");
       }

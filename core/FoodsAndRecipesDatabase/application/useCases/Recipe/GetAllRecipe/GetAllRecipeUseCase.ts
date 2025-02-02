@@ -7,9 +7,9 @@ import {
    RecipeRepositoryError,
    RecipeRepositoryNotFoundException,
    RecipePersistenceType,
-   RecipeDto,
-} from "./../../../../infrastructure";
-import { Recipe } from "./../../../../domain";
+} from "./../../../../infrastructure/repositories";
+import { RecipeDto } from "./../../../../infrastructure/dtos";
+import { Recipe } from "./../../../../domain/aggregates/Recipe";
 
 export class GetAllRecipeUseCase implements UseCase<GetAllRecipeRequest, GetAllRecipeResponse> {
    constructor(

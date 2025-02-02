@@ -1,7 +1,8 @@
 import { IQuantity } from "@shared";
-import { FoodGroup, IFoodGroup, IMealsCategory, IMealsType } from "../../domain";
-import { INutrientAmount } from "../../domain/value-objects/NutrientAmount";
-import { RecipePersistenceDto } from "./../dtos/RecipePersistenceDto";
+import {  IMealsType } from "../../domain/value-objects/MealsType";
+import {  IMealsCategory } from "../../domain/value-objects/MealsCategory";
+import { FoodGroup } from "../../domain/entities/FoodGroup";
+
 export interface Timestamp {
    createdAt: string;
    updatedAt: string;
