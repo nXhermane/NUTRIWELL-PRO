@@ -1,9 +1,8 @@
 import { Stack } from "expo-router";
-import "./../eventrix.config";
+import "../eventrix.config";
 import { EventProvider } from "domain-eventrix/react";
-import { SharedEnhancedEventBus } from "domain-eventrix";
 
-export default function RootLayout() {
+ export default function RootLayout() {
    return (
       <EventProvider eventBusKey={"SharedEnhancedEventBus"}>
          <Stack
@@ -18,9 +17,10 @@ export default function RootLayout() {
             }}
          >
             {/* Optionally configure static options outside the route.*/}
-            <Stack.Screen name="index" options={{}} />
+            <Stack.Screen    name="index" options={{}} />
             <Stack.Screen name="index2" options={{}} />
          </Stack>
       </EventProvider>
    );
 }
+

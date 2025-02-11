@@ -8,6 +8,7 @@
     "scheme": "nutriwellpro",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
+    "entryPoint": "./index.js",
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.nxhermano.nutriwellpro"

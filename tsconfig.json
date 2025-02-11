@@ -1,40 +1,20 @@
 {
-  "extends": "expo/tsconfig.base",
-  "compilerOptions": {
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "strict": true,
-    "paths": {
-      "@/*": [
-        "./*"
-      ],
-      "@shared": [
-        "./core/shared"
-      ],
-      "@foodAndRecipe": [
-        "./core/FoodsAndRecipesDatabase"
-      ],
-      "@patientManager/*": [
-        "./core/PatientManager/*"
-      ],
-      "@nutritionistManager": [
-        "./core/NutritionistManager"
-      ],
-      "@medicalRecordManager": [
-        "./core/MedicalRecordManager"
-      ],
-      "@modules/*": [
-        "./core/shared/modules/*"
-      ],
-      "tailwind.config": [
-        "./tailwind.config.js"
-      ]
-    }
-  },
-  "include": [
-    "**/*.ts",
-    "**/*.tsx",
-    ".expo/types/**/*.ts",
-    "expo-env.d.ts"
-  ]
+   "extends": "expo/tsconfig.base",
+   "compilerOptions": {
+      "experimentalDecorators": true,
+      "emitDecoratorMetadata": true,
+      "strict": true,
+      "paths": {
+         "@/*": ["./*"],
+         "@core": ["./core/*"],
+         "@shared": ["./core/shared"],
+         "@foodAndRecipe": ["./core/FoodsAndRecipesDatabase"],
+         "@patientManager/*": ["./core/PatientManager/*"],
+         "@nutritionistManager": ["./core/NutritionistManager"],
+         "@medicalRecordManager": ["./core/MedicalRecordManager"],
+         "@modules/*": ["./core/shared/modules/*"],
+         "tailwind.config": ["./tailwind.config.js"]
+      }
+   },
+   "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"]
 }

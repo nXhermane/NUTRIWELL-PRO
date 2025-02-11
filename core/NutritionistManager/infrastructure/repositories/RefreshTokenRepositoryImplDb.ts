@@ -14,28 +14,28 @@ export class RefreshTokenRepositoryImplDb implements RefreshTokenRepository {
 
    async save(nutritionistId: AggregateID, token: string): Promise<void> {
       try {
-         await this.db.insert(refreshTokens).values({ nutritionistId, token });
+         await this.db.insert(refreshTokens).values({ nutritionistId: nutritionistId as string, token });
       } catch (e: any) {
          throw new RefreshTokenRepositoryError("Une erreur lors du sauvegarde du refresh token.");
       }
    }
    async getById(nutritionistId: AggregateID): Promise<string> {
       try {
-         const token = await this.db
+         const token = this.db
             .select({ token: refreshTokens.token })
             .from(refreshTokens)
-            .where(eq(refreshTokens.nutritionistId, nutritionistId))
+            .where(eq(refreshTokens.nutritionistId, nutritionistId as string))
             .get();
-         if (!token) throw new RefreshTokenRepositoryNotFoundException("Token non trouver pour l'utilisateur.", e as Error, { nutritionistId });
+         if (!token) throw new RefreshTokenRepositoryNotFoundException("Token non trouver pour l'utilisateur.", new Error(), { nutritionistId });
 
-         return token.token;
+         return token.token as string;
       } catch (e: any) {
          throw new RefreshTokenRepositoryError("Erreur lors de la recuperation du refresh token", e as Error, { nutritionistId });
       }
    }
    async delete(nutritionistId: AggregateID): Promise<void> {
       try {
-         await this.db.delete(refreshTokens).where(eq(refreshTokens.nutritionistId, nutritionistId));
+         await this.db.delete(refreshTokens).where(eq(refreshTokens.nutritionistId, nutritionistId as string));
       } catch (e: any) {
          throw new RefreshTokenRepositoryError("Erreur lors de la suppression du refresh Token", e as Error, { nutritionistId });
       }

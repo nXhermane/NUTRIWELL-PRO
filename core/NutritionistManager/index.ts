@@ -19,7 +19,7 @@ export interface INutritionistManager {
 export class NutritionistManager {
    private static instance: INutritionistManager | null = null;
    static async getinstance(): Promise<INutritionistManager> {
-      if (NutritionistManager.instance) {
+      if (!this.instance) {
          const expo = (await db).db;
          const consultationplaceMapper = new ConsultationPlaceMapper();
          const serviceMapper = new ServiceMapper();
@@ -39,10 +39,10 @@ export class NutritionistManager {
 
          const nutritionistService = new NutritionistService(signUpUC, signInUC, validateTokenUC, refreshTokenUC);
 
-         NutritionistManager.instance = {
+         this.instance = {
             auth: nutritionistService,
          };
       }
-      return NutritionistManager.instance as INutritionistManager;
+      return this.instance;
    }
 }

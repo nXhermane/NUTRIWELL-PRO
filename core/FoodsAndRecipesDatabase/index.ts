@@ -42,7 +42,7 @@ export class FoodAndRecipe {
    private static instance: IFoodAndRecipe | null = null;
 
    static async getInstance(): Promise<IFoodAndRecipe> {
-      if (FoodAndRecipe.instance === null) {
+      if (!this.instance) {
          const expo = (await db).db;
          const foodMapper = new FoodMapper();
          const recipeMapper = new RecipeMapper();
@@ -80,7 +80,7 @@ export class FoodAndRecipe {
             api: { foodAndRecipeDataProvider: await FoodAndRecipeApi.getInstance() },
          };
       }
-      return this.instance as IFoodAndRecipe;
+      return this.instance;
    }
 }
 

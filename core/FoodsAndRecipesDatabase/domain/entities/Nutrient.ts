@@ -7,7 +7,6 @@ import {
    INVALID_NUTRIENT_UNIT_ERROR,
    INVALID_NUTRIENT_DECIMALS_ERROR,
 } from "./../constants";
-import { err } from "react-native-svg";
 export interface INutrient {
    nutrientCode: string;
    nutrientINFOODSTagName: string;

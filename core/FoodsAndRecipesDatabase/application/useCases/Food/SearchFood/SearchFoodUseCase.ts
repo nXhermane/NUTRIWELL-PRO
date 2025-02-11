@@ -21,8 +21,7 @@ export class SearchFoodUseCase implements UseCase<SearchFoodRequest, SearchFoodR
       private repo: FoodRepository,
       private mapper: Mapper<Food, FoodNamePersistenceType, FoodDto>,
       private searchEngine: ISearchEngine<FoodDto>,
-   ) {
-   }
+   ) {}
 
    async execute(request: SearchFoodRequest): Promise<SearchFoodResponse> {
       try {
@@ -68,13 +67,12 @@ export class SearchFoodUseCase implements UseCase<SearchFoodRequest, SearchFoodR
    private async storeSearchEngineDataAndReset() {
       try {
          if (this.isReset) return;
-         console.log("Storkage des donnes")
-         await AsyncStorage.setItem(this.searchItemStoreKey, this.searchEngine.toJSON());
+         const serealizedData = this.searchEngine.toJSON();
+         await AsyncStorage.setItem(this.searchItemStoreKey, serealizedData);
          this.searchEngine.reset();
          this.isReset = true;
-         console.log("strokage reussi")
       } catch (e) {
-         console.log(e)
+         console.log(e);
          console.log(`Erreur lors du storckage des donnees du search engine ${this.constructor.name}.${this.storeSearchEngineDataAndReset.name}`);
       }
    }

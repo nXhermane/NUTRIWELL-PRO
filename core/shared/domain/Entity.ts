@@ -120,8 +120,6 @@ export abstract class Entity<EntityProps extends { [key: string]: any }> {
 
    private validateProps(props: EntityProps): void {
       const MAX_PROPS = 50;
-      const validationProps = {...props}
-      const validationresult = Guard.isEmpty(props.foodGroupCode)
       if (Guard.isEmpty(props).succeeded) {
          throw new Error("Entity props should not be empty");
       }
